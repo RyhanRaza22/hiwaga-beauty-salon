@@ -1,0 +1,587 @@
+{
+  "salonInfo": {
+    "name": "Toppers Grand Unisex Salon",
+    "tagline": "Premier Hair Styling, Luxury Spa & Bridal Studio",
+    "address": "MVP Sector 3, Near Mahatma Gandhi Cancer Hospital, MVP Colony, Visakhapatnam, Andhra Pradesh 530017",
+    "phone": "+91 90660 31999",
+    "altPhone": "+91 891 250 8899",
+    "whatsapp": "+91 90660 31999",
+    "email": "toppersgrandsalon@gmail.com",
+    "operatingHours": "Monday - Sunday: 8:00 AM – 9:00 PM",
+    "rating": 4.8,
+    "totalReviews": 485,
+    "mapCoordinates": {
+      "lat": 17.744141,
+      "lng": 83.333954
+    },
+    "mapUrl": "https://www.google.com/maps/place/Toppers+Grand+Unisex+Salon/@17.744141,83.2639162,13271m/data=!3m1!1e3!4m11!1m3!2m2!1ssaloon+in+vizag!6e1!3m6!1s0x3a39433d0ec9b60d:0x29dc8094c9350270!8m2!3d17.744141!4d83.333954",
+    "amenities": [
+      "L'Oréal Professionnel Partner",
+      "100% Sanitized & Hospital-Grade Hygiene",
+      "Air-Conditioned Private Bridal Suite",
+      "Free High-Speed Wi-Fi",
+      "Dedicated Customer Parking",
+      "Complimentary Herbal Tea & Coffee",
+      "UPI, Cards & Cash Accepted"
+    ],
+    "notice": "Walk-ins welcome! We recommend pre-booking to skip the queue during peak evening & weekend hours."
+  },
+  "users": [
+    {
+      "id": "user-1",
+      "username": "admin",
+      "passwordHash": "$2b$10$5I3WU7d.uV20wlBkAfIF/OYpafMoxergMHZosTKTfPj9Crxt41jvK",
+      "name": "Salon Manager",
+      "role": "admin",
+      "createdAt": "2026-10-12T05:24:50.496Z"
+    }
+  ],
+  "categories": [
+    {
+      "id": "all",
+      "name": "All Services",
+      "icon": "sparkles"
+    },
+    {
+      "id": "men",
+      "name": "Men's Grooming",
+      "icon": "user"
+    },
+    {
+      "id": "women",
+      "name": "Women's Styling",
+      "icon": "user-check"
+    },
+    {
+      "id": "hair-care",
+      "name": "Hair Therapy & Color",
+      "icon": "scissors"
+    },
+    {
+      "id": "skin-facials",
+      "name": "Skin & Facials",
+      "icon": "smile"
+    },
+    {
+      "id": "bridal-groom",
+      "name": "Bridal & Wedding",
+      "icon": "heart"
+    },
+    {
+      "id": "spa-nails",
+      "name": "Spa & Nail Art",
+      "icon": "sun"
+    }
+  ],
+  "services": [
+    {
+      "id": "srv-m-1",
+      "name": "Signature Men's Haircut & Styling",
+      "category": "men",
+      "durationMinutes": 30,
+      "price": 299,
+      "originalPrice": 350,
+      "description": "Consultation, precision haircut tailored to face profile, scalp wash, blow dry & styling wax finish.",
+      "image": "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=600&q=80",
+      "popular": true,
+      "active": true
+    },
+    {
+      "id": "srv-m-2",
+      "name": "Royal Beard Sculpting & Razor Finish",
+      "category": "men",
+      "durationMinutes": 25,
+      "price": 199,
+      "originalPrice": 250,
+      "description": "Hot towel therapy, precision trimming, sharp blade contouring, organic beard oil nourishment.",
+      "image": "https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=600&q=80",
+      "popular": false,
+      "active": true
+    },
+    {
+      "id": "srv-m-3",
+      "name": "Men's Grand Executive Combo",
+      "category": "men",
+      "durationMinutes": 60,
+      "price": 549,
+      "originalPrice": 700,
+      "description": "Signature haircut + beard sculpting + de-tan face scrub + relaxing 10-min neck & shoulder massage.",
+      "image": "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=600&q=80",
+      "popular": true,
+      "active": true
+    },
+    {
+      "id": "srv-m-4",
+      "name": "Men's Charcoal Detox Facial",
+      "category": "men",
+      "durationMinutes": 45,
+      "price": 999,
+      "originalPrice": 1299,
+      "description": "Deep pore dirt extraction, blackhead removal, activated charcoal glow pack, calming mint toner.",
+      "image": "https://images.unsplash.com/photo-1512290900672-1f4088924b27?auto=format&fit=crop&w=600&q=80",
+      "popular": false,
+      "active": true
+    },
+    {
+      "id": "srv-w-1",
+      "name": "Designer Haircut, Wash & Blowdry",
+      "category": "women",
+      "durationMinutes": 45,
+      "price": 699,
+      "originalPrice": 850,
+      "description": "Expert consultation, face-framing layers, curtain bangs or blunt cut, L'Oréal shampoo & serum blowdry.",
+      "image": "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80",
+      "popular": true,
+      "active": true
+    },
+    {
+      "id": "srv-w-2",
+      "name": "L'Oréal Professionnel Global Hair Color",
+      "category": "hair-care",
+      "durationMinutes": 90,
+      "price": 2499,
+      "originalPrice": 3200,
+      "description": "Ammonia-free rich pigment formula with high shine, 100% grey coverage, deep bond protection.",
+      "image": "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=600&q=80",
+      "popular": true,
+      "active": true
+    },
+    {
+      "id": "srv-w-3",
+      "name": "Sun-Kissed Balayage & Ombre Highlights",
+      "category": "hair-care",
+      "durationMinutes": 120,
+      "price": 3799,
+      "originalPrice": 4800,
+      "description": "Hand-painted seamless highlights tailored to skin tone, gloss toner, gloss lock treatment included.",
+      "image": "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80",
+      "popular": true,
+      "active": true
+    },
+    {
+      "id": "srv-w-4",
+      "name": "Keratin Smooth Protein Therapy",
+      "category": "hair-care",
+      "durationMinutes": 150,
+      "price": 3499,
+      "originalPrice": 4500,
+      "description": "Eliminates frizz, repairs damaged cuticles, delivers silky, mirror-like straight hair for up to 5 months.",
+      "image": "https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=600&q=80",
+      "popular": true,
+      "active": true
+    },
+    {
+      "id": "srv-w-5",
+      "name": "Hair Botox & Nanoplastia Ritual",
+      "category": "hair-care",
+      "durationMinutes": 150,
+      "price": 4299,
+      "originalPrice": 5500,
+      "description": "Deep collagen infusion for over-processed, bleached or frizzy locks. Intense volume control and radiant shine.",
+      "image": "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=600&q=80",
+      "popular": false,
+      "active": true
+    },
+    {
+      "id": "srv-s-1",
+      "name": "Hydra Deep-Aqua Glow Facial",
+      "category": "skin-facials",
+      "durationMinutes": 60,
+      "price": 1899,
+      "originalPrice": 2500,
+      "description": "Vacuum vortex suction pore cleansing, hyaluronic acid infusion, LED light therapy for glass skin.",
+      "image": "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80",
+      "popular": true,
+      "active": true
+    },
+    {
+      "id": "srv-s-2",
+      "name": "O3+ Bridal Radiance D-Tan & Facial",
+      "category": "skin-facials",
+      "durationMinutes": 75,
+      "price": 2399,
+      "originalPrice": 2999,
+      "description": "Oxygenating treatment for sun damage repair, melanin regulation, skin brightening & instant festive luminosity.",
+      "image": "https://images.unsplash.com/photo-1512290903029-dc81c5d57b28?auto=format&fit=crop&w=600&q=80",
+      "popular": true,
+      "active": true
+    },
+    {
+      "id": "srv-s-3",
+      "name": "Vitamin C Radiance & Anti-Pigment Facial",
+      "category": "skin-facials",
+      "durationMinutes": 50,
+      "price": 1499,
+      "originalPrice": 1900,
+      "description": "Pure botanical vitamin C antioxidant boost, dark spot reduction, firming peptide mask massage.",
+      "image": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80",
+      "popular": false,
+      "active": true
+    },
+    {
+      "id": "srv-b-1",
+      "name": "HD Bridal Makeover & Hair Artistry",
+      "category": "bridal-groom",
+      "durationMinutes": 180,
+      "price": 7999,
+      "originalPrice": 10000,
+      "description": "High-definition camera ready base, luxury lash extensions, intricate bridal hairstyle, saree/lehenga draping.",
+      "image": "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=600&q=80",
+      "popular": true,
+      "active": true
+    },
+    {
+      "id": "srv-b-2",
+      "name": "Airbrush Grand Bridal Transformation",
+      "category": "bridal-groom",
+      "durationMinutes": 210,
+      "price": 11999,
+      "originalPrice": 15000,
+      "description": "Waterproof, 24-hour sweat resistant silicon airbrush makeup, couture hair updo, jewelry setting & trial touch-up.",
+      "image": "https://images.unsplash.com/photo-1522337094346-290f269a944d?auto=format&fit=crop&w=600&q=80",
+      "popular": true,
+      "active": true
+    },
+    {
+      "id": "srv-b-3",
+      "name": "Royal Groom Grand Wedding Package",
+      "category": "bridal-groom",
+      "durationMinutes": 120,
+      "price": 3299,
+      "originalPrice": 4200,
+      "description": "Bespoke haircut, beard sculpting, de-tan glow facial, manicure, hair styling & grooming touch-up on wedding day.",
+      "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
+      "popular": false,
+      "active": true
+    },
+    {
+      "id": "srv-p-1",
+      "name": "Crystal Spa Pedicure & Foot Reflexology",
+      "category": "spa-nails",
+      "durationMinutes": 50,
+      "price": 799,
+      "originalPrice": 999,
+      "description": "Sea salt bubble soak, callus smoothing, dead skin scrub, hydration mask, hot stone reflexology foot rub.",
+      "image": "https://images.unsplash.com/photo-1519014816548-bf7805b9e88e?auto=format&fit=crop&w=600&q=80",
+      "popular": true,
+      "active": true
+    },
+    {
+      "id": "srv-p-2",
+      "name": "Gel Extensions & Chrome Nail Art",
+      "category": "spa-nails",
+      "durationMinutes": 90,
+      "price": 1499,
+      "originalPrice": 1999,
+      "description": "Custom tip shaping, durable gel overlay, mirror chrome or glitter nail art on all 10 fingers.",
+      "image": "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=600&q=80",
+      "popular": true,
+      "active": true
+    }
+  ],
+  "stylists": [
+    {
+      "id": "sty-1",
+      "name": "Kiran Varma",
+      "role": "Senior Art Director & L'Oréal Certified Colorist",
+      "specialization": "Creative Balayage, Precision Fades & Hair Botox",
+      "experience": "9+ Years Experience",
+      "photo": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "rating": 4.9,
+      "active": true
+    },
+    {
+      "id": "sty-2",
+      "name": "Ananya Sharma",
+      "role": "Lead Bridal Aesthetician & Makeup Artist",
+      "specialization": "HD Bridal Makeovers, Airbrush & Skin Radiance",
+      "experience": "7+ Years Experience",
+      "photo": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
+      "rating": 4.95,
+      "active": true
+    },
+    {
+      "id": "sty-3",
+      "name": "Rahul Naidu",
+      "role": "Master Barber & Beard Stylist",
+      "specialization": "Fade Art, Beard Sculpting & Scalp Treatments",
+      "experience": "6+ Years Experience",
+      "photo": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+      "rating": 4.85,
+      "active": true
+    },
+    {
+      "id": "sty-4",
+      "name": "Pooja Reddy",
+      "role": "Nail Artist & Skin Specialist",
+      "specialization": "HydraFacials, Gel Extensions & Nail Aesthetics",
+      "experience": "5+ Years Experience",
+      "photo": "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
+      "rating": 4.8,
+      "active": true
+    }
+  ],
+  "bookings": [
+    {
+      "id": "TG-20261012-5114",
+      "status": "Completed",
+      "createdAt": "2026-10-12T05:25:19.587Z",
+      "customerName": "Sunil Krishna",
+      "customerPhone": "+91 98490 88776",
+      "customerEmail": "",
+      "serviceIds": [
+        "srv-m-1"
+      ],
+      "serviceNames": [
+        "Signature Men's Haircut & Styling"
+      ],
+      "stylistId": "sty-3",
+      "stylistName": "Rahul Naidu",
+      "date": "2026-10-12",
+      "timeSlot": "04:30 PM",
+      "totalAmount": 299,
+      "notes": ""
+    },
+    {
+      "id": "TG-2026-101",
+      "customerName": "Suresh Kondeti",
+      "customerPhone": "+91 98480 22331",
+      "customerEmail": "suresh.k@gmail.com",
+      "serviceIds": [
+        "srv-m-1",
+        "srv-m-2"
+      ],
+      "serviceNames": [
+        "Signature Men's Haircut & Styling",
+        "Royal Beard Sculpting & Razor Finish"
+      ],
+      "stylistId": "sty-3",
+      "stylistName": "Rahul Naidu",
+      "date": "2026-10-12",
+      "timeSlot": "11:00 AM",
+      "totalAmount": 498,
+      "status": "Completed",
+      "notes": "Prefers low fade with sharp beard outline",
+      "createdAt": "2026-10-11T14:20:00.000Z"
+    },
+    {
+      "id": "TG-2026-102",
+      "customerName": "Haritha Rao",
+      "customerPhone": "+91 94401 55214",
+      "customerEmail": "haritha.rao@outlook.com",
+      "serviceIds": [
+        "srv-w-2"
+      ],
+      "serviceNames": [
+        "L'Oréal Professionnel Global Hair Color"
+      ],
+      "stylistId": "sty-1",
+      "stylistName": "Kiran Varma",
+      "date": "2026-10-12",
+      "timeSlot": "02:30 PM",
+      "totalAmount": 2499,
+      "status": "Completed",
+      "notes": "Chocolate brown tone with subtle caramel reflection",
+      "createdAt": "2026-10-11T16:05:00.000Z"
+    },
+    {
+      "id": "TG-2026-103",
+      "customerName": "Venkatesh Prasad",
+      "customerPhone": "+91 99890 12345",
+      "customerEmail": "vprasad@vizagtech.com",
+      "serviceIds": [
+        "srv-m-3"
+      ],
+      "serviceNames": [
+        "Men's Grand Executive Combo"
+      ],
+      "stylistId": "sty-3",
+      "stylistName": "Rahul Naidu",
+      "date": "2026-10-12",
+      "timeSlot": "05:00 PM",
+      "totalAmount": 549,
+      "status": "Completed",
+      "notes": "First time visitor from MVP Sector 2",
+      "createdAt": "2026-10-12T08:15:00.000Z"
+    },
+    {
+      "id": "TG-2026-104",
+      "customerName": "Sowmya Lakshmi",
+      "customerPhone": "+91 88860 99887",
+      "customerEmail": "sowmya.lakshmi@gmail.com",
+      "serviceIds": [
+        "srv-b-1"
+      ],
+      "serviceNames": [
+        "HD Bridal Makeover & Hair Artistry"
+      ],
+      "stylistId": "sty-2",
+      "stylistName": "Ananya Sharma",
+      "date": "2026-10-14",
+      "timeSlot": "09:00 AM",
+      "totalAmount": 7999,
+      "status": "Completed",
+      "notes": "Engagement function in MVP Colony hall. Saree draping included.",
+      "createdAt": "2026-10-10T11:40:00.000Z"
+    },
+    {
+      "id": "TG-2026-105",
+      "customerName": "Arjun Verma",
+      "customerPhone": "+91 97012 33445",
+      "customerEmail": "arjun.v@yahoo.com",
+      "serviceIds": [
+        "srv-m-1"
+      ],
+      "serviceNames": [
+        "Signature Men's Haircut & Styling"
+      ],
+      "stylistId": "any",
+      "stylistName": "Any Available Stylist",
+      "date": "2026-10-11",
+      "timeSlot": "04:00 PM",
+      "totalAmount": 299,
+      "status": "Completed",
+      "notes": "Great service completed yesterday",
+      "createdAt": "2026-10-11T09:30:00.000Z"
+    }
+  ],
+  "offers": [
+    {
+      "id": "off-1",
+      "code": "VIZAGGLOW",
+      "title": "Grand Festive Glow Offer",
+      "discountPercent": 20,
+      "description": "Flat 20% OFF on all Luxury Facials & Hair Spa Treatments above ₹1,500.",
+      "validUntil": "2026-11-30",
+      "badge": "Most Popular",
+      "active": true
+    },
+    {
+      "id": "off-2",
+      "code": "TOPPERSGROOM",
+      "title": "Executive Grooming Bundle",
+      "discountPercent": 25,
+      "description": "Get 25% off when you book Men's Haircut + Beard Sculpting + D-Tan Face Pack.",
+      "validUntil": "2026-12-31",
+      "badge": "Men's Special",
+      "active": true
+    },
+    {
+      "id": "off-3",
+      "code": "BRIDAL2026",
+      "title": "Royal Bridal Advance Booking",
+      "discountPercent": 15,
+      "description": "Complimentary pre-bridal trial & 15% discount on HD/Airbrush Wedding Makeover packages.",
+      "validUntil": "2026-12-31",
+      "badge": "Wedding Season",
+      "active": true
+    }
+  ],
+  "reviews": [
+    {
+      "id": "rev-1",
+      "author": "Dr. Rajesh K.",
+      "rating": 5,
+      "date": "2 weeks ago",
+      "source": "Google Review",
+      "text": "Best unisex salon in MVP Colony without a doubt. Very clean and hygienic atmosphere near MG Cancer Hospital. Kiran gave me an exceptional haircut and beard grooming. Staff wears masks and uses sanitized blades every time.",
+      "serviceTaken": "Men's Haircut & Beard Grooming",
+      "verified": true,
+      "featured": true
+    },
+    {
+      "id": "rev-2",
+      "author": "Deepika Chintala",
+      "rating": 5,
+      "date": "1 month ago",
+      "source": "Google Review",
+      "text": "I booked my bridal makeover here with Ananya. She is truly magical! My HD makeup stayed flawless throughout the 6-hour ceremony in Vizag humidity. Everyone praised my look. Highly recommend Toppers Grand!",
+      "serviceTaken": "HD Bridal Makeover",
+      "verified": true,
+      "featured": true
+    },
+    {
+      "id": "rev-3",
+      "author": "Manoj Kumar P.",
+      "rating": 5,
+      "date": "3 weeks ago",
+      "source": "Google Review",
+      "text": "They are authentic L'Oréal Professionnel partners. Got my hair keratin treatment done, results are so smooth and natural. Transparent pricing, no hidden charges. Parking right in front was very convenient.",
+      "serviceTaken": "Keratin Smooth Therapy",
+      "verified": true,
+      "featured": true
+    },
+    {
+      "id": "rev-4",
+      "author": "Sneha Latha",
+      "rating": 5,
+      "date": "1 month ago",
+      "source": "Google Review",
+      "text": "The HydraFacial here is top class. My skin felt glowing and deeply cleansed for days. The ambience is quiet, luxurious, and the staff is very polite. Worth every rupee.",
+      "serviceTaken": "Hydra Deep-Aqua Glow Facial",
+      "verified": true,
+      "featured": true
+    },
+    {
+      "id": "rev-5",
+      "author": "Kalyan Varma",
+      "rating": 4,
+      "date": "2 months ago",
+      "source": "Google Review",
+      "text": "Great stylists who actually listen to what you want. Rahul styled my hair perfectly. Just make sure you book in advance on weekends as it gets very busy.",
+      "serviceTaken": "Men's Styling & Wash",
+      "verified": true,
+      "featured": false
+    }
+  ],
+  "gallery": [
+    {
+      "id": "gal-1",
+      "title": "Modern Styling Stations & Ambience",
+      "category": "salon",
+      "image": "https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "gal-2",
+      "title": "L'Oréal Hair Color & Balayage Art",
+      "category": "hair",
+      "image": "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "gal-3",
+      "title": "Royal HD Bridal Makeup Transformation",
+      "category": "bridal",
+      "image": "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "gal-4",
+      "title": "Executive Men's Grooming Lounge",
+      "category": "men",
+      "image": "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "gal-5",
+      "title": "Luxury Pedicure & Reflexology Suite",
+      "category": "spa",
+      "image": "https://images.unsplash.com/photo-1519014816548-bf7805b9e88e?auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      "id": "gal-6",
+      "title": "Couture Hair Updo & Saree Styling",
+      "category": "bridal",
+      "image": "https://images.unsplash.com/photo-1522337094346-290f269a944d?auto=format&fit=crop&w=800&q=80"
+    }
+  ],
+  "inquiries": [
+    {
+      "id": "inq-1",
+      "name": "Praneeth V.",
+      "phone": "+91 91234 56789",
+      "email": "praneeth@gmail.com",
+      "subject": "Bridal Package for 4 members",
+      "message": "Looking for family bridal packages for a wedding on Nov 15th in MVP Colony. Please call me back.",
+      "date": "2026-10-11T10:15:00.000Z",
+      "status": "unread"
+    }
+  ]
+}

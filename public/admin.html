@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Toppers Grand Unisex Salon Vizag</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- ==========================================
+       LOGIN OVERLAY
+       ========================================== -->
+  <div class="admin-login-overlay" id="loginOverlay">
+    <div class="login-card">
+      <div class="login-logo">T</div>
+      <h2>Toppers Grand Salon</h2>
+      <p>Management & Administration Portal</p>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label class="form-label" for="loginUsername">Username</label>
+          <input type="text" class="form-control" id="loginUsername" value="admin" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="loginPassword">Password</label>
+          <input type="password" class="form-control" id="loginPassword" value="toppers@2026" required>
+        </div>
+        <button type="submit" class="btn btn-gold" style="width: 100%; margin-top: 10px; padding: 12px;">
+          <i class="fas fa-sign-in-alt"></i> Sign In to Dashboard
+        </button>
+      </form>
+
+      <div style="margin-top: 20px; font-size: 0.78rem; color: var(--text-dim); background: rgba(255,255,255,0.03); padding: 10px; border-radius: var(--radius-sm); border: 1px dashed var(--admin-border);">
+        Default Credentials: <strong style="color: var(--gold-light);">admin</strong> / <strong style="color: var(--gold-light);">toppers@2026</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       SIDEBAR NAVIGATION
+       ========================================== -->
+  <aside class="admin-sidebar" id="adminSidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">T</div>
+      <div>
+        <h3>Toppers Grand</h3>
+        <span>Admin Suite • Vizag</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-item active" data-tab="overview">
+        <i class="fas fa-chart-line"></i>
+        <span>Dashboard</span>
+      </div>
+      <div class="nav-item" data-tab="appointments">
+        <i class="fas fa-calendar-check"></i>
+        <span>Appointments</span>
+      </div>
+      <div class="nav-item" data-tab="services">
+        <i class="fas fa-cut"></i>
+        <span>Service Catalog</span>
+      </div>
+      <div class="nav-item" data-tab="stylists">
+        <i class="fas fa-user-friends"></i>
+        <span>Stylists & Staff</span>
+      </div>
+      <div class="nav-item" data-tab="offers">
+        <i class="fas fa-tags"></i>
+        <span>Offers & Promos</span>
+      </div>
+      <div class="nav-item" data-tab="reviews">
+        <i class="fas fa-star"></i>
+        <span>Customer Reviews</span>
+      </div>
+      <div class="nav-item" data-tab="inquiries">
+        <i class="fas fa-envelope-open-text"></i>
+        <span>Inquiries</span>
+      </div>
+      <div class="nav-item" data-tab="gallery">
+        <i class="fas fa-images"></i>
+        <span>Gallery & Media</span>
+      </div>
+      <div class="nav-item" data-tab="settings">
+        <i class="fas fa-cog"></i>
+        <span>Salon Settings</span>
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a href="index.html" target="_blank" class="btn btn-outline-gold btn-sm" style="width: 100%; margin-bottom: 8px;">
+        <i class="fas fa-external-link-alt"></i> View Public Site
+      </a>
+      <button class="btn btn-danger btn-sm" id="btnLogout" style="width: 100%;">
+        <i class="fas fa-sign-out-alt"></i> Log Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- ==========================================
+       MAIN CONTENT CONTAINER
+       ========================================== -->
+  <main class="admin-main">
+    <!-- Topbar -->
+    <header class="admin-topbar">
+      <div class="topbar-left">
+        <button id="toggleMobileSidebar" style="background: transparent; color: #fff; font-size: 1.2rem; cursor: pointer; display: none;">
+          <i class="fas fa-bars"></i>
+        </button>
+        <h2 id="pageTitle" style="font-size: 1.25rem; font-weight: 700;">Dashboard Overview</h2>
+      </div>
+
+      <div class="topbar-right">
+        <div class="salon-status-badge">
+          <span class="pulse-dot"></span>
+          <span>Salon Open (8 AM - 9 PM)</span>
+        </div>
+        <div style="font-size: 0.88rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px;">
+          <i class="fas fa-user-circle fa-lg" style="color: var(--gold);"></i>
+          <span id="currentUserName">Salon Manager</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Body Views -->
+    <div class="admin-body-content">
+
+      <!-- ====================================
+           TAB 1: OVERVIEW / DASHBOARD
+           ==================================== -->
+      <section class="tab-pane active" id="tabOverview">
+        <div class="stats-cards-grid" id="kpiGrid">
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h4>Total Revenue (Est.)</h4>
+              <div class="kpi-number" id="kpiRevenue">₹0</div>
+            </div>
+            <div class="kpi-icon revenue"><i class="fas fa-rupee-sign"></i></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h4>Total Bookings</h4>
+              <div class="kpi-number" id="kpiTotalBookings">0</div>
+            </div>
+            <div class="kpi-icon appointments"><i class="fas fa-calendar-alt"></i></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h4>Pending Action</h4>
+              <div class="kpi-number" id="kpiPendingBookings" style="color: var(--warning);">0</div>
+            </div>
+            <div class="kpi-icon pending"><i class="fas fa-hourglass-half"></i></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <h4>Active Services</h4>
+              <div class="kpi-number" id="kpiTotalServices">0</div>
+            </div>
+            <div class="kpi-icon services"><i class="fas fa-cut"></i></div>
+          </div>
+        </div>
+
+        <!-- Recent Appointments Table -->
+        <div class="admin-card-section">
+          <div class="admin-card-header">
+            <h3>Recent Appointments</h3>
+            <button class="btn btn-gold btn-sm" id="btnQuickNewBooking">
+              <i class="fas fa-plus"></i> Walk-in Booking
+            </button>
+          </div>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Booking ID</th>
+                  <th>Client Name</th>
+                  <th>Phone</th>
+                  <th>Date & Time</th>
+                  <th>Stylist</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Quick Action</th>
+                </tr>
+              </thead>
+              <tbody id="recentBookingsTbody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Top Services Popularity -->
+        <div class="admin-card-section" style="max-width: 650px;">
+          <div class="admin-card-header">
+            <h3>Top Booked Services in MVP Colony</h3>
+          </div>
+          <div style="padding: 24px;" id="topServicesList">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================
+           TAB 2: APPOINTMENTS MANAGEMENT
+           ==================================== -->
+      <section class="tab-pane" id="tabAppointments" style="display: none;">
+        <div class="admin-card-section">
+          <div class="admin-card-header">
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+              <h3>All Salon Appointments</h3>
+              <select class="form-control" id="filterBookingStatus" style="width: auto; padding: 6px 12px;">
+                <option value="All">All Statuses</option>
+                <option value="Pending">Pending</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <input type="text" class="form-control" id="searchBookingInput" placeholder="Search client name or ID..." style="width: 240px; padding: 6px 12px;">
+              <button class="btn btn-gold btn-sm" id="btnOpenNewBookingModal">
+                <i class="fas fa-plus"></i> New Booking
+              </button>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Ref ID</th>
+                  <th>Customer</th>
+                  <th>Contact</th>
+                  <th>Date & Time</th>
+                  <th>Stylist</th>
+                  <th>Services Booked</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                  <th>Manage</th>
+                </tr>
+              </thead>
+              <tbody id="allBookingsTbody">
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================
+           TAB 3: SERVICES CATALOG
+           ==================================== -->
+      <section class="tab-pane" id="tabServices" style="display: none;">
+        <div class="admin-card-section">
+          <div class="admin-card-header">
+            <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+              <h3>Service Catalog & Price List</h3>
+              <select class="form-control" id="filterServiceCategory" style="width: auto; padding: 6px 12px;">
+                <option value="all">All Categories</option>
+                <option value="men">Men's Grooming</option>
+                <option value="women">Women's Styling</option>
+                <option value="hair-care">Hair Therapy & Color</option>
+                <option value="skin-facials">Skin & Facials</option>
+                <option value="bridal-groom">Bridal & Wedding</option>
+                <option value="spa-nails">Spa & Nails</option>
+              </select>
+            </div>
+            <button class="btn btn-gold btn-sm" id="btnOpenAddServiceModal">
+              <i class="fas fa-plus"></i> Add New Service
+            </button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Service</th>
+                  <th>Category</th>
+                  <th>Duration</th>
+                  <th>Price</th>
+                  <th>Original Price</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adminServicesTbody">
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================
+           TAB 4: STYLISTS & STAFF
+           ==================================== -->
+      <section class="tab-pane" id="tabStylists" style="display: none;">
+        <div class="admin-card-section">
+          <div class="admin-card-header">
+            <h3>Stylists & Aesthetician Team</h3>
+            <button class="btn btn-gold btn-sm" id="btnOpenAddStylistModal">
+              <i class="fas fa-plus"></i> Add New Stylist
+            </button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Photo</th>
+                  <th>Name</th>
+                  <th>Designation / Role</th>
+                  <th>Specialization</th>
+                  <th>Experience</th>
+                  <th>Active</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adminStylistsTbody">
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================
+           TAB 5: OFFERS & PROMOS
+           ==================================== -->
+      <section class="tab-pane" id="tabOffers" style="display: none;">
+        <div class="admin-card-section">
+          <div class="admin-card-header">
+            <h3>Promotions & Discount Codes</h3>
+            <button class="btn btn-gold btn-sm" id="btnOpenAddOfferModal">
+              <i class="fas fa-plus"></i> Create New Offer
+            </button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>Title</th>
+                  <th>Discount %</th>
+                  <th>Badge</th>
+                  <th>Valid Until</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adminOffersTbody">
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================
+           TAB 6: CUSTOMER REVIEWS
+           ==================================== -->
+      <section class="tab-pane" id="tabReviews" style="display: none;">
+        <div class="admin-card-section">
+          <div class="admin-card-header">
+            <h3>Google Reviews & Testimonials</h3>
+            <button class="btn btn-gold btn-sm" id="btnOpenAddReviewModal">
+              <i class="fas fa-plus"></i> Add Verified Review
+            </button>
+          </div>
+
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Author</th>
+                  <th>Rating</th>
+                  <th>Service</th>
+                  <th>Review Text</th>
+                  <th>Source</th>
+                  <th>Featured</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adminReviewsTbody">
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================
+           TAB 7: CUSTOMER INQUIRIES
+           ==================================== -->
+      <section class="tab-pane" id="tabInquiries" style="display: none;">
+        <div class="admin-card-section">
+          <div class="admin-card-header">
+            <h3>Customer Inquiries & Messages</h3>
+          </div>
+
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Name</th>
+                  <th>Phone</th>
+                  <th>Message</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adminInquiriesTbody">
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================
+           TAB 8: GALLERY & MEDIA
+           ==================================== -->
+      <section class="tab-pane" id="tabGallery" style="display: none;">
+        <div class="admin-card-section">
+          <div class="admin-card-header">
+            <h3>Photo Gallery Items</h3>
+            <button class="btn btn-gold btn-sm" id="btnOpenAddGalleryModal">
+              <i class="fas fa-plus"></i> Add Gallery Image
+            </button>
+          </div>
+
+          <div style="padding: 24px; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px;" id="adminGalleryGrid">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================
+           TAB 9: SALON SETTINGS
+           ==================================== -->
+      <section class="tab-pane" id="tabSettings" style="display: none;">
+        <div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 24px;">
+          <!-- General Salon Details -->
+          <div class="admin-card-section">
+            <div class="admin-card-header">
+              <h3>Salon Information & Google Maps</h3>
+            </div>
+            <form id="salonSettingsForm" style="padding: 24px;">
+              <div class="form-group">
+                <label class="form-label">Salon Name</label>
+                <input type="text" class="form-control" id="setSalonName" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Tagline</label>
+                <input type="text" class="form-control" id="setSalonTagline">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Address</label>
+                <textarea class="form-control" id="setSalonAddress" rows="2" required></textarea>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                <div class="form-group">
+                  <label class="form-label">Primary Phone</label>
+                  <input type="text" class="form-control" id="setSalonPhone" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">WhatsApp Number</label>
+                  <input type="text" class="form-control" id="setSalonWhatsApp" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Operating Hours</label>
+                <input type="text" class="form-control" id="setSalonHours" value="Monday - Sunday: 8:00 AM – 9:00 PM">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Google Maps URL</label>
+                <input type="text" class="form-control" id="setSalonMapUrl">
+              </div>
+              <button type="submit" class="btn btn-gold">
+                <i class="fas fa-save"></i> Save Salon Details
+              </button>
+            </form>
+          </div>
+
+          <!-- Security & Password -->
+          <div class="admin-card-section">
+            <div class="admin-card-header">
+              <h3>Admin Password Security</h3>
+            </div>
+            <form id="changePasswordForm" style="padding: 24px;">
+              <div class="form-group">
+                <label class="form-label">Current Password</label>
+                <input type="password" class="form-control" id="currentPassInput" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">New Password</label>
+                <input type="password" class="form-control" id="newPassInput" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Confirm New Password</label>
+                <input type="password" class="form-control" id="confirmPassInput" required>
+              </div>
+              <button type="submit" class="btn btn-gold">
+                <i class="fas fa-key"></i> Update Password
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ==========================================
+       MODALS FOR CRUD ACTIONS
+       ========================================== -->
+
+  <!-- Modal: Add/Edit Service -->
+  <div class="admin-modal-overlay" id="serviceModal">
+    <div class="admin-modal-box">
+      <button class="admin-modal-close" onclick="closeAdminModal('serviceModal')">&times;</button>
+      <h3 style="color: #fff; margin-bottom: 16px;" id="serviceModalTitle">Add New Service</h3>
+      <form id="serviceForm">
+        <input type="hidden" id="serviceEditId">
+        <div class="form-group">
+          <label class="form-label">Service Name *</label>
+          <input type="text" class="form-control" id="srvFormName" required>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div class="form-group">
+            <label class="form-label">Category *</label>
+            <select class="form-control" id="srvFormCategory" required>
+              <option value="men">Men's Grooming</option>
+              <option value="women">Women's Styling</option>
+              <option value="hair-care">Hair Therapy & Color</option>
+              <option value="skin-facials">Skin & Facials</option>
+              <option value="bridal-groom">Bridal & Wedding</option>
+              <option value="spa-nails">Spa & Nails</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Duration (Mins) *</label>
+            <input type="number" class="form-control" id="srvFormDuration" value="30" required>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div class="form-group">
+            <label class="form-label">Special Price (₹) *</label>
+            <input type="number" class="form-control" id="srvFormPrice" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Original Price (₹)</label>
+            <input type="number" class="form-control" id="srvFormOriginalPrice">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Description</label>
+          <textarea class="form-control" id="srvFormDesc" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Image URL</label>
+          <input type="text" class="form-control" id="srvFormImage" placeholder="https://images.unsplash.com/...">
+        </div>
+        <div style="display: flex; gap: 20px; margin-bottom: 18px;">
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #fff; cursor: pointer;">
+            <input type="checkbox" id="srvFormPopular"> Mark as Popular / HOT
+          </label>
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #fff; cursor: pointer;">
+            <input type="checkbox" id="srvFormActive" checked> Active in Menu
+          </label>
+        </div>
+        <button type="submit" class="btn btn-gold" style="width: 100%;">
+          Save Service
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add/Edit Stylist -->
+  <div class="admin-modal-overlay" id="stylistModal">
+    <div class="admin-modal-box">
+      <button class="admin-modal-close" onclick="closeAdminModal('stylistModal')">&times;</button>
+      <h3 style="color: #fff; margin-bottom: 16px;" id="stylistModalTitle">Add Stylist</h3>
+      <form id="stylistForm">
+        <input type="hidden" id="stylistEditId">
+        <div class="form-group">
+          <label class="form-label">Stylist Name *</label>
+          <input type="text" class="form-control" id="styFormName" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Designation / Role *</label>
+          <input type="text" class="form-control" id="styFormRole" placeholder="e.g. Senior Creative Director" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Specialization</label>
+          <input type="text" class="form-control" id="styFormSpec" placeholder="e.g. Balayage, Precision Fades">
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div class="form-group">
+            <label class="form-label">Experience</label>
+            <input type="text" class="form-control" id="styFormExp" placeholder="7+ Years">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Rating</label>
+            <input type="number" step="0.1" class="form-control" id="styFormRating" value="4.9">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Photo URL</label>
+          <input type="text" class="form-control" id="styFormPhoto" placeholder="https://...">
+        </div>
+        <button type="submit" class="btn btn-gold" style="width: 100%;">
+          Save Stylist
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Manual Walk-in Booking -->
+  <div class="admin-modal-overlay" id="walkInModal">
+    <div class="admin-modal-box">
+      <button class="admin-modal-close" onclick="closeAdminModal('walkInModal')">&times;</button>
+      <h3 style="color: #fff; margin-bottom: 16px;">Create Walk-in / Phone Booking</h3>
+      <form id="walkInForm">
+        <div class="form-group">
+          <label class="form-label">Customer Name *</label>
+          <input type="text" class="form-control" id="walkName" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Customer Phone *</label>
+          <input type="tel" class="form-control" id="walkPhone" required>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div class="form-group">
+            <label class="form-label">Date *</label>
+            <input type="date" class="form-control" id="walkDate" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Time Slot *</label>
+            <select class="form-control" id="walkSlot" required>
+              <option value="09:00 AM">09:00 AM</option>
+              <option value="10:00 AM">10:00 AM</option>
+              <option value="11:00 AM">11:00 AM</option>
+              <option value="12:00 PM">12:00 PM</option>
+              <option value="01:00 PM">01:00 PM</option>
+              <option value="02:00 PM">02:00 PM</option>
+              <option value="03:00 PM">03:00 PM</option>
+              <option value="04:00 PM">04:00 PM</option>
+              <option value="05:00 PM">05:00 PM</option>
+              <option value="06:00 PM">06:00 PM</option>
+              <option value="07:00 PM">07:00 PM</option>
+              <option value="08:00 PM">08:00 PM</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Assign Stylist</label>
+          <select class="form-control" id="walkStylist">
+            <option value="any">Any Available Stylist</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Service Description / Name *</label>
+          <input type="text" class="form-control" id="walkServiceName" placeholder="e.g. Men's Haircut + Beard" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Amount (₹) *</label>
+          <input type="number" class="form-control" id="walkAmount" value="499" required>
+        </div>
+        <button type="submit" class="btn btn-gold" style="width: 100%;">
+          Confirm & Create Booking
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: View Booking Details -->
+  <div class="admin-modal-overlay" id="viewBookingModal">
+    <div class="admin-modal-box">
+      <button class="admin-modal-close" onclick="closeAdminModal('viewBookingModal')">&times;</button>
+      <h3 style="color: #fff; margin-bottom: 16px;">Appointment Details</h3>
+      <div id="bookingDetailsBody">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal: Add Gallery Image -->
+  <div class="admin-modal-overlay" id="galleryModal">
+    <div class="admin-modal-box">
+      <button class="admin-modal-close" onclick="closeAdminModal('galleryModal')">&times;</button>
+      <h3 style="color: #fff; margin-bottom: 16px;">Add Image to Gallery</h3>
+      <form id="galleryForm">
+        <div class="form-group">
+          <label class="form-label">Title / Caption *</label>
+          <input type="text" class="form-control" id="galFormTitle" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Category *</label>
+          <select class="form-control" id="galFormCategory">
+            <option value="salon">Salon Ambience</option>
+            <option value="hair">Hair Styling & Color</option>
+            <option value="bridal">Bridal Transformations</option>
+            <option value="men">Men's Grooming</option>
+            <option value="spa">Spa & Pedicure</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Image URL *</label>
+          <input type="text" class="form-control" id="galFormUrl" placeholder="https://..." required>
+        </div>
+        <button type="submit" class="btn btn-gold" style="width: 100%;">
+          Add to Gallery
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="adminToastContainer"></div>
+
+  <!-- Admin Script -->
+  <script src="js/admin.js"></script>
+</body>
+</html>
