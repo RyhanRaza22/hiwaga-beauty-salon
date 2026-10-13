@@ -170,33 +170,49 @@ document.addEventListener('DOMContentLoaded', () => {
         'spa-nails': "Spa & Nails"
       };
 
+      const categoryIcons = {
+        'men': 'fa-cut',
+        'women': 'fa-wind',
+        'hair-care': 'fa-spray-can-sparkles',
+        'skin-facials': 'fa-spa',
+        'bridal-groom': 'fa-crown',
+        'spa-nails': 'fa-hand-sparkles'
+      };
+
       const catLabel = categoryNames[service.category] || service.category || 'Salon Service';
+      const iconClass = categoryIcons[service.category] || 'fa-scissors';
       const isSelectedInBooking = bookingState.selectedServices.some(s => s.id === service.id);
 
       return `
-        <div class="service-card">
-          <div class="service-image-wrap">
-            <img src="${service.image || 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80'}" alt="${service.name}" loading="lazy">
-            <span class="service-category-tag">${catLabel}</span>
-            ${service.popular ? `<span class="service-popular-tag">HOT</span>` : ''}
+        <div class="slide8-service-row">
+          <!-- Center Spine: Vertical Gold Line + Square Gold-Bordered Photo (Slide 8 Exact) -->
+          <div class="slide8-photo-col">
+            <div class="bs-square-photo">
+              <img src="${service.image || 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80'}" alt="${service.name}" loading="lazy">
+            </div>
           </div>
-          <div class="service-info">
-            <div class="service-header">
-              <h3 class="service-title">${service.name}</h3>
+
+          <!-- Right Column: Square Gold Icon Box + Gold Title + White Description + Price & Book CTA -->
+          <div class="slide8-detail-col">
+            <div class="bs-icon-box">
+              <i class="fas ${iconClass}"></i>
             </div>
-            <div class="service-duration">
-              <i class="far fa-clock"></i>
-              <span>${service.durationMinutes || 30} Minutes • MVP Salon Station</span>
-            </div>
-            <p class="service-desc">${service.description || 'Premium grooming experience with L\'Oréal professional products.'}</p>
-            <div class="service-footer">
-              <div class="service-price-block">
-                <span class="service-price">₹${service.price}</span>
-                ${service.originalPrice ? `<span class="service-original-price">₹${service.originalPrice}</span>` : ''}
+            <div class="bs-feature-text">
+              <div class="slide8-title-bar">
+                <h3>${service.name}</h3>
+                <span class="slide8-cat-pill">${catLabel}${service.popular ? ' • POPULAR' : ''}</span>
               </div>
-              <button class="btn btn-sm ${isSelectedInBooking ? 'btn-gold' : 'btn-outline-gold'} btn-quick-book" data-service-id="${service.id}">
-                ${isSelectedInBooking ? '<i class="fas fa-check"></i> Added' : '<i class="fas fa-plus"></i> Book This'}
-              </button>
+              <p class="canva-body-text">${service.description || 'Premium grooming experience with L\'Oréal professional products.'}</p>
+              <div class="slide8-service-footer">
+                <div class="service-price-block">
+                  <span class="service-price">₹${service.price}</span>
+                  ${service.originalPrice ? `<span class="service-original-price">₹${service.originalPrice}</span>` : ''}
+                  <span class="slide8-duration"><i class="far fa-clock"></i> ${service.durationMinutes || 30} Mins</span>
+                </div>
+                <button class="btn btn-sm ${isSelectedInBooking ? 'btn-canva-gold' : 'btn-canva'} btn-quick-book" data-service-id="${service.id}">
+                  ${isSelectedInBooking ? '<i class="fas fa-check"></i> Added' : 'Book This'}
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -330,21 +346,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('stylistsGrid');
     if (!grid) return;
 
-    grid.innerHTML = allStylists.map(st => `
+    const mid = Math.ceil(allStylists.length / 2);
+    const leftStylists = allStylists.slice(0, mid);
+    const rightStylists = allStylists.slice(mid);
+
+    const renderCard = (st) => `
       <div class="stylist-card">
         <div class="stylist-img-wrap">
-          <img src="${st.photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80'}" alt="${st.name}" loading="lazy">
+          <img src="${st.photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80'}" alt="${st.name}" loading="lazy">
         </div>
         <div class="stylist-card-body">
           <h3 class="stylist-name">${st.name}</h3>
           <div class="stylist-role">${st.role}</div>
           <div class="stylist-spec">${st.specialization}</div>
-          <button class="btn btn-sm btn-outline-gold btn-book-with-stylist" data-stylist-id="${st.id}" data-stylist-name="${st.name}">
-            <i class="fas fa-calendar-alt"></i> Book with ${st.name.split(' ')[0]}
+          <button class="btn btn-sm btn-canva btn-book-with-stylist" data-stylist-id="${st.id}" data-stylist-name="${st.name}">
+            Book with ${st.name.split(' ')[0]}
           </button>
         </div>
       </div>
-    `).join('');
+    `;
+
+    grid.innerHTML = `
+      <div class="team-side-col">
+        ${leftStylists.map(renderCard).join('')}
+      </div>
+      <div class="team-center-col">
+        <h2 class="canva-serif-title">Meet Our<br>Team</h2>
+        <p class="canva-body-text">
+          Trained at international L'Oréal Professionnel academies, our master stylists, colorists, and bridal aestheticians bring precision, artistry, and passion to every chair.
+        </p>
+        <a href="#booking" class="btn btn-canva">Learn More</a>
+      </div>
+      <div class="team-side-col">
+        ${rightStylists.map(renderCard).join('')}
+      </div>
+    `;
 
     grid.querySelectorAll('.btn-book-with-stylist').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -671,7 +707,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span style="font-size: 0.72rem; color: var(--text-muted); display: block;">PROMO CODE</span>
                 <span class="coupon-code">${off.code}</span>
               </div>
-              <button class="btn btn-sm btn-gold btn-apply-offer" data-code="${off.code}">
+              <button class="btn btn-sm btn-canva btn-apply-offer" data-code="${off.code}">
                 Use Offer
               </button>
             </div>

@@ -5,30 +5,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
 
 :root {
-  --admin-bg: #090d14;
-  --admin-sidebar: #0f1523;
-  --admin-card: #141c2e;
-  --admin-card-hover: #192338;
-  --admin-card-header: #111827;
-  --admin-border: rgba(255, 255, 255, 0.08);
-  --admin-border-gold: rgba(212, 175, 55, 0.3);
+  --admin-bg: #000000;
+  --admin-sidebar: #050505;
+  --admin-card: #080808;
+  --admin-card-hover: #111111;
+  --admin-card-header: #050505;
+  --admin-border: rgba(209, 154, 34, 0.25);
+  --admin-border-gold: #d19a22;
 
-  --gold: #d4af37;
-  --gold-light: #f5df88;
-  --gold-gradient: linear-gradient(135deg, #f5df88 0%, #d4af37 100%);
+  --gold: #d19a22;
+  --gold-light: #e4b23c;
+  --gold-gradient: linear-gradient(135deg, #e4b23c 0%, #d19a22 100%);
 
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --text-dim: #64748b;
+  --text-main: #ffffff;
+  --text-muted: rgba(255, 255, 255, 0.8);
+  --text-dim: rgba(255, 255, 255, 0.55);
 
   --success: #10b981;
   --warning: #f59e0b;
   --danger: #ef4444;
   --info: #3b82f6;
 
-  --radius-sm: 6px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
   --radius-full: 9999px;
 
   --transition: all 0.2s ease;
