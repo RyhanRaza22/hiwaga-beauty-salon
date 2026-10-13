@@ -35,6 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchBookingInput = document.getElementById('searchBookingInput');
   const btnOpenNewBookingModal = document.getElementById('btnOpenNewBookingModal');
   const btnQuickNewBooking = document.getElementById('btnQuickNewBooking');
+  const btnDeleteCompletedBookings = document.getElementById('btnDeleteCompletedBookings');
+  const btnQuickClearCompleted = document.getElementById('btnQuickClearCompleted');
 
   // Services elements
   const adminServicesTbody = document.getElementById('adminServicesTbody');
@@ -66,6 +68,50 @@ document.addEventListener('DOMContentLoaded', () => {
   const walkInForm = document.getElementById('walkInForm');
   const walkStylist = document.getElementById('walkStylist');
   const walkDate = document.getElementById('walkDate');
+  const walkStatus = document.getElementById('walkStatus');
+  const walkServiceSelect = document.getElementById('walkServiceSelect');
+
+  // Booking Sync State Helper (ensures serverless cold-start resilience)
+  const SYNC_STORAGE_KEY = 'toppers_booking_sync_v1';
+  function getSyncState() {
+    try {
+      const raw = localStorage.getItem(SYNC_STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        return {
+          createdBookings: Array.isArray(parsed.createdBookings) ? parsed.createdBookings : [],
+          updatedBookings: parsed.updatedBookings && typeof parsed.updatedBookings === 'object' ? parsed.updatedBookings : {},
+          deletedIds: Array.isArray(parsed.deletedIds) ? parsed.deletedIds : []
+        };
+      }
+    } catch (e) {
+      console.error('Sync state read error:', e);
+    }
+    return { createdBookings: [], updatedBookings: {}, deletedIds: [] };
+  }
+
+  function saveSyncState(state) {
+    try {
+      localStorage.setItem(SYNC_STORAGE_KEY, JSON.stringify(state));
+    } catch (e) {
+      console.error('Sync state save error:', e);
+    }
+  }
+
+  async function syncBookingsWithServer() {
+    const state = getSyncState();
+    try {
+      const res = await fetch('/api/bookings/sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(state)
+      });
+      return await res.json();
+    } catch (err) {
+      console.error('Sync error:', err);
+      return null;
+    }
+  }
 
   // Initialize
   checkAuth();
@@ -221,62 +267,93 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   // 1. DASHBOARD STATS
   // ==========================================
-  async function loadStats() {
-    try {
-      const data = await authFetch('/api/dashboard/stats');
-      if (data.success) {
-        const s = data.data;
-        if (kpiRevenue) kpiRevenue.textContent = `₹${(s.totalRevenue || 0).toLocaleString('en-IN')}`;
-        if (kpiTotalBookings) kpiTotalBookings.textContent = s.totalBookings || 0;
-        if (kpiPendingBookings) kpiPendingBookings.textContent = s.pendingBookings || 0;
-        if (kpiTotalServices) kpiTotalServices.textContent = s.totalServices || 0;
+  function renderStatsView(s) {
+    if (!s) return;
+    if (kpiRevenue) kpiRevenue.textContent = `₹${(s.totalRevenue || 0).toLocaleString('en-IN')}`;
+    if (kpiTotalBookings) kpiTotalBookings.textContent = s.totalBookings || 0;
+    if (kpiPendingBookings) kpiPendingBookings.textContent = s.pendingBookings || 0;
+    if (kpiTotalServices) kpiTotalServices.textContent = s.totalServices || 0;
 
-        // Render Recent Bookings in Overview
-        if (recentBookingsTbody) {
-          recentBookingsTbody.innerHTML = (s.recentBookings || []).map(b => `
+    // Render Recent Bookings in Overview
+    if (recentBookingsTbody) {
+      const recent = s.recentBookings || [];
+      if (recent.length === 0) {
+        recentBookingsTbody.innerHTML = `
+          <tr>
+            <td colspan="8" style="text-align: center; padding: 28px; color: var(--text-muted);">
+              No recent appointments found. Click "Walk-in Booking" to add one.
+            </td>
+          </tr>
+        `;
+      } else {
+        recentBookingsTbody.innerHTML = recent.map(b => {
+          let actionButtons = '';
+          if (b.status === 'Pending') {
+            actionButtons = `
+              <button class="btn btn-sm btn-gold" onclick="updateBookingStatus('${b.id}', 'Confirmed')">
+                Confirm
+              </button>
+            `;
+          } else if (b.status === 'Confirmed') {
+            actionButtons = `
+              <button class="btn btn-sm btn-outline-gold" onclick="updateBookingStatus('${b.id}', 'Completed')">
+                Complete
+              </button>
+            `;
+          }
+          return `
             <tr>
               <td><strong style="color: var(--gold-light); font-size: 0.8rem;">${b.id}</strong></td>
               <td>${b.customerName}</td>
               <td><a href="tel:${b.customerPhone}" style="color: var(--text-muted);">${b.customerPhone}</a></td>
               <td>${b.date} • ${b.timeSlot}</td>
-              <td>${b.stylistName}</td>
+              <td>${b.stylistName || 'Any Available Stylist'}</td>
               <td><strong>₹${b.totalAmount}</strong></td>
               <td><span class="badge-status ${b.status}">${b.status}</span></td>
               <td>
-                <div style="display: flex; gap: 6px;">
-                  ${b.status !== 'Confirmed' ? `
-                    <button class="btn btn-sm btn-gold" onclick="updateBookingStatus('${b.id}', 'Confirmed')">
-                      Confirm
-                    </button>
-                  ` : `
-                    <button class="btn btn-sm btn-outline-gold" onclick="updateBookingStatus('${b.id}', 'Completed')">
-                      Complete
-                    </button>
-                  `}
+                <div style="display: flex; gap: 6px; align-items: center;">
+                  ${actionButtons}
+                  <button class="btn btn-sm btn-danger" onclick="deleteBooking('${b.id}')" title="Delete Appointment">
+                    <i class="fas fa-trash"></i>
+                  </button>
                 </div>
               </td>
             </tr>
-          `).join('');
-        }
+          `;
+        }).join('');
+      }
+    }
 
-        // Render Top Services Popularity
-        if (topServicesList) {
-          if ((s.topServices || []).length === 0) {
-            topServicesList.innerHTML = '<p style="color: var(--text-muted); font-size: 0.88rem;">No service booking statistics recorded yet.</p>';
-          } else {
-            topServicesList.innerHTML = s.topServices.map(ts => `
-              <div style="margin-bottom: 14px;">
-                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 4px;">
-                  <span style="color: #fff; font-weight: 600;">${ts.name}</span>
-                  <span style="color: var(--gold-light); font-weight: 700;">${ts.count} Bookings</span>
-                </div>
-                <div style="background: rgba(255,255,255,0.06); height: 8px; border-radius: 4px; overflow: hidden;">
-                  <div style="width: ${Math.min(ts.count * 20, 100)}%; background: var(--gold-gradient); height: 100%;"></div>
-                </div>
-              </div>
-            `).join('');
-          }
-        }
+    // Render Top Services Popularity
+    if (topServicesList) {
+      if ((s.topServices || []).length === 0) {
+        topServicesList.innerHTML = '<p style="color: var(--text-muted); font-size: 0.88rem;">No service booking statistics recorded yet.</p>';
+      } else {
+        topServicesList.innerHTML = s.topServices.map(ts => `
+          <div style="margin-bottom: 14px;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 4px;">
+              <span style="color: #fff; font-weight: 600;">${ts.name}</span>
+              <span style="color: var(--gold-light); font-weight: 700;">${ts.count} Bookings</span>
+            </div>
+            <div style="background: rgba(255,255,255,0.06); height: 8px; border-radius: 4px; overflow: hidden;">
+              <div style="width: ${Math.min(ts.count * 20, 100)}%; background: var(--gold-gradient); height: 100%;"></div>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+  }
+
+  async function loadStats() {
+    try {
+      const synced = await syncBookingsWithServer();
+      if (synced && synced.success && synced.stats) {
+        renderStatsView(synced.stats);
+        return;
+      }
+      const data = await authFetch('/api/dashboard/stats');
+      if (data.success) {
+        renderStatsView(data.data);
       }
     } catch (err) {
       console.error(err);
@@ -288,6 +365,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==========================================
   async function loadAppointments() {
     try {
+      const synced = await syncBookingsWithServer();
+      if (synced && synced.success && Array.isArray(synced.data)) {
+        cachedBookings = synced.data;
+        renderAppointmentsTable();
+        if (synced.stats) renderStatsView(synced.stats);
+        return;
+      }
       const data = await authFetch('/api/bookings');
       if (data.success) {
         cachedBookings = data.data;
@@ -311,9 +395,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (searchQuery) {
       filtered = filtered.filter(b =>
-        b.customerName.toLowerCase().includes(searchQuery) ||
-        b.id.toLowerCase().includes(searchQuery) ||
-        b.customerPhone.includes(searchQuery)
+        (b.customerName || '').toLowerCase().includes(searchQuery) ||
+        (b.id || '').toLowerCase().includes(searchQuery) ||
+        (b.customerPhone || '').includes(searchQuery)
       );
     }
 
@@ -329,12 +413,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     allBookingsTbody.innerHTML = filtered.map(b => {
-      const cleanPhone = b.customerPhone.replace(/[^0-9]/g, '');
+      const cleanPhone = (b.customerPhone || '').replace(/[^0-9]/g, '');
+      const servicesList = Array.isArray(b.serviceNames) ? b.serviceNames.join(', ') : (b.customServiceName || 'Salon Service');
       const whatsAppMsg = encodeURIComponent(
         `Hello ${b.customerName}! Greetings from Toppers Grand Unisex Salon, MVP Colony.\n` +
         `Your appointment (Ref ID: ${b.id}) on ${b.date} at ${b.timeSlot} is ${b.status}.\n` +
-        `Services: ${b.serviceNames.join(', ')}\n` +
-        `Stylist: ${b.stylistName}\n` +
+        `Services: ${servicesList}\n` +
+        `Stylist: ${b.stylistName || 'Any Available Stylist'}\n` +
         `Total: ₹${b.totalAmount}\n` +
         `We look forward to styling you!`
       );
@@ -347,8 +432,8 @@ document.addEventListener('DOMContentLoaded', () => {
             <a href="tel:${b.customerPhone}" style="color: var(--text-muted);">${b.customerPhone}</a>
           </td>
           <td>${b.date}<br><small style="color: var(--text-dim);">${b.timeSlot}</small></td>
-          <td>${b.stylistName}</td>
-          <td style="max-width: 200px; font-size: 0.82rem; color: var(--text-muted);">${b.serviceNames.join(', ')}</td>
+          <td>${b.stylistName || 'Any Available Stylist'}</td>
+          <td style="max-width: 200px; font-size: 0.82rem; color: var(--text-muted);">${servicesList}</td>
           <td><strong style="color: var(--gold-light);">₹${b.totalAmount}</strong></td>
           <td>
             <select class="form-control" style="width: auto; padding: 4px 8px; font-size: 0.78rem;" onchange="updateBookingStatus('${b.id}', this.value)">
@@ -382,14 +467,21 @@ document.addEventListener('DOMContentLoaded', () => {
   // Global functions attached to window for table action handlers
   window.updateBookingStatus = async function (id, newStatus) {
     try {
+      // Update local sync state immediately
+      const state = getSyncState();
+      state.updatedBookings[id] = { status: newStatus };
+      state.createdBookings = state.createdBookings.map(cb =>
+        cb.id === id ? { ...cb, status: newStatus } : cb
+      );
+      saveSyncState(state);
+
       const data = await authFetch(`/api/bookings/${id}`, {
         method: 'PUT',
         body: JSON.stringify({ status: newStatus })
       });
       if (data.success) {
         adminToast(`Booking ${id} status updated to ${newStatus}`, 'success');
-        loadAppointments();
-        loadStats();
+        await loadAppointments();
       }
     } catch (err) {
       console.error(err);
@@ -400,11 +492,23 @@ document.addEventListener('DOMContentLoaded', () => {
   window.deleteBooking = async function (id) {
     if (!confirm(`Are you sure you want to permanently delete appointment ${id}?`)) return;
     try {
+      // Record deletion in persistent sync state
+      const state = getSyncState();
+      if (!state.deletedIds.includes(id)) {
+        state.deletedIds.push(id);
+      }
+      state.createdBookings = state.createdBookings.filter(cb => cb.id !== id);
+      delete state.updatedBookings[id];
+      saveSyncState(state);
+
+      // Optimistically remove from cachedBookings
+      cachedBookings = cachedBookings.filter(b => b.id !== id);
+      renderAppointmentsTable();
+
       const data = await authFetch(`/api/bookings/${id}`, { method: 'DELETE' });
       if (data.success) {
         adminToast(`Appointment ${id} deleted`, 'info');
-        loadAppointments();
-        loadStats();
+        await loadAppointments();
       }
     } catch (err) {
       console.error(err);
@@ -412,10 +516,53 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  async function clearCompletedBookings() {
+    const completedList = cachedBookings.filter(b => b.status === 'Completed');
+    if (completedList.length === 0) {
+      adminToast('There are no completed appointments to delete.', 'info');
+      return;
+    }
+
+    if (!confirm(`Delete all ${completedList.length} completed appointment(s)?`)) return;
+
+    try {
+      const completedIds = completedList.map(b => b.id);
+      const state = getSyncState();
+      completedIds.forEach(id => {
+        if (!state.deletedIds.includes(id)) {
+          state.deletedIds.push(id);
+        }
+        delete state.updatedBookings[id];
+      });
+      state.createdBookings = state.createdBookings.filter(cb => !completedIds.includes(cb.id));
+      saveSyncState(state);
+
+      cachedBookings = cachedBookings.filter(b => b.status !== 'Completed');
+      renderAppointmentsTable();
+
+      const data = await authFetch('/api/bookings/completed', { method: 'DELETE' });
+      if (data.success) {
+        adminToast(data.message || `Deleted ${completedIds.length} completed appointment(s)`, 'info');
+        await loadAppointments();
+      }
+    } catch (err) {
+      console.error(err);
+      adminToast('Failed to delete completed bookings', 'error');
+    }
+  }
+
+  if (btnDeleteCompletedBookings) {
+    btnDeleteCompletedBookings.addEventListener('click', clearCompletedBookings);
+  }
+  if (btnQuickClearCompleted) {
+    btnQuickClearCompleted.addEventListener('click', clearCompletedBookings);
+  }
+
   window.viewBookingDetails = function (id) {
     const booking = cachedBookings.find(b => b.id === id);
     if (!booking) return;
 
+    const servicesList = Array.isArray(booking.serviceNames) ? booking.serviceNames.join(', ') : (booking.customServiceName || 'Salon Service');
     const detailsBox = document.getElementById('bookingDetailsBody');
     if (detailsBox) {
       detailsBox.innerHTML = `
@@ -428,8 +575,8 @@ document.addEventListener('DOMContentLoaded', () => {
           <p><strong>Phone:</strong> ${booking.customerPhone}</p>
           <p><strong>Email:</strong> ${booking.customerEmail || 'Not provided'}</p>
           <p><strong>Date & Time:</strong> ${booking.date} at ${booking.timeSlot}</p>
-          <p><strong>Stylist Assigned:</strong> ${booking.stylistName}</p>
-          <p><strong>Services:</strong> ${booking.serviceNames.join(', ')}</p>
+          <p><strong>Stylist Assigned:</strong> ${booking.stylistName || 'Any Available Stylist'}</p>
+          <p><strong>Services:</strong> ${servicesList}</p>
           <p><strong>Notes:</strong> ${booking.notes || 'None'}</p>
           <p style="margin-top: 10px; font-size: 1.15rem; color: var(--gold-light);"><strong>Total Amount:</strong> ₹${booking.totalAmount}</p>
         </div>
@@ -450,16 +597,34 @@ document.addEventListener('DOMContentLoaded', () => {
     btnQuickNewBooking.addEventListener('click', openWalkInModal);
   }
 
+  if (walkServiceSelect) {
+    walkServiceSelect.addEventListener('change', () => {
+      const selectedId = walkServiceSelect.value;
+      if (!selectedId) return;
+      const srv = cachedServices.find(s => s.id === selectedId);
+      if (srv) {
+        const nameInput = document.getElementById('walkServiceName');
+        const amountInput = document.getElementById('walkAmount');
+        if (nameInput) nameInput.value = srv.name;
+        if (amountInput) amountInput.value = srv.price;
+      }
+    });
+  }
+
   function openWalkInModal() {
     if (walkDate) {
       const today = new Date().toISOString().slice(0, 10);
       walkDate.value = today;
-      walkDate.min = today;
     }
     // Populate stylists
     if (walkStylist) {
       walkStylist.innerHTML = '<option value="any">Any Available Stylist</option>' +
-        cachedStylists.map(s => `<option value="${s.id}">${s.name} (${s.role.split('&')[0]})</option>`).join('');
+        cachedStylists.map(s => `<option value="${s.id}">${s.name} (${(s.role || '').split('&')[0].trim()})</option>`).join('');
+    }
+    // Populate services dropdown
+    if (walkServiceSelect) {
+      walkServiceSelect.innerHTML = '<option value="">-- Choose from menu or type custom below --</option>' +
+        cachedServices.map(s => `<option value="${s.id}">${s.name} — ₹${s.price}</option>`).join('');
     }
     openAdminModal('walkInModal');
   }
@@ -467,13 +632,18 @@ document.addEventListener('DOMContentLoaded', () => {
   if (walkInForm) {
     walkInForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      const selectedSrvId = walkServiceSelect ? walkServiceSelect.value : '';
+      const customName = document.getElementById('walkServiceName').value.trim();
       const payload = {
         customerName: document.getElementById('walkName').value.trim(),
         customerPhone: document.getElementById('walkPhone').value.trim(),
         date: document.getElementById('walkDate').value,
         timeSlot: document.getElementById('walkSlot').value,
         stylistId: document.getElementById('walkStylist').value,
-        customServiceName: document.getElementById('walkServiceName').value.trim(),
+        status: walkStatus ? walkStatus.value : 'Confirmed',
+        serviceIds: selectedSrvId ? [selectedSrvId] : [],
+        serviceNames: customName ? [customName] : undefined,
+        customServiceName: customName || 'Walk-in Service',
         totalAmount: Number(document.getElementById('walkAmount').value) || 299
       };
 
@@ -484,12 +654,18 @@ document.addEventListener('DOMContentLoaded', () => {
           body: JSON.stringify(payload)
         });
         const data = await res.json();
-        if (data.success) {
-          adminToast('Walk-in booking created successfully!', 'success');
+        if (data.success && data.data) {
+          // Persist in local sync state so serverless cold-starts never lose it
+          const state = getSyncState();
+          state.createdBookings.unshift(data.data);
+          saveSyncState(state);
+
+          adminToast(`Booking ${data.data.id} created successfully!`, 'success');
           closeAdminModal('walkInModal');
           walkInForm.reset();
-          loadAppointments();
-          loadStats();
+          await loadAppointments();
+        } else {
+          adminToast(data.message || 'Failed to create booking', 'error');
         }
       } catch (err) {
         console.error(err);

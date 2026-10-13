@@ -1,17 +1,42 @@
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
 const bcrypt = require('bcryptjs');
 
-const DATA_DIR = path.join(__dirname, 'data');
+const BUNDLED_DATA_DIR = path.join(__dirname, 'data');
+const SEED_DB_FILE = path.join(BUNDLED_DATA_DIR, 'db.json');
+
+function resolveWritableDataDir() {
+  if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
+    return path.join(os.tmpdir(), 'toppers-grand-salon-data');
+  }
+  try {
+    if (!fs.existsSync(BUNDLED_DATA_DIR)) {
+      fs.mkdirSync(BUNDLED_DATA_DIR, { recursive: true });
+    }
+    const probeFile = path.join(BUNDLED_DATA_DIR, '.write-probe');
+    fs.writeFileSync(probeFile, 'ok', 'utf-8');
+    fs.unlinkSync(probeFile);
+    return BUNDLED_DATA_DIR;
+  } catch (err) {
+    return path.join(os.tmpdir(), 'toppers-grand-salon-data');
+  }
+}
+
+const DATA_DIR = resolveWritableDataDir();
 const DB_FILE = path.join(DATA_DIR, 'db.json');
 const UPLOADS_DIR = path.join(DATA_DIR, 'uploads');
 
-// Ensure directories exist
-if (!fs.existsSync(DATA_DIR)) {
-  fs.mkdirSync(DATA_DIR, { recursive: true });
-}
-if (!fs.existsSync(UPLOADS_DIR)) {
-  fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+// Ensure writable directories exist
+try {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
+  if (!fs.existsSync(UPLOADS_DIR)) {
+    fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+  }
+} catch (err) {
+  console.error('Directory initialization warning:', err.message);
 }
 
 // Initial seed data reflecting Toppers Grand Unisex Salon in MVP Colony, Vizag
@@ -323,88 +348,7 @@ function getInitialData() {
         active: true
       }
     ],
-    bookings: [
-      {
-        id: "TG-2026-101",
-        customerName: "Suresh Kondeti",
-        customerPhone: "+91 98480 22331",
-        customerEmail: "suresh.k@gmail.com",
-        serviceIds: ["srv-m-1", "srv-m-2"],
-        serviceNames: ["Signature Men's Haircut & Styling", "Royal Beard Sculpting & Razor Finish"],
-        stylistId: "sty-3",
-        stylistName: "Rahul Naidu",
-        date: "2026-10-12",
-        timeSlot: "11:00 AM",
-        totalAmount: 498,
-        status: "Confirmed",
-        notes: "Prefers low fade with sharp beard outline",
-        createdAt: "2026-10-11T14:20:00.000Z"
-      },
-      {
-        id: "TG-2026-102",
-        customerName: "Haritha Rao",
-        customerPhone: "+91 94401 55214",
-        customerEmail: "haritha.rao@outlook.com",
-        serviceIds: ["srv-w-2"],
-        serviceNames: ["L'Oréal Professionnel Global Hair Color"],
-        stylistId: "sty-1",
-        stylistName: "Kiran Varma",
-        date: "2026-10-12",
-        timeSlot: "02:30 PM",
-        totalAmount: 2499,
-        status: "Confirmed",
-        notes: "Chocolate brown tone with subtle caramel reflection",
-        createdAt: "2026-10-11T16:05:00.000Z"
-      },
-      {
-        id: "TG-2026-103",
-        customerName: "Venkatesh Prasad",
-        customerPhone: "+91 99890 12345",
-        customerEmail: "vprasad@vizagtech.com",
-        serviceIds: ["srv-m-3"],
-        serviceNames: ["Men's Grand Executive Combo"],
-        stylistId: "sty-3",
-        stylistName: "Rahul Naidu",
-        date: "2026-10-12",
-        timeSlot: "05:00 PM",
-        totalAmount: 549,
-        status: "Pending",
-        notes: "First time visitor from MVP Sector 2",
-        createdAt: "2026-10-12T08:15:00.000Z"
-      },
-      {
-        id: "TG-2026-104",
-        customerName: "Sowmya Lakshmi",
-        customerPhone: "+91 88860 99887",
-        customerEmail: "sowmya.lakshmi@gmail.com",
-        serviceIds: ["srv-b-1"],
-        serviceNames: ["HD Bridal Makeover & Hair Artistry"],
-        stylistId: "sty-2",
-        stylistName: "Ananya Sharma",
-        date: "2026-10-14",
-        timeSlot: "09:00 AM",
-        totalAmount: 7999,
-        status: "Confirmed",
-        notes: "Engagement function in MVP Colony hall. Saree draping included.",
-        createdAt: "2026-10-10T11:40:00.000Z"
-      },
-      {
-        id: "TG-2026-105",
-        customerName: "Arjun Verma",
-        customerPhone: "+91 97012 33445",
-        customerEmail: "arjun.v@yahoo.com",
-        serviceIds: ["srv-m-1"],
-        serviceNames: ["Signature Men's Haircut & Styling"],
-        stylistId: "any",
-        stylistName: "Any Available Stylist",
-        date: "2026-10-11",
-        timeSlot: "04:00 PM",
-        totalAmount: 299,
-        status: "Completed",
-        notes: "Great service completed yesterday",
-        createdAt: "2026-10-11T09:30:00.000Z"
-      }
-    ],
+    bookings: [],
     offers: [
       {
         id: "off-1",
@@ -547,43 +491,77 @@ function getInitialData() {
   };
 }
 
-// Database helper functions with safe file operations
+// Database helper functions with safe file operations & serverless in-memory cache
 class DB {
   constructor() {
+    this.cache = null;
+    this.UPLOADS_DIR = UPLOADS_DIR;
     this.init();
   }
 
+  loadSeedData() {
+    try {
+      if (SEED_DB_FILE !== DB_FILE && fs.existsSync(SEED_DB_FILE)) {
+        const raw = fs.readFileSync(SEED_DB_FILE, 'utf-8');
+        return JSON.parse(raw);
+      }
+    } catch (err) {
+      console.error('Error reading seed db.json:', err.message);
+    }
+    return getInitialData();
+  }
+
   init() {
-    if (!fs.existsSync(DB_FILE)) {
-      const data = getInitialData();
-      fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), 'utf-8');
+    try {
+      if (fs.existsSync(DB_FILE)) {
+        const raw = fs.readFileSync(DB_FILE, 'utf-8');
+        this.cache = JSON.parse(raw);
+      } else {
+        const data = this.loadSeedData();
+        this.cache = data;
+        this.write(data);
+      }
+    } catch (err) {
+      console.error('DB init fallback to memory cache:', err.message);
+      this.cache = this.loadSeedData();
     }
   }
 
   read() {
     try {
-      if (!fs.existsSync(DB_FILE)) {
-        this.init();
+      if (fs.existsSync(DB_FILE)) {
+        const raw = fs.readFileSync(DB_FILE, 'utf-8');
+        this.cache = JSON.parse(raw);
+        return this.cache;
       }
-      const raw = fs.readFileSync(DB_FILE, 'utf-8');
-      return JSON.parse(raw);
     } catch (err) {
-      console.error('Error reading db.json, repairing...', err);
-      const initial = getInitialData();
-      fs.writeFileSync(DB_FILE, JSON.stringify(initial, null, 2), 'utf-8');
-      return initial;
+      console.error('Error reading db.json, using cache:', err.message);
     }
+
+    if (!this.cache) {
+      this.init();
+    }
+    return this.cache;
   }
 
   write(data) {
+    this.cache = data;
     try {
-      const tmpFile = DB_FILE + '.tmp';
-      fs.writeFileSync(tmpFile, JSON.stringify(data, null, 2), 'utf-8');
-      fs.renameSync(tmpFile, DB_FILE);
+      if (!fs.existsSync(DATA_DIR)) {
+        fs.mkdirSync(DATA_DIR, { recursive: true });
+      }
+      const serialized = JSON.stringify(data, null, 2);
+      try {
+        const tmpFile = DB_FILE + '.tmp';
+        fs.writeFileSync(tmpFile, serialized, 'utf-8');
+        fs.renameSync(tmpFile, DB_FILE);
+      } catch (renameErr) {
+        fs.writeFileSync(DB_FILE, serialized, 'utf-8');
+      }
       return true;
     } catch (err) {
-      console.error('Error writing to DB:', err);
-      return false;
+      console.error('Error writing to DB file (persisted in memory cache):', err.message);
+      return true;
     }
   }
 
@@ -684,15 +662,22 @@ class DB {
 
   addBooking(bookingData) {
     const data = this.read();
+    if (!data.bookings) data.bookings = [];
     const randomCode = Math.floor(1000 + Math.random() * 9000);
     const datePrefix = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-    const bookingId = `TG-${datePrefix}-${randomCode}`;
+    const bookingId = bookingData.id || `TG-${datePrefix}-${randomCode}`;
+
+    const existingIdx = data.bookings.findIndex(b => b.id.toLowerCase() === bookingId.toLowerCase());
+    if (existingIdx !== -1) {
+      return data.bookings[existingIdx];
+    }
 
     const newBooking = {
       id: bookingId,
-      status: 'Pending',
-      createdAt: new Date().toISOString(),
-      ...bookingData
+      status: bookingData.status || 'Pending',
+      createdAt: bookingData.createdAt || new Date().toISOString(),
+      ...bookingData,
+      id: bookingId
     };
     data.bookings.unshift(newBooking);
     this.write(data);
@@ -701,7 +686,9 @@ class DB {
 
   updateBooking(id, updates) {
     const data = this.read();
-    const index = data.bookings.findIndex(b => b.id === id);
+    if (!data.bookings) return null;
+    const cleanId = String(id).trim().toLowerCase();
+    const index = data.bookings.findIndex(b => String(b.id).trim().toLowerCase() === cleanId);
     if (index === -1) return null;
     data.bookings[index] = { ...data.bookings[index], ...updates };
     this.write(data);
@@ -710,9 +697,68 @@ class DB {
 
   deleteBooking(id) {
     const data = this.read();
-    data.bookings = data.bookings.filter(b => b.id !== id);
+    if (!data.bookings) return false;
+    const cleanId = String(id).trim().toLowerCase();
+    const initialLen = data.bookings.length;
+    data.bookings = data.bookings.filter(b => String(b.id).trim().toLowerCase() !== cleanId);
     this.write(data);
-    return true;
+    return data.bookings.length < initialLen || true;
+  }
+
+  deleteCompletedBookings() {
+    const data = this.read();
+    if (!data.bookings) return { deletedCount: 0, deletedIds: [] };
+    const completed = data.bookings.filter(b => b.status === 'Completed');
+    const deletedIds = completed.map(b => b.id);
+    data.bookings = data.bookings.filter(b => b.status !== 'Completed');
+    this.write(data);
+    return { deletedCount: deletedIds.length, deletedIds };
+  }
+
+  syncBookings({ createdBookings = [], updatedBookings = {}, deletedIds = [] } = {}) {
+    const data = this.read();
+    if (!data.bookings) data.bookings = [];
+    let modified = false;
+
+    const deletedSet = new Set((deletedIds || []).map(id => String(id).trim().toLowerCase()));
+    if (deletedSet.size > 0) {
+      const before = data.bookings.length;
+      data.bookings = data.bookings.filter(b => !deletedSet.has(String(b.id).trim().toLowerCase()));
+      if (data.bookings.length !== before) modified = true;
+    }
+
+    if (Array.isArray(createdBookings)) {
+      createdBookings.forEach(cb => {
+        if (!cb || !cb.id) return;
+        const cleanId = String(cb.id).trim().toLowerCase();
+        if (deletedSet.has(cleanId)) return;
+        const exists = data.bookings.some(b => String(b.id).trim().toLowerCase() === cleanId);
+        if (!exists) {
+          data.bookings.unshift(cb);
+          modified = true;
+        }
+      });
+    }
+
+    if (updatedBookings && typeof updatedBookings === 'object') {
+      Object.entries(updatedBookings).forEach(([id, updates]) => {
+        const cleanId = String(id).trim().toLowerCase();
+        if (deletedSet.has(cleanId)) return;
+        const idx = data.bookings.findIndex(b => String(b.id).trim().toLowerCase() === cleanId);
+        if (idx !== -1 && updates && typeof updates === 'object') {
+          const current = data.bookings[idx];
+          if (updates.status && current.status !== updates.status) {
+            data.bookings[idx] = { ...current, ...updates };
+            modified = true;
+          }
+        }
+      });
+    }
+
+    if (modified) {
+      this.write(data);
+    }
+    return this.getBookings();
   }
 
   // Offers

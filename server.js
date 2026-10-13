@@ -17,12 +17,12 @@ app.use(express.urlencoded({ extended: true }));
 
 // Static file serving
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/uploads', express.static(path.join(__dirname, 'data', 'uploads')));
+app.use('/uploads', express.static(db.UPLOADS_DIR || path.join(__dirname, 'data', 'uploads')));
 
 // File upload configuration using Multer
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, 'data', 'uploads'));
+    cb(null, db.UPLOADS_DIR || path.join(__dirname, 'data', 'uploads'));
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
@@ -184,6 +184,16 @@ app.get('/api/bookings', authenticateToken, (req, res) => {
   res.json({ success: true, data: db.getBookings() });
 });
 
+app.post('/api/bookings/sync', (req, res) => {
+  const { createdBookings, updatedBookings, deletedIds } = req.body || {};
+  const bookings = db.syncBookings({ createdBookings, updatedBookings, deletedIds });
+  res.json({
+    success: true,
+    data: bookings,
+    stats: db.getStats()
+  });
+});
+
 app.post('/api/bookings', (req, res) => {
   const { customerName, customerPhone, serviceIds, date, timeSlot } = req.body;
   if (!customerName || !customerPhone || !date || !timeSlot) {
@@ -196,27 +206,33 @@ app.post('/api/bookings', (req, res) => {
   // Calculate service names and total amount
   const allServices = db.getServices();
   const selectedServices = allServices.filter(s => (serviceIds || []).includes(s.id));
-  const serviceNames = selectedServices.map(s => s.name);
-  const totalAmount = selectedServices.reduce((sum, s) => sum + (s.price || 0), 0);
+  const computedServiceNames = selectedServices.map(s => s.name);
+  const computedTotal = selectedServices.reduce((sum, s) => sum + (s.price || 0), 0);
+
+  const finalServiceNames = Array.isArray(req.body.serviceNames) && req.body.serviceNames.length > 0
+    ? req.body.serviceNames
+    : (computedServiceNames.length > 0 ? computedServiceNames : [req.body.customServiceName || 'Consultation / Haircut']);
 
   // Stylist name resolution
-  let stylistName = 'Any Available Stylist';
+  let stylistName = req.body.stylistName || 'Any Available Stylist';
   if (req.body.stylistId && req.body.stylistId !== 'any') {
     const stylist = db.getStylists().find(st => st.id === req.body.stylistId);
     if (stylist) stylistName = stylist.name;
   }
 
   const booking = db.addBooking({
+    id: req.body.id || undefined,
     customerName,
     customerPhone,
     customerEmail: req.body.customerEmail || '',
     serviceIds: serviceIds || [],
-    serviceNames: serviceNames.length > 0 ? serviceNames : [req.body.customServiceName || 'Consultation / Haircut'],
+    serviceNames: finalServiceNames,
     stylistId: req.body.stylistId || 'any',
     stylistName,
     date,
     timeSlot,
-    totalAmount: req.body.totalAmount || totalAmount || 299,
+    totalAmount: Number(req.body.totalAmount) || computedTotal || 299,
+    status: req.body.status || 'Pending',
     notes: req.body.notes || ''
   });
 
@@ -239,6 +255,16 @@ app.put('/api/bookings/:id', authenticateToken, (req, res) => {
   const updated = db.updateBooking(req.params.id, req.body);
   if (!updated) return res.status(404).json({ success: false, message: 'Booking not found' });
   res.json({ success: true, message: 'Booking updated', data: updated });
+});
+
+app.delete('/api/bookings/completed', authenticateToken, (req, res) => {
+  const result = db.deleteCompletedBookings();
+  res.json({
+    success: true,
+    message: `${result.deletedCount} completed appointment(s) deleted`,
+    deletedCount: result.deletedCount,
+    deletedIds: result.deletedIds
+  });
 });
 
 app.delete('/api/bookings/:id', authenticateToken, (req, res) => {
@@ -417,11 +443,15 @@ app.get('/admin', (req, res) => {
 });
 
 // Start Server
-app.listen(PORT, () => {
-  console.log(`====================================================`);
-  console.log(`  Toppers Grand Unisex Salon Server Running!`);
-  console.log(`  Main Website:    http://localhost:${PORT}`);
-  console.log(`  Admin Dashboard: http://localhost:${PORT}/admin.html`);
-  console.log(`  Admin Login:     admin / toppers@2026`);
-  console.log(`====================================================`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`====================================================`);
+    console.log(`  Toppers Grand Unisex Salon Server Running!`);
+    console.log(`  Main Website:    http://localhost:${PORT}`);
+    console.log(`  Admin Dashboard: http://localhost:${PORT}/admin.html`);
+    console.log(`  Admin Login:     admin / toppers@2026`);
+    console.log(`====================================================`);
+  });
+}
+
+module.exports = app;

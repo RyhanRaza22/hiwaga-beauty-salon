@@ -167,9 +167,14 @@
         <div class="admin-card-section">
           <div class="admin-card-header">
             <h3>Recent Appointments</h3>
-            <button class="btn btn-gold btn-sm" id="btnQuickNewBooking">
-              <i class="fas fa-plus"></i> Walk-in Booking
-            </button>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+              <button class="btn btn-danger btn-sm" id="btnQuickClearCompleted" title="Delete all completed appointments">
+                <i class="fas fa-trash-alt"></i> Delete Completed
+              </button>
+              <button class="btn btn-gold btn-sm" id="btnQuickNewBooking">
+                <i class="fas fa-plus"></i> Walk-in Booking
+              </button>
+            </div>
           </div>
           <div class="table-responsive">
             <table class="admin-table">
@@ -219,8 +224,11 @@
                 <option value="Cancelled">Cancelled</option>
               </select>
             </div>
-            <div style="display: flex; gap: 10px;">
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
               <input type="text" class="form-control" id="searchBookingInput" placeholder="Search client name or ID..." style="width: 240px; padding: 6px 12px;">
+              <button class="btn btn-danger btn-sm" id="btnDeleteCompletedBookings" title="Delete all completed appointments">
+                <i class="fas fa-trash-alt"></i> Delete Completed
+              </button>
               <button class="btn btn-gold btn-sm" id="btnOpenNewBookingModal">
                 <i class="fas fa-plus"></i> New Booking
               </button>
@@ -627,13 +635,15 @@
       <button class="admin-modal-close" onclick="closeAdminModal('walkInModal')">&times;</button>
       <h3 style="color: #fff; margin-bottom: 16px;">Create Walk-in / Phone Booking</h3>
       <form id="walkInForm">
-        <div class="form-group">
-          <label class="form-label">Customer Name *</label>
-          <input type="text" class="form-control" id="walkName" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Customer Phone *</label>
-          <input type="tel" class="form-control" id="walkPhone" required>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div class="form-group">
+            <label class="form-label">Customer Name *</label>
+            <input type="text" class="form-control" id="walkName" placeholder="e.g. Kiran Kumar" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Customer Phone *</label>
+            <input type="tel" class="form-control" id="walkPhone" placeholder="+91 98XXXXXXXX" required>
+          </div>
         </div>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
           <div class="form-group">
@@ -643,37 +653,68 @@
           <div class="form-group">
             <label class="form-label">Time Slot *</label>
             <select class="form-control" id="walkSlot" required>
+              <option value="08:00 AM">08:00 AM</option>
+              <option value="08:30 AM">08:30 AM</option>
               <option value="09:00 AM">09:00 AM</option>
+              <option value="09:30 AM">09:30 AM</option>
               <option value="10:00 AM">10:00 AM</option>
+              <option value="10:30 AM">10:30 AM</option>
               <option value="11:00 AM">11:00 AM</option>
+              <option value="11:30 AM">11:30 AM</option>
               <option value="12:00 PM">12:00 PM</option>
+              <option value="12:30 PM">12:30 PM</option>
               <option value="01:00 PM">01:00 PM</option>
+              <option value="01:30 PM">01:30 PM</option>
               <option value="02:00 PM">02:00 PM</option>
+              <option value="02:30 PM">02:30 PM</option>
               <option value="03:00 PM">03:00 PM</option>
+              <option value="03:30 PM">03:30 PM</option>
               <option value="04:00 PM">04:00 PM</option>
+              <option value="04:30 PM">04:30 PM</option>
               <option value="05:00 PM">05:00 PM</option>
+              <option value="05:30 PM">05:30 PM</option>
               <option value="06:00 PM">06:00 PM</option>
+              <option value="06:30 PM">06:30 PM</option>
               <option value="07:00 PM">07:00 PM</option>
+              <option value="07:30 PM">07:30 PM</option>
               <option value="08:00 PM">08:00 PM</option>
+              <option value="08:30 PM">08:30 PM</option>
+            </select>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <div class="form-group">
+            <label class="form-label">Assign Stylist</label>
+            <select class="form-control" id="walkStylist">
+              <option value="any">Any Available Stylist</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Booking Status</label>
+            <select class="form-control" id="walkStatus">
+              <option value="Confirmed" selected>Confirmed</option>
+              <option value="Pending">Pending</option>
             </select>
           </div>
         </div>
         <div class="form-group">
-          <label class="form-label">Assign Stylist</label>
-          <select class="form-control" id="walkStylist">
-            <option value="any">Any Available Stylist</option>
+          <label class="form-label">Quick Select Salon Service (Optional)</label>
+          <select class="form-control" id="walkServiceSelect">
+            <option value="">-- Choose from menu or type custom below --</option>
           </select>
         </div>
-        <div class="form-group">
-          <label class="form-label">Service Description / Name *</label>
-          <input type="text" class="form-control" id="walkServiceName" placeholder="e.g. Men's Haircut + Beard" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Amount (₹) *</label>
-          <input type="number" class="form-control" id="walkAmount" value="499" required>
+        <div style="display: grid; grid-template-columns: 1.4fr 0.6fr; gap: 14px;">
+          <div class="form-group">
+            <label class="form-label">Service Description / Name *</label>
+            <input type="text" class="form-control" id="walkServiceName" placeholder="e.g. Men's Haircut + Beard" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Amount (₹) *</label>
+            <input type="number" class="form-control" id="walkAmount" value="499" required>
+          </div>
         </div>
         <button type="submit" class="btn btn-gold" style="width: 100%;">
-          Confirm & Create Booking
+          <i class="fas fa-calendar-check"></i> Confirm & Create Booking
         </button>
       </form>
     </div>

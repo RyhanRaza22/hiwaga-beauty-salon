@@ -69,6 +69,55 @@ document.addEventListener('DOMContentLoaded', () => {
   const contactInquiryForm = document.getElementById('contactInquiryForm');
 
   // ==========================================
+  // BOOKING SYNC HELPER (Serverless Resilience)
+  // ==========================================
+  const SYNC_STORAGE_KEY = 'toppers_booking_sync_v1';
+  function getSyncState() {
+    try {
+      const raw = localStorage.getItem(SYNC_STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        return {
+          createdBookings: Array.isArray(parsed.createdBookings) ? parsed.createdBookings : [],
+          updatedBookings: parsed.updatedBookings && typeof parsed.updatedBookings === 'object' ? parsed.updatedBookings : {},
+          deletedIds: Array.isArray(parsed.deletedIds) ? parsed.deletedIds : []
+        };
+      }
+    } catch (e) {
+      console.error('Sync state read error:', e);
+    }
+    return { createdBookings: [], updatedBookings: {}, deletedIds: [] };
+  }
+
+  function saveSyncState(state) {
+    try {
+      localStorage.setItem(SYNC_STORAGE_KEY, JSON.stringify(state));
+    } catch (e) {
+      console.error('Sync state save error:', e);
+    }
+  }
+
+  async function syncClientBookings() {
+    const state = getSyncState();
+    if (
+      state.createdBookings.length === 0 &&
+      Object.keys(state.updatedBookings).length === 0 &&
+      state.deletedIds.length === 0
+    ) {
+      return;
+    }
+    try {
+      await fetch('/api/bookings/sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(state)
+      });
+    } catch (err) {
+      console.error('Sync error:', err);
+    }
+  }
+
+  // ==========================================
   // INITIAL DATA FETCHING
   // ==========================================
   initApp();
@@ -76,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
   async function initApp() {
     setupMobileMenu();
     setupDateConstraints();
+    await syncClientBookings();
     await Promise.all([
       loadServices(),
       loadStylists(),
@@ -599,6 +649,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const data = await res.json();
         if (data.success) {
+          if (data.data) {
+            const state = getSyncState();
+            state.createdBookings.unshift(data.data);
+            saveSyncState(state);
+          }
           bookingState.lastBookingResponse = data.data;
           renderConfirmationReceipt(data.data);
           switchStep('Success');
