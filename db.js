@@ -137,7 +137,7 @@ function getInitialData() {
         price: 999,
         originalPrice: 1299,
         description: "Deep pore dirt extraction, blackhead removal, activated charcoal glow pack, calming mint toner.",
-        image: "https://images.unsplash.com/photo-1512290900672-1f4088924b27?auto=format&fit=crop&w=600&q=80",
+        image: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=600&q=80",
         popular: false,
         active: true
       },
@@ -225,7 +225,7 @@ function getInitialData() {
         price: 2399,
         originalPrice: 2999,
         description: "Oxygenating treatment for sun damage repair, melanin regulation, skin brightening & instant festive luminosity.",
-        image: "https://images.unsplash.com/photo-1512290903029-dc81c5d57b28?auto=format&fit=crop&w=600&q=80",
+        image: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=600&q=80",
         popular: true,
         active: true
       },
@@ -263,7 +263,7 @@ function getInitialData() {
         price: 11999,
         originalPrice: 15000,
         description: "Waterproof, 24-hour sweat resistant silicon airbrush makeup, couture hair updo, jewelry setting & trial touch-up.",
-        image: "https://images.unsplash.com/photo-1522337094346-290f269a944d?auto=format&fit=crop&w=600&q=80",
+        image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=600&q=80",
         popular: true,
         active: true
       },
@@ -289,7 +289,7 @@ function getInitialData() {
         price: 799,
         originalPrice: 999,
         description: "Sea salt bubble soak, callus smoothing, dead skin scrub, hydration mask, hot stone reflexology foot rub.",
-        image: "https://images.unsplash.com/photo-1519014816548-bf7805b9e88e?auto=format&fit=crop&w=600&q=80",
+        image: "https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?auto=format&fit=crop&w=600&q=80",
         popular: true,
         active: true
       },
@@ -467,13 +467,13 @@ function getInitialData() {
         id: "gal-5",
         title: "Luxury Pedicure & Reflexology Suite",
         category: "spa",
-        image: "https://images.unsplash.com/photo-1519014816548-bf7805b9e88e?auto=format&fit=crop&w=800&q=80"
+        image: "https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?auto=format&fit=crop&w=800&q=80"
       },
       {
         id: "gal-6",
         title: "Couture Hair Updo & Saree Styling",
         category: "bridal",
-        image: "https://images.unsplash.com/photo-1522337094346-290f269a944d?auto=format&fit=crop&w=800&q=80"
+        image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=80"
       }
     ],
     inquiries: [
@@ -489,6 +489,37 @@ function getInitialData() {
       }
     ]
   };
+}
+
+const IMAGE_MIGRATIONS = {
+  "https://images.unsplash.com/photo-1512290900672-1f4088924b27?auto=format&fit=crop&w=600&q=80": "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1512290903029-dc81c5d57b28?auto=format&fit=crop&w=600&q=80": "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1522337094346-290f269a944d?auto=format&fit=crop&w=600&q=80": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1519014816548-bf7805b9e88e?auto=format&fit=crop&w=600&q=80": "https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?auto=format&fit=crop&w=600&q=80",
+  "https://images.unsplash.com/photo-1519014816548-bf7805b9e88e?auto=format&fit=crop&w=800&q=80": "https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?auto=format&fit=crop&w=800&q=80",
+  "https://images.unsplash.com/photo-1522337094346-290f269a944d?auto=format&fit=crop&w=800&q=80": "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=80"
+};
+
+function sanitizeBrokenImages(data) {
+  if (!data) return false;
+  let changed = false;
+  if (Array.isArray(data.services)) {
+    data.services.forEach(s => {
+      if (s && s.image && IMAGE_MIGRATIONS[s.image]) {
+        s.image = IMAGE_MIGRATIONS[s.image];
+        changed = true;
+      }
+    });
+  }
+  if (Array.isArray(data.gallery)) {
+    data.gallery.forEach(g => {
+      if (g && g.image && IMAGE_MIGRATIONS[g.image]) {
+        g.image = IMAGE_MIGRATIONS[g.image];
+        changed = true;
+      }
+    });
+  }
+  return changed;
 }
 
 // Database helper functions with safe file operations & serverless in-memory cache
@@ -515,15 +546,22 @@ class DB {
     try {
       if (fs.existsSync(DB_FILE)) {
         const raw = fs.readFileSync(DB_FILE, 'utf-8');
-        this.cache = JSON.parse(raw);
+        const parsed = JSON.parse(raw);
+        if (sanitizeBrokenImages(parsed)) {
+          this.write(parsed);
+        } else {
+          this.cache = parsed;
+        }
       } else {
         const data = this.loadSeedData();
+        sanitizeBrokenImages(data);
         this.cache = data;
         this.write(data);
       }
     } catch (err) {
       console.error('DB init fallback to memory cache:', err.message);
       this.cache = this.loadSeedData();
+      sanitizeBrokenImages(this.cache);
     }
   }
 
@@ -531,7 +569,12 @@ class DB {
     try {
       if (fs.existsSync(DB_FILE)) {
         const raw = fs.readFileSync(DB_FILE, 'utf-8');
-        this.cache = JSON.parse(raw);
+        const parsed = JSON.parse(raw);
+        if (sanitizeBrokenImages(parsed)) {
+          this.write(parsed);
+        } else {
+          this.cache = parsed;
+        }
         return this.cache;
       }
     } catch (err) {

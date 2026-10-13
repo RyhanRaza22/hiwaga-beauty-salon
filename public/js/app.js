@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <!-- Center Spine: Vertical Gold Line + Square Gold-Bordered Photo (Slide 8 Exact) -->
           <div class="slide8-photo-col">
             <div class="bs-square-photo">
-              <img src="${service.image || 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80'}" alt="${service.name}" loading="lazy">
+              <img src="${service.image || 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80'}" alt="${service.name}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80';">
             </div>
           </div>
 
@@ -791,7 +791,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!grid) return;
         grid.innerHTML = data.data.map(item => `
           <div class="gallery-item" onclick="window.open('${item.image}', '_blank')">
-            <img src="${item.image}" alt="${item.title}" loading="lazy">
+            <img src="${item.image}" alt="${item.title}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80';">
             <div class="gallery-overlay">
               <h4>${item.title}</h4>
               <span style="color: var(--gold-primary); font-size: 0.75rem; text-transform: uppercase;">Toppers Grand Vizag</span>

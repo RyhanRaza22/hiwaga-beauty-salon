@@ -703,7 +703,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <tr>
         <td>
           <div style="display: flex; align-items: center; gap: 12px;">
-            <img src="${s.image || 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=100&q=80'}" style="width: 44px; height: 44px; border-radius: 6px; object-fit: cover;">
+            <img src="${s.image || 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=100&q=80'}" style="width: 44px; height: 44px; border-radius: 6px; object-fit: cover;" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=100&q=80';">
             <div>
               <strong>${s.name}</strong>
               ${s.popular ? '<span style="background: #ef4444; color: #fff; font-size: 0.68rem; padding: 2px 6px; border-radius: 4px; margin-left: 6px;">HOT</span>' : ''}
@@ -1101,7 +1101,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (data.success && adminGalleryGrid) {
         adminGalleryGrid.innerHTML = data.data.map(item => `
           <div style="background: var(--admin-card-hover); border: 1px solid var(--admin-border); border-radius: var(--radius-sm); overflow: hidden; position: relative;">
-            <img src="${item.image}" style="width: 100%; height: 160px; object-fit: cover;">
+            <img src="${item.image}" style="width: 100%; height: 160px; object-fit: cover;" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80';">
             <div style="padding: 12px; display: flex; justify-content: space-between; align-items: center;">
               <div>
                 <strong style="font-size: 0.85rem; color: #fff; display: block;">${item.title}</strong>
