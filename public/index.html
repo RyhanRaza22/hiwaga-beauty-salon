@@ -384,35 +384,37 @@
        ========================================== -->
   <section class="services-section canva-slide" id="services">
     <div class="container">
-      <div class="slide8-services-layout">
-        <!-- Left Column: Slide 8 Title, Description, Search & Category Filters -->
-        <div class="slide8-left-panel">
+      <!-- Top Horizontal Header & Search Bar -->
+      <div class="services-header-horizontal">
+        <div class="services-header-left">
           <span class="canva-eyebrow">TOPPERS GRAND SALON • RATE CARD</span>
-          <h2 class="canva-serif-title">Our Best<br>Service</h2>
-          <p class="canva-body-text">
-            Indulge in our actual salon treatments in MVP Colony, Visakhapatnam—crafted with genuine L'Oréal Professionnel, Cysteine, Keratin, O3+, and HydraFacial formulations.
+          <h2 class="canva-serif-title" style="margin-bottom: 12px;">Our Best Service</h2>
+          <p class="canva-body-text" style="margin-bottom: 0; max-width: 680px;">
+            Indulge in our signature salon treatments in MVP Colony, Visakhapatnam—crafted with genuine L'Oréal Professionnel, Cysteine, Keratin, O3+, and HydraFacial formulations.
           </p>
-
-          <div class="search-box" style="margin-bottom: 20px;">
+        </div>
+        <div class="services-header-right">
+          <div class="search-box">
             <i class="fas fa-search"></i>
             <input type="text" id="serviceSearchInput" placeholder="Search haircuts, facials, bridal...">
           </div>
-
-          <div class="category-tabs-vertical" id="categoryTabs">
-            <button class="category-tab active" data-category="all">All Services</button>
-            <button class="category-tab" data-category="men">Men's Grooming</button>
-            <button class="category-tab" data-category="women">Women's Styling</button>
-            <button class="category-tab" data-category="hair-care">Hair Therapy &amp; Color</button>
-            <button class="category-tab" data-category="skin-facials">Skin &amp; Facials</button>
-            <button class="category-tab" data-category="bridal-groom">Bridal &amp; Wedding</button>
-            <button class="category-tab" data-category="spa-nails">Spa &amp; Nails</button>
-          </div>
         </div>
+      </div>
 
-        <!-- Center + Right Columns: Actual Salon Services rendered in Slide 8 format -->
-        <div class="slide8-services-stream" id="servicesGrid">
-          <!-- Rendered dynamically by JavaScript from DB -->
-        </div>
+      <!-- Horizontal Category Filter Tabs -->
+      <div class="category-tabs-horizontal" id="categoryTabs">
+        <button class="category-tab active" data-category="all">All Services</button>
+        <button class="category-tab" data-category="men">Men's Grooming</button>
+        <button class="category-tab" data-category="women">Women's Styling</button>
+        <button class="category-tab" data-category="hair-care">Hair Therapy &amp; Color</button>
+        <button class="category-tab" data-category="skin-facials">Skin &amp; Facials</button>
+        <button class="category-tab" data-category="bridal-groom">Bridal &amp; Wedding</button>
+        <button class="category-tab" data-category="spa-nails">Spa &amp; Nails</button>
+      </div>
+
+      <!-- Horizontal Multi-Column Services Grid -->
+      <div class="services-horizontal-grid" id="servicesGrid">
+        <!-- Rendered dynamically by JavaScript from DB -->
       </div>
     </div>
 

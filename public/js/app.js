@@ -234,35 +234,27 @@ document.addEventListener('DOMContentLoaded', () => {
       const isSelectedInBooking = bookingState.selectedServices.some(s => s.id === service.id);
 
       return `
-        <div class="slide8-service-row">
-          <!-- Center Spine: Vertical Gold Line + Square Gold-Bordered Photo (Slide 8 Exact) -->
-          <div class="slide8-photo-col">
-            <div class="bs-square-photo">
-              <img src="${service.image || 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80'}" alt="${service.name}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80';">
-            </div>
-          </div>
-
-          <!-- Right Column: Square Gold Icon Box + Gold Title + White Description + Price & Book CTA -->
-          <div class="slide8-detail-col">
-            <div class="bs-icon-box">
+        <div class="service-card">
+          <div class="service-card-image">
+            <img src="${service.image || 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80'}" alt="${service.name}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80';">
+            <span class="slide8-cat-pill service-cat-badge">${catLabel}</span>
+            ${service.popular ? '<span class="service-popular-badge">POPULAR</span>' : ''}
+            <div class="bs-icon-box service-floating-icon">
               <i class="fas ${iconClass}"></i>
             </div>
-            <div class="bs-feature-text">
-              <div class="slide8-title-bar">
-                <h3>${service.name}</h3>
-                <span class="slide8-cat-pill">${catLabel}${service.popular ? ' • POPULAR' : ''}</span>
+          </div>
+          <div class="service-card-body">
+            <h3 class="service-card-title">${service.name}</h3>
+            <p class="canva-body-text service-card-desc">${service.description || 'Premium grooming experience with L\'Oréal professional products.'}</p>
+            <div class="slide8-service-footer">
+              <div class="service-price-block">
+                <span class="service-price">₹${service.price}</span>
+                ${service.originalPrice ? `<span class="service-original-price">₹${service.originalPrice}</span>` : ''}
+                <span class="slide8-duration"><i class="far fa-clock"></i> ${service.durationMinutes || 30} Mins</span>
               </div>
-              <p class="canva-body-text">${service.description || 'Premium grooming experience with L\'Oréal professional products.'}</p>
-              <div class="slide8-service-footer">
-                <div class="service-price-block">
-                  <span class="service-price">₹${service.price}</span>
-                  ${service.originalPrice ? `<span class="service-original-price">₹${service.originalPrice}</span>` : ''}
-                  <span class="slide8-duration"><i class="far fa-clock"></i> ${service.durationMinutes || 30} Mins</span>
-                </div>
-                <button class="btn btn-sm ${isSelectedInBooking ? 'btn-canva-gold' : 'btn-canva'} btn-quick-book" data-service-id="${service.id}">
-                  ${isSelectedInBooking ? '<i class="fas fa-check"></i> Added' : 'Book This'}
-                </button>
-              </div>
+              <button class="btn btn-sm ${isSelectedInBooking ? 'btn-canva-gold' : 'btn-canva'} btn-quick-book" data-service-id="${service.id}">
+                ${isSelectedInBooking ? '<i class="fas fa-check"></i> Added' : 'Book This'}
+              </button>
             </div>
           </div>
         </div>
