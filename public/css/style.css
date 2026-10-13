@@ -1,52 +1,53 @@
 /* ===================================================================
-   TOPPERS GRAND UNISEX SALON - CANVA EAGY-7eP6Dw BLACK & GOLD DESIGN
-   "Black and Gold Elegant Salon Presentation" (Liceria & Co. Style)
+   TOPPERS GRAND UNISEX SALON - MINIMAL & PREMIUM EDITORIAL DESIGN
+   Warm Alabaster, Porcelain White, Espresso Ink & Champagne Gold
    MVP Colony, Visakhapatnam, Andhra Pradesh
    =================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
 
 :root {
-  /* Canva Pure Black & Warm Amber-Gold Palette */
-  --bg-dark: #000000;
-  --bg-card: #050505;
-  --bg-card-hover: #0d0d0d;
-  --bg-card-subtle: #0a0a0a;
+  /* Minimal & Premium Warm Ivory & Porcelain Palette */
+  --bg-dark: #FAF7F2;
+  --bg-alt: #F3EFE6;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #FCFBF8;
+  --bg-card-subtle: #F5F1E8;
 
-  /* Exact Canva Warm Amber Gold */
-  --gold-primary: #d19a22;
-  --gold-light: #e4b23c;
-  --gold-dark: #a67814;
-  --gold-gradient: linear-gradient(135deg, #e4b23c 0%, #d19a22 55%, #a67814 100%);
-  --gold-gradient-glow: linear-gradient(135deg, rgba(209, 154, 34, 0.2), rgba(209, 154, 34, 0.04));
+  /* Refined Burnished Champagne Gold */
+  --gold-primary: #B08227;
+  --gold-light: #C89B3C;
+  --gold-dark: #8C651A;
+  --gold-gradient: linear-gradient(135deg, #C89B3C 0%, #B08227 55%, #8C651A 100%);
+  --gold-gradient-glow: linear-gradient(135deg, rgba(176, 130, 39, 0.14), rgba(176, 130, 39, 0.03));
 
-  --border-color: #d19a22;
-  --border-subtle: rgba(209, 154, 34, 0.35);
-  --border-glow: rgba(209, 154, 34, 0.85);
+  --border-color: rgba(176, 130, 39, 0.32);
+  --border-subtle: rgba(176, 130, 39, 0.18);
+  --border-glow: rgba(176, 130, 39, 0.65);
 
   /* Status Colors */
-  --success: #10b981;
-  --warning: #f59e0b;
-  --danger: #ef4444;
-  --info: #3b82f6;
+  --success: #0D9488;
+  --warning: #D97706;
+  --danger: #DC2626;
+  --info: #2563EB;
 
-  /* Typography */
-  --text-main: #ffffff;
-  --text-muted: rgba(255, 255, 255, 0.84);
-  --text-dim: rgba(255, 255, 255, 0.56);
+  /* Minimal Editorial Typography */
+  --text-main: #1C1917;
+  --text-muted: #57524A;
+  --text-dim: #8A8277;
   --font-heading: 'Playfair Display', Georgia, serif;
   --font-body: 'Poppins', system-ui, -apple-system, sans-serif;
 
-  /* Architectural Sharp Geometry */
-  --radius-sm: 0px;
-  --radius-md: 0px;
-  --radius-lg: 0px;
+  /* Soft Minimalist Geometry */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
   --radius-full: 9999px;
 
-  --shadow-sm: 0 6px 20px rgba(0, 0, 0, 0.7);
-  --shadow-md: 0 14px 35px rgba(0, 0, 0, 0.85);
-  --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.95);
-  --shadow-gold: 0 0 28px rgba(209, 154, 34, 0.22);
+  --shadow-sm: 0 4px 16px rgba(28, 25, 23, 0.04);
+  --shadow-md: 0 12px 32px rgba(28, 25, 23, 0.06);
+  --shadow-lg: 0 24px 54px rgba(28, 25, 23, 0.09);
+  --shadow-gold: 0 12px 28px rgba(176, 130, 39, 0.15);
 
   --transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   --container-max: 1280px;
@@ -109,55 +110,59 @@ button, input, select, textarea {
 }
 
 /* ===================================================================
-   CANVA TYPOGRAPHY, BUTTONS & SHARED SLIDE MOTIFS
+   EDITORIAL TYPOGRAPHY, BUTTONS & SHARED SLIDE MOTIFS
    =================================================================== */
 .canva-slide {
   position: relative;
-  background-color: #000000;
-  border-bottom: 1px solid rgba(209, 154, 34, 0.22);
+  background-color: var(--bg-dark);
+  border-bottom: 1px solid var(--border-subtle);
   overflow: hidden;
+}
+
+.canva-slide:nth-of-type(even) {
+  background-color: var(--bg-alt);
 }
 
 .canva-eyebrow {
   display: inline-block;
   color: var(--gold-primary);
-  font-size: 0.76rem;
-  font-weight: 500;
-  letter-spacing: 2.5px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 2.8px;
   text-transform: uppercase;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .canva-serif-title {
   font-family: var(--font-heading);
-  font-size: 4rem;
-  font-weight: 600;
-  line-height: 1.12;
-  color: var(--gold-primary);
-  margin-bottom: 24px;
-  letter-spacing: 0.5px;
+  font-size: 3.6rem;
+  font-weight: 500;
+  line-height: 1.14;
+  color: var(--text-main);
+  margin-bottom: 22px;
+  letter-spacing: -0.3px;
 }
 
 .canva-body-text {
   color: var(--text-muted);
-  font-size: 1.02rem;
+  font-size: 1rem;
   font-weight: 300;
   line-height: 1.85;
   margin-bottom: 28px;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.15px;
 }
 
-/* Exact Canva Rectangular Gold-Bordered Button */
+/* Minimal Luxury Rectangular Button */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 13px 38px;
-  border-radius: 0;
-  font-size: 0.95rem;
-  font-weight: 400;
-  letter-spacing: 0.5px;
+  padding: 13px 34px;
+  border-radius: 2px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.6px;
   cursor: pointer;
   transition: var(--transition);
   text-align: center;
@@ -165,71 +170,74 @@ button, input, select, textarea {
 
 .btn-canva,
 .btn-outline-gold {
-  background: #000000;
+  background: transparent;
   border: 1px solid var(--gold-primary);
-  color: #ffffff;
+  color: var(--text-main);
 }
 
 .btn-canva:hover,
 .btn-outline-gold:hover {
   background: var(--gold-primary);
-  color: #000000;
+  color: #FFFFFF;
   box-shadow: var(--shadow-gold);
 }
 
 .btn-canva-gold,
 .btn-gold {
-  background: var(--gold-primary);
-  border: 1px solid var(--gold-primary);
-  color: #000000;
-  font-weight: 600;
+  background: var(--text-main);
+  border: 1px solid var(--text-main);
+  color: #FFFFFF;
+  font-weight: 500;
 }
 
 .btn-canva-gold:hover,
 .btn-gold:hover {
-  background: transparent;
-  color: var(--gold-primary);
+  background: var(--gold-primary);
+  border-color: var(--gold-primary);
+  color: #FFFFFF;
   box-shadow: var(--shadow-gold);
 }
 
 .btn-sm {
-  padding: 9px 22px;
-  font-size: 0.84rem;
+  padding: 9px 20px;
+  font-size: 0.82rem;
 }
 
 .btn-lg {
-  padding: 15px 44px;
-  font-size: 1rem;
+  padding: 15px 42px;
+  font-size: 0.96rem;
 }
 
-/* Canva Solid Gold Circular Icons (Top-Right & Bottom-Left of Slides) */
+/* Minimal Circular Icons */
 .canva-circle-icon {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: var(--gold-primary);
-  color: #000000;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--gold-primary);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   cursor: pointer;
   transition: var(--transition);
   flex-shrink: 0;
 }
 
 .canva-circle-icon:hover {
-  background: #ffffff;
-  color: #000000;
-  transform: scale(1.08);
+  background: var(--gold-primary);
+  color: #FFFFFF;
+  transform: translateY(-2px);
 }
 
 .canva-circle-icon-sm {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  background: var(--gold-primary);
-  color: #000000;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--gold-primary);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -240,12 +248,12 @@ button, input, select, textarea {
 }
 
 .canva-circle-icon-sm:hover {
-  background: #ffffff;
-  color: #000000;
-  transform: scale(1.1);
+  background: var(--gold-primary);
+  color: #FFFFFF;
+  transform: translateY(-2px);
 }
 
-/* Canva Slide Footer Bar (Bottom-left gold circles + Bottom-right URL) */
+/* Slide Footer Bar */
 .canva-slide-footer {
   display: flex;
   align-items: center;
@@ -258,27 +266,27 @@ button, input, select, textarea {
 .canva-footer-icons {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .canva-footer-url {
-  color: #ffffff;
-  font-size: 0.92rem;
-  font-weight: 300;
-  letter-spacing: 0.4px;
+  color: var(--text-dim);
+  font-size: 0.84rem;
+  font-weight: 400;
+  letter-spacing: 0.8px;
 }
 
 /* ===================================================================
-   HEADER & NAVIGATION (CANVA LICERIA & CO. STYLE)
+   HEADER & NAVIGATION (FROSTED WARM IVORY)
    =================================================================== */
 .navbar {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(0, 0, 0, 0.95);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(209, 154, 34, 0.25);
-  padding: 22px 0;
+  background: rgba(250, 247, 242, 0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 20px 0;
   transition: var(--transition);
 }
 
@@ -296,24 +304,25 @@ button, input, select, textarea {
 }
 
 .lotus-logo-svg {
-  width: 52px;
-  height: 34px;
+  width: 50px;
+  height: 32px;
   flex-shrink: 0;
 }
 
 .brand-text h1 {
   font-family: var(--font-heading);
   font-size: 1.25rem;
-  font-weight: 500;
-  color: var(--gold-primary);
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  color: var(--text-main);
+  letter-spacing: 0.4px;
   line-height: 1.15;
 }
 
 .brand-text span {
   font-size: 0.62rem;
-  color: rgba(255, 255, 255, 0.6);
-  letter-spacing: 2px;
+  color: var(--gold-primary);
+  letter-spacing: 2.2px;
+  font-weight: 500;
   text-transform: uppercase;
   display: block;
 }
@@ -321,20 +330,20 @@ button, input, select, textarea {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 42px;
+  gap: 38px;
 }
 
 .nav-link {
-  font-size: 0.96rem;
+  font-size: 0.92rem;
   font-weight: 400;
-  color: #ffffff;
+  color: var(--text-muted);
   position: relative;
   padding: 4px 0;
 }
 
 .nav-link:hover,
 .nav-link.active {
-  color: var(--gold-primary);
+  color: var(--text-main);
 }
 
 .nav-link.active::after,
@@ -344,7 +353,7 @@ button, input, select, textarea {
   bottom: -2px;
   left: 0;
   width: 100%;
-  height: 1px;
+  height: 1.5px;
   background: var(--gold-primary);
 }
 
@@ -359,7 +368,7 @@ button, input, select, textarea {
 }
 
 /* ===================================================================
-   SLIDE 1: HERO SECTION (BEAUTY SALON)
+   SLIDE 1: HERO SECTION (MINIMAL LUXURY ATELIER)
    =================================================================== */
 .hero {
   position: relative;
@@ -368,10 +377,10 @@ button, input, select, textarea {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: #000000;
+  background: var(--bg-dark);
 }
 
-/* Right 27% darkened ambient salon mirror backdrop */
+/* Right 27% soft warm-tinted salon mirror backdrop */
 .hero-right-backdrop {
   position: absolute;
   top: 0;
@@ -386,7 +395,7 @@ button, input, select, textarea {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.68);
+  background: rgba(250, 247, 242, 0.45);
 }
 
 .hero-right-backdrop img {
@@ -395,14 +404,14 @@ button, input, select, textarea {
   object-fit: cover;
 }
 
-/* Full-height 1px vertical gold line at 73% */
+/* Full-height 1px vertical champagne line at 73% */
 .hero-vertical-gold-line {
   position: absolute;
   top: 0;
   bottom: 0;
   right: 27%;
   width: 1px;
-  background: var(--gold-primary);
+  background: var(--border-color);
   z-index: 2;
 }
 
@@ -422,13 +431,13 @@ button, input, select, textarea {
 
 .hero-display-title {
   font-family: var(--font-heading);
-  font-size: 6.4rem;
-  font-weight: 600;
+  font-size: 5.8rem;
+  font-weight: 500;
   line-height: 1.04;
-  letter-spacing: 6px;
-  color: var(--gold-primary);
+  letter-spacing: 3px;
+  color: var(--text-main);
   text-transform: uppercase;
-  margin-bottom: 30px;
+  margin-bottom: 28px;
 }
 
 .hero-description {
@@ -454,9 +463,10 @@ button, input, select, textarea {
 }
 
 .hero-overlap-portrait {
-  width: 310px;
+  width: 320px;
   height: 490px;
   overflow: hidden;
+  border: 6px solid #FFFFFF;
   box-shadow: var(--shadow-lg);
   position: relative;
   z-index: 4;
@@ -478,38 +488,38 @@ button, input, select, textarea {
    =================================================================== */
 .welcome-section {
   position: relative;
-  min-height: 680px;
-  padding: 80px 0 48px 0;
+  min-height: 660px;
+  padding: 88px 0 48px 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-/* Top-right architectural corner gold lines (Slide 2 motif) */
+/* Top-right architectural corner gold lines */
 .welcome-top-right-lines {
   position: absolute;
   top: 0;
   right: 0;
   width: 19%;
   height: 210px;
-  border-left: 1px solid var(--gold-primary);
-  border-bottom: 1px solid var(--gold-primary);
+  border-left: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
   z-index: 2;
   pointer-events: none;
 }
 
-/* Full-width horizontal gold line splitting top black & bottom photo */
+/* Full-width horizontal champagne line */
 .welcome-horizontal-gold-line {
   position: absolute;
   top: 44%;
   left: 0;
   right: 0;
   height: 1px;
-  background: var(--gold-primary);
+  background: var(--border-color);
   z-index: 2;
 }
 
-/* Bottom half full-bleed darkened salon background */
+/* Bottom half soft warm ivory salon background */
 .welcome-bottom-bg {
   position: absolute;
   top: 44%;
@@ -524,7 +534,7 @@ button, input, select, textarea {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.72);
+  background: rgba(243, 239, 230, 0.88);
 }
 
 .welcome-bottom-bg img {
@@ -556,6 +566,7 @@ button, input, select, textarea {
   width: 100%;
   height: 390px;
   overflow: hidden;
+  border: 6px solid #FFFFFF;
   box-shadow: var(--shadow-lg);
 }
 
@@ -589,7 +600,7 @@ button, input, select, textarea {
   min-height: 520px;
 }
 
-/* Offset 1px solid gold rectangular wireframe behind the two photos */
+/* Offset 1px solid champagne rectangular wireframe behind the two photos */
 .intro-gold-wireframe {
   position: absolute;
   top: 56px;
@@ -606,6 +617,7 @@ button, input, select, textarea {
   height: 310px;
   z-index: 2;
   overflow: hidden;
+  border: 6px solid #FFFFFF;
   box-shadow: var(--shadow-md);
 }
 
@@ -617,6 +629,7 @@ button, input, select, textarea {
   height: 400px;
   z-index: 3;
   overflow: hidden;
+  border: 6px solid #FFFFFF;
   box-shadow: var(--shadow-lg);
 }
 
@@ -637,23 +650,23 @@ button, input, select, textarea {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
-  padding: 20px 0;
+  padding: 22px 0;
   margin-bottom: 30px;
-  border-top: 1px solid rgba(209, 154, 34, 0.35);
-  border-bottom: 1px solid rgba(209, 154, 34, 0.35);
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .intro-stat-num {
   display: block;
   font-family: var(--font-heading);
-  font-size: 1.65rem;
-  font-weight: 700;
+  font-size: 1.7rem;
+  font-weight: 600;
   color: var(--gold-primary);
   line-height: 1.2;
 }
 
 .intro-stat-lbl {
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.8px;
@@ -677,7 +690,7 @@ button, input, select, textarea {
   content: '';
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.52);
+  background: rgba(28, 25, 23, 0.18);
 }
 
 .about-panoramic-banner img {
@@ -692,13 +705,13 @@ button, input, select, textarea {
   z-index: 3;
 }
 
-/* Square 1px gold-bordered inset photo overlapping banner */
+/* Square porcelain-framed inset photo overlapping banner */
 .about-inset-square {
   width: 260px;
   height: 260px;
-  border: 1px solid var(--gold-primary);
-  background: #000;
-  margin-top: -210px;
+  border: 6px solid #FFFFFF;
+  background: #FFFFFF;
+  margin-top: -190px;
   margin-left: 210px;
   margin-bottom: 42px;
   overflow: hidden;
@@ -728,12 +741,12 @@ button, input, select, textarea {
 .history-three-col {
   display: grid;
   grid-template-columns: 0.85fr 1.15fr 1.15fr;
-  min-height: 680px;
+  min-height: 660px;
 }
 
 .history-col-image {
   position: relative;
-  border-right: 1px solid var(--gold-primary);
+  border-right: 1px solid var(--border-color);
   overflow: hidden;
 }
 
@@ -744,7 +757,7 @@ button, input, select, textarea {
 }
 
 .history-col-center {
-  border-right: 1px solid var(--gold-primary);
+  border-right: 1px solid var(--border-color);
   padding: 96px 56px;
   display: flex;
   flex-direction: column;
@@ -761,11 +774,11 @@ button, input, select, textarea {
 }
 
 .timeline-year {
-  font-family: var(--font-body);
-  font-size: 1.35rem;
-  font-weight: 700;
+  font-family: var(--font-heading);
+  font-size: 1.45rem;
+  font-weight: 600;
   color: var(--gold-primary);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
 }
 
 /* ===================================================================
@@ -788,7 +801,7 @@ button, input, select, textarea {
   margin-left: auto;
 }
 
-/* Center 1px gold wireframe square connecting the 4 photos */
+/* Center 1px champagne wireframe square connecting the 4 photos */
 .vision-gold-connector {
   position: absolute;
   top: 50%;
@@ -812,7 +825,8 @@ button, input, select, textarea {
 .vision-quad-item {
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  background: #080808;
+  background: #FFFFFF;
+  border: 4px solid #FFFFFF;
   box-shadow: var(--shadow-md);
 }
 
@@ -828,7 +842,7 @@ button, input, select, textarea {
 }
 
 /* ===================================================================
-   SLIDE 7: OUR MISSION (TOP PHOTOS + OVERLAPPING GOLD-BORDERED BOX)
+   SLIDE 7: OUR MISSION (TOP PHOTOS + OVERLAPPING PORCELAIN BOX)
    =================================================================== */
 .mission-section {
   padding: 96px 0 48px 0;
@@ -844,6 +858,8 @@ button, input, select, textarea {
 .mission-photo-right {
   height: 340px;
   overflow: hidden;
+  border: 4px solid #FFFFFF;
+  box-shadow: var(--shadow-md);
 }
 
 .mission-photo-left img,
@@ -868,10 +884,10 @@ button, input, select, textarea {
   margin-bottom: 0;
 }
 
-/* Overlapping pure black box with 1px solid gold border */
+/* Overlapping porcelain white box with 1px champagne border */
 .mission-gold-box {
-  background: #000000;
-  border: 1px solid var(--gold-primary);
+  background: #FFFFFF;
+  border: 1px solid var(--border-color);
   padding: 46px 52px;
   margin-top: -56px;
   margin-right: 48px;
@@ -905,18 +921,18 @@ button, input, select, textarea {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   margin-bottom: 42px;
   padding-bottom: 20px;
-  border-bottom: 1px solid rgba(209, 154, 34, 0.25);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
 .category-tab {
-  padding: 10px 20px;
-  background: #000000;
-  color: #ffffff;
-  border: 1px solid rgba(209, 154, 34, 0.45);
-  font-size: 0.85rem;
+  padding: 10px 22px;
+  background: #FFFFFF;
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
+  font-size: 0.84rem;
   font-weight: 400;
   cursor: pointer;
   white-space: nowrap;
@@ -925,14 +941,14 @@ button, input, select, textarea {
 
 .category-tab:hover {
   border-color: var(--gold-primary);
-  color: var(--gold-primary);
+  color: var(--text-main);
 }
 
 .category-tab.active {
-  background: var(--gold-primary);
-  color: #000000;
-  border-color: var(--gold-primary);
-  font-weight: 600;
+  background: var(--text-main);
+  color: #FFFFFF;
+  border-color: var(--text-main);
+  font-weight: 500;
 }
 
 .search-box {
@@ -943,10 +959,15 @@ button, input, select, textarea {
 .search-box input {
   width: 100%;
   padding: 12px 16px 12px 42px;
-  background: #000000;
-  border: 1px solid var(--gold-primary);
-  color: #ffffff;
+  background: #FFFFFF;
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
   font-size: 0.88rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.search-box input:focus {
+  border-color: var(--gold-primary);
 }
 
 .search-box i {
@@ -967,26 +988,26 @@ button, input, select, textarea {
 }
 
 .service-card {
-  background: #050505;
-  border: 1px solid rgba(209, 154, 34, 0.45);
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
   display: flex;
   flex-direction: column;
   transition: var(--transition);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
 }
 
 .service-card:hover {
   border-color: var(--gold-primary);
   transform: translateY(-5px);
-  box-shadow: var(--shadow-gold);
+  box-shadow: var(--shadow-lg);
 }
 
 .service-card-image {
   position: relative;
   height: 220px;
   overflow: hidden;
-  border-bottom: 1px solid var(--gold-primary);
-  background: #000000;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-alt);
 }
 
 .service-card-image img {
@@ -1004,8 +1025,8 @@ button, input, select, textarea {
   position: absolute;
   top: 14px;
   left: 14px;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(4px);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
 }
 
 .service-popular-badge {
@@ -1013,19 +1034,19 @@ button, input, select, textarea {
   top: 14px;
   right: 14px;
   background: var(--gold-primary);
-  color: #000000;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  padding: 3px 10px;
+  color: #FFFFFF;
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  padding: 4px 10px;
   text-transform: uppercase;
 }
 
 .bs-icon-box {
   width: 44px;
   height: 44px;
-  border: 1px solid var(--gold-primary);
-  background: #000000;
+  border: 1px solid var(--border-color);
+  background: #FFFFFF;
   color: var(--gold-primary);
   display: flex;
   align-items: center;
@@ -1042,24 +1063,26 @@ button, input, select, textarea {
 }
 
 .service-card-body {
-  padding: 24px;
+  padding: 26px;
   display: flex;
   flex-direction: column;
   flex: 1;
 }
 
 .service-card-title {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--gold-primary);
+  font-family: var(--font-heading);
+  font-size: 1.28rem;
+  font-weight: 600;
+  color: var(--text-main);
   margin: 0 0 10px 0;
-  line-height: 1.35;
+  line-height: 1.32;
 }
 
 .slide8-cat-pill {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
+  font-weight: 500;
   color: var(--gold-primary);
-  border: 1px solid rgba(209, 154, 34, 0.65);
+  border: 1px solid var(--border-color);
   padding: 3px 10px;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -1079,7 +1102,7 @@ button, input, select, textarea {
   flex-wrap: wrap;
   gap: 12px;
   padding-top: 16px;
-  border-top: 1px solid rgba(209, 154, 34, 0.2);
+  border-top: 1px solid var(--border-subtle);
   margin-top: auto;
 }
 
@@ -1094,7 +1117,7 @@ button, input, select, textarea {
   font-family: var(--font-heading);
   font-size: 1.4rem;
   font-weight: 700;
-  color: var(--gold-primary);
+  color: var(--text-main);
 }
 
 .service-original-price {
@@ -1120,17 +1143,17 @@ button, input, select, textarea {
   margin-bottom: 28px;
 }
 
-/* Centered Pure-Black Box with 1px Solid Gold Border Overlapping Top of Photos */
+/* Centered Porcelain White Box with 1px Champagne Border Overlapping Top of Photos */
 .portfolio-overlap-box {
   max-width: 780px;
-  margin: 0 auto -42px auto;
-  background: #000000;
-  border: 1px solid var(--gold-primary);
-  padding: 36px 48px;
+  margin: 0 auto -36px auto;
+  background: #FFFFFF;
+  border: 1px solid var(--border-color);
+  padding: 34px 48px;
   text-align: center;
   position: relative;
   z-index: 3;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-md);
 }
 
 .gallery-grid {
@@ -1146,7 +1169,8 @@ button, input, select, textarea {
   height: 310px;
   overflow: hidden;
   cursor: pointer;
-  border: 1px solid rgba(209, 154, 34, 0.3);
+  border: 4px solid #FFFFFF;
+  box-shadow: var(--shadow-md);
 }
 
 .gallery-item img {
@@ -1163,7 +1187,7 @@ button, input, select, textarea {
 .gallery-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.92) 0%, transparent 65%);
+  background: linear-gradient(to top, rgba(28, 25, 23, 0.82) 0%, transparent 65%);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -1179,11 +1203,11 @@ button, input, select, textarea {
 .gallery-overlay h4 {
   font-family: var(--font-heading);
   font-size: 1.15rem;
-  color: #ffffff;
+  color: #FFFFFF;
 }
 
 /* ===================================================================
-   SLIDE 10: MEET OUR TEAM (3-COLUMN WITH VERTICAL GOLD LINES)
+   SLIDE 10: MEET OUR TEAM (3-COLUMN WITH VERTICAL CHAMPAGNE LINES)
    =================================================================== */
 .stylists-section {
   padding: 0 0 48px 0;
@@ -1202,10 +1226,10 @@ button, input, select, textarea {
   gap: 36px;
 }
 
-/* Center column framed by two full-height 1px solid gold vertical lines */
+/* Center column framed by two full-height 1px champagne vertical lines */
 .team-center-col {
-  border-left: 1px solid var(--gold-primary);
-  border-right: 1px solid var(--gold-primary);
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
   padding: 72px 44px;
   display: flex;
   flex-direction: column;
@@ -1215,12 +1239,18 @@ button, input, select, textarea {
 }
 
 .stylist-card {
-  background: #000000;
+  background: #FFFFFF;
+  box-shadow: var(--shadow-sm);
   transition: var(--transition);
 }
 
+.stylist-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
 .stylist-img-wrap {
-  height: 220px;
+  height: 230px;
   overflow: hidden;
 }
 
@@ -1235,18 +1265,20 @@ button, input, select, textarea {
   transform: scale(1.05);
 }
 
-/* Attached 1px solid gold-bordered black nameplate box underneath photo (Slide 10 exact) */
+/* Attached 1px champagne-bordered porcelain nameplate box underneath photo */
 .stylist-card-body {
-  background: #000000;
-  border: 1px solid var(--gold-primary);
-  padding: 18px 16px;
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-top: none;
+  padding: 20px 18px;
   text-align: center;
 }
 
 .stylist-name {
-  font-size: 1.12rem;
-  font-weight: 500;
-  color: #ffffff;
+  font-family: var(--font-heading);
+  font-size: 1.18rem;
+  font-weight: 600;
+  color: var(--text-main);
   margin-bottom: 4px;
 }
 
@@ -1286,16 +1318,17 @@ button, input, select, textarea {
 }
 
 .offer-card {
-  background: #050505;
-  border: 1px solid var(--gold-primary);
-  padding: 34px;
+  background: #FFFFFF;
+  border: 1px solid var(--border-color);
+  padding: 36px;
   position: relative;
+  box-shadow: var(--shadow-sm);
   transition: var(--transition);
 }
 
 .offer-card:hover {
   transform: translateY(-4px);
-  box-shadow: var(--shadow-gold);
+  box-shadow: var(--shadow-lg);
 }
 
 .offer-ribbon {
@@ -1303,18 +1336,18 @@ button, input, select, textarea {
   top: 18px;
   right: 18px;
   background: var(--gold-primary);
-  color: #000000;
-  font-size: 0.72rem;
-  font-weight: 700;
+  color: #FFFFFF;
+  font-size: 0.7rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
   padding: 4px 12px;
 }
 
 .offer-badge-percent {
   font-family: var(--font-heading);
   font-size: 2.6rem;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--gold-primary);
   margin-bottom: 8px;
 }
@@ -1322,7 +1355,7 @@ button, input, select, textarea {
 .offer-title {
   font-family: var(--font-heading);
   font-size: 1.35rem;
-  color: #ffffff;
+  color: var(--text-main);
   margin-bottom: 10px;
 }
 
@@ -1337,7 +1370,7 @@ button, input, select, textarea {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #000000;
+  background: var(--bg-dark);
   border: 1px dashed var(--gold-primary);
   padding: 12px 16px;
 }
@@ -1350,15 +1383,15 @@ button, input, select, textarea {
 }
 
 /* ===================================================================
-   ONLINE BOOKING WIZARD (CANVA BLACK & GOLD FRAME)
+   ONLINE BOOKING WIZARD (MINIMAL PORCELAIN & CHAMPAGNE FRAME)
    =================================================================== */
 .booking-section {
   padding: 96px 0;
 }
 
 .booking-wizard-card {
-  background: #040404;
-  border: 1px solid var(--gold-primary);
+  background: #FFFFFF;
+  border: 1px solid var(--border-color);
   padding: 48px;
   max-width: 920px;
   margin: 0 auto;
@@ -1379,7 +1412,7 @@ button, input, select, textarea {
   left: 36px;
   right: 36px;
   height: 1px;
-  background: rgba(209, 154, 34, 0.35);
+  background: var(--border-color);
   z-index: 1;
 }
 
@@ -1396,27 +1429,28 @@ button, input, select, textarea {
   width: 42px;
   height: 42px;
   border-radius: 50%;
-  background: #000000;
-  border: 1px solid var(--gold-primary);
+  background: #FFFFFF;
+  border: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
-  color: var(--gold-primary);
+  font-weight: 500;
+  color: var(--text-muted);
   transition: var(--transition);
 }
 
 .wizard-step-node.active .step-circle {
-  background: var(--gold-primary);
-  color: #000000;
-  font-weight: 700;
-  box-shadow: var(--shadow-gold);
+  background: var(--text-main);
+  border-color: var(--text-main);
+  color: #FFFFFF;
+  font-weight: 600;
+  box-shadow: var(--shadow-md);
 }
 
 .wizard-step-node.completed .step-circle {
-  background: var(--success);
-  border-color: var(--success);
-  color: #ffffff;
+  background: var(--gold-primary);
+  border-color: var(--gold-primary);
+  color: #FFFFFF;
 }
 
 .step-title {
@@ -1426,7 +1460,8 @@ button, input, select, textarea {
 }
 
 .wizard-step-node.active .step-title {
-  color: var(--gold-primary);
+  color: var(--text-main);
+  font-weight: 600;
 }
 
 .wizard-step-content {
@@ -1445,8 +1480,8 @@ button, input, select, textarea {
 
 .wizard-step-heading {
   font-family: var(--font-heading);
-  font-size: 1.6rem;
-  color: var(--gold-primary);
+  font-size: 1.65rem;
+  color: var(--text-main);
   margin-bottom: 6px;
 }
 
@@ -1462,7 +1497,7 @@ button, input, select, textarea {
   padding-right: 8px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   margin-bottom: 24px;
 }
 
@@ -1471,18 +1506,19 @@ button, input, select, textarea {
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px;
-  background: #0a0a0a;
-  border: 1px solid rgba(209, 154, 34, 0.28);
+  background: var(--bg-dark);
+  border: 1px solid var(--border-subtle);
   cursor: pointer;
   transition: var(--transition);
 }
 
 .booking-service-item:hover {
   border-color: var(--gold-primary);
+  background: #FFFFFF;
 }
 
 .booking-service-item.selected {
-  background: rgba(209, 154, 34, 0.14);
+  background: rgba(176, 130, 39, 0.08);
   border-color: var(--gold-primary);
 }
 
@@ -1496,6 +1532,7 @@ button, input, select, textarea {
   width: 20px;
   height: 20px;
   border: 1px solid var(--gold-primary);
+  background: #FFFFFF;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1503,13 +1540,13 @@ button, input, select, textarea {
 
 .booking-service-item.selected .bs-checkbox {
   background: var(--gold-primary);
-  color: #000000;
+  color: #FFFFFF;
 }
 
 .bs-details h4 {
   font-size: 0.95rem;
   font-weight: 500;
-  color: #ffffff;
+  color: var(--text-main);
 }
 
 .bs-details span {
@@ -1521,7 +1558,7 @@ button, input, select, textarea {
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: 1.15rem;
-  color: var(--gold-primary);
+  color: var(--text-main);
 }
 
 .booking-summary-bar {
@@ -1529,8 +1566,8 @@ button, input, select, textarea {
   align-items: center;
   justify-content: space-between;
   padding: 16px 22px;
-  background: #000000;
-  border: 1px solid var(--gold-primary);
+  background: var(--bg-dark);
+  border: 1px solid var(--border-color);
   margin-bottom: 24px;
 }
 
@@ -1542,8 +1579,8 @@ button, input, select, textarea {
 }
 
 .stylist-pick-card {
-  background: #0a0a0a;
-  border: 1px solid rgba(209, 154, 34, 0.35);
+  background: var(--bg-dark);
+  border: 1px solid var(--border-subtle);
   padding: 20px 14px;
   text-align: center;
   cursor: pointer;
@@ -1552,10 +1589,11 @@ button, input, select, textarea {
 
 .stylist-pick-card:hover {
   border-color: var(--gold-primary);
+  background: #FFFFFF;
 }
 
 .stylist-pick-card.selected {
-  background: rgba(209, 154, 34, 0.15);
+  background: rgba(176, 130, 39, 0.08);
   border-color: var(--gold-primary);
   box-shadow: var(--shadow-gold);
 }
@@ -1566,13 +1604,14 @@ button, input, select, textarea {
   border-radius: 50%;
   margin: 0 auto 12px auto;
   object-fit: cover;
-  border: 1px solid var(--gold-primary);
+  border: 2px solid #FFFFFF;
+  box-shadow: var(--shadow-sm);
 }
 
 .stylist-pick-card h4 {
   font-size: 0.95rem;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--text-main);
   margin-bottom: 4px;
 }
 
@@ -1589,9 +1628,9 @@ button, input, select, textarea {
 }
 
 .specialist-pill-box {
-  background: #000000;
+  background: var(--bg-dark);
   padding: 14px;
-  border: 1px solid rgba(209, 154, 34, 0.4);
+  border: 1px solid var(--border-color);
   font-size: 0.82rem;
   color: var(--text-muted);
 }
@@ -1602,25 +1641,26 @@ button, input, select, textarea {
 
 .form-label {
   display: block;
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   font-weight: 500;
-  color: var(--gold-primary);
+  color: var(--text-main);
   margin-bottom: 8px;
 }
 
 .form-control {
   width: 100%;
   padding: 12px 16px;
-  background: #000000;
-  border: 1px solid rgba(209, 154, 34, 0.55);
-  color: #ffffff;
+  background: var(--bg-dark);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
   font-size: 0.92rem;
   transition: var(--transition);
 }
 
 .form-control:focus {
+  background: #FFFFFF;
   border-color: var(--gold-primary);
-  box-shadow: 0 0 12px rgba(209, 154, 34, 0.25);
+  box-shadow: 0 0 0 3px rgba(176, 130, 39, 0.12);
 }
 
 .time-slots-grid {
@@ -1635,11 +1675,11 @@ button, input, select, textarea {
 .time-slot-chip {
   padding: 10px 6px;
   text-align: center;
-  background: #080808;
-  border: 1px solid rgba(209, 154, 34, 0.35);
+  background: var(--bg-dark);
+  border: 1px solid var(--border-subtle);
   font-size: 0.8rem;
   font-weight: 500;
-  color: #ffffff;
+  color: var(--text-main);
   cursor: pointer;
   transition: var(--transition);
 }
@@ -1647,17 +1687,18 @@ button, input, select, textarea {
 .time-slot-chip:hover:not(.booked) {
   border-color: var(--gold-primary);
   color: var(--gold-primary);
+  background: #FFFFFF;
 }
 
 .time-slot-chip.selected {
-  background: var(--gold-primary);
-  border-color: var(--gold-primary);
-  color: #000000;
-  font-weight: 700;
+  background: var(--text-main);
+  border-color: var(--text-main);
+  color: #FFFFFF;
+  font-weight: 600;
 }
 
 .time-slot-chip.booked {
-  opacity: 0.3;
+  opacity: 0.35;
   cursor: not-allowed;
   text-decoration: line-through;
 }
@@ -1669,8 +1710,8 @@ button, input, select, textarea {
 }
 
 .booking-overview-box {
-  background: #000000;
-  border: 1px solid var(--gold-primary);
+  background: var(--bg-dark);
+  border: 1px solid var(--border-color);
   padding: 20px;
   margin: 20px 0;
 }
@@ -1678,7 +1719,7 @@ button, input, select, textarea {
 .booking-overview-box h4 {
   font-family: var(--font-heading);
   font-size: 1.1rem;
-  color: var(--gold-primary);
+  color: var(--text-main);
   margin-bottom: 10px;
 }
 
@@ -1698,7 +1739,7 @@ button, input, select, textarea {
 .success-badge-icon {
   width: 72px;
   height: 72px;
-  background: rgba(209, 154, 34, 0.15);
+  background: rgba(176, 130, 39, 0.1);
   border: 1px solid var(--gold-primary);
   border-radius: 50%;
   display: flex;
@@ -1717,8 +1758,8 @@ button, input, select, textarea {
 }
 
 .booking-receipt-box {
-  background: #000000;
-  border: 1px solid var(--gold-primary);
+  background: var(--bg-dark);
+  border: 1px solid var(--border-color);
   padding: 24px;
   text-align: left;
   max-width: 520px;
@@ -1729,7 +1770,7 @@ button, input, select, textarea {
   display: flex;
   justify-content: space-between;
   padding: 9px 0;
-  border-bottom: 1px solid rgba(209, 154, 34, 0.2);
+  border-bottom: 1px solid var(--border-subtle);
   font-size: 0.9rem;
 }
 
@@ -1747,7 +1788,7 @@ button, input, select, textarea {
   align-items: center;
   margin-top: 28px;
   padding-top: 20px;
-  border-top: 1px solid rgba(209, 154, 34, 0.25);
+  border-top: 1px solid var(--border-subtle);
 }
 
 /* ===================================================================
@@ -1773,17 +1814,18 @@ button, input, select, textarea {
 }
 
 .review-card {
-  background: #050505;
-  border: 1px solid rgba(209, 154, 34, 0.5);
-  padding: 30px;
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  padding: 32px;
   display: flex;
   flex-direction: column;
+  box-shadow: var(--shadow-sm);
   transition: var(--transition);
 }
 
 .review-card:hover {
   border-color: var(--gold-primary);
-  box-shadow: var(--shadow-gold);
+  box-shadow: var(--shadow-md);
 }
 
 .review-stars {
@@ -1807,14 +1849,14 @@ button, input, select, textarea {
   align-items: center;
   justify-content: space-between;
   padding-top: 14px;
-  border-top: 1px solid rgba(209, 154, 34, 0.25);
+  border-top: 1px solid var(--border-subtle);
 }
 
 .reviewer-name {
   font-family: var(--font-heading);
   font-size: 1.05rem;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--text-main);
 }
 
 .reviewer-service {
@@ -1831,7 +1873,7 @@ button, input, select, textarea {
 }
 
 /* ===================================================================
-   SLIDE 11: CONTACT IN TOUCH (PHONE MOCKUP + GOLD RECTANGULAR FRAME)
+   SLIDE 11: CONTACT IN TOUCH (PHONE MOCKUP + PORCELAIN FRAME)
    =================================================================== */
 .contact-section {
   padding: 96px 0 48px 0;
@@ -1845,27 +1887,27 @@ button, input, select, textarea {
   position: relative;
 }
 
-/* Smartphone Mockup (Slide 11 Exact Design) */
+/* Smartphone Mockup */
 .canva-phone-mockup {
   width: 320px;
   height: 580px;
-  background: #000000;
-  border: 4px solid #e5e5e5;
+  background: #1C1917;
+  border: 6px solid #FFFFFF;
   border-radius: 44px;
-  padding: 12px;
+  padding: 10px;
   position: relative;
   z-index: 3;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95);
+  box-shadow: var(--shadow-lg);
 }
 
 .phone-notch {
   position: absolute;
-  top: 12px;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  width: 140px;
-  height: 26px;
-  background: #000000;
+  width: 130px;
+  height: 24px;
+  background: #1C1917;
   border-bottom-left-radius: 14px;
   border-bottom-right-radius: 14px;
   z-index: 4;
@@ -1876,23 +1918,23 @@ button, input, select, textarea {
 }
 
 .phone-speaker {
-  width: 40px;
+  width: 38px;
   height: 4px;
-  background: #333333;
+  background: #3F3A36;
   border-radius: 4px;
 }
 
 .phone-camera {
   width: 7px;
   height: 7px;
-  background: #444444;
+  background: #57524A;
   border-radius: 50%;
 }
 
 .phone-screen {
   width: 100%;
   height: 100%;
-  border-radius: 32px;
+  border-radius: 34px;
   overflow: hidden;
 }
 
@@ -1902,14 +1944,15 @@ button, input, select, textarea {
   object-fit: cover;
 }
 
-/* Large 1px Solid Gold-Bordered Rectangular Frame Overlapping Phone */
+/* Large Porcelain Frame Overlapping Phone */
 .canva-contact-frame {
-  border: 1px solid var(--gold-primary);
-  background: #000000;
+  border: 1px solid var(--border-color);
+  background: #FFFFFF;
   padding: 64px 64px 64px 90px;
   margin-left: -48px;
   position: relative;
   z-index: 2;
+  box-shadow: var(--shadow-md);
 }
 
 .canva-contact-info-grid {
@@ -1926,9 +1969,9 @@ button, input, select, textarea {
 }
 
 .canva-contact-point h4 {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #ffffff;
+  font-size: 0.96rem;
+  font-weight: 600;
+  color: var(--text-main);
   margin-bottom: 4px;
 }
 
@@ -1950,13 +1993,15 @@ button, input, select, textarea {
 }
 
 .contact-inquiry-box {
-  background: #050505;
-  border: 1px solid var(--gold-primary);
+  background: #FFFFFF;
+  border: 1px solid var(--border-color);
   padding: 38px;
+  box-shadow: var(--shadow-sm);
 }
 
 .map-container {
-  border: 1px solid var(--gold-primary);
+  border: 4px solid #FFFFFF;
+  box-shadow: var(--shadow-md);
   height: 100%;
   min-height: 380px;
   position: relative;
@@ -1966,7 +2011,6 @@ button, input, select, textarea {
   width: 100%;
   height: 100%;
   border: 0;
-  filter: grayscale(18%) contrast(105%);
 }
 
 .map-floating-action {
@@ -1980,7 +2024,7 @@ button, input, select, textarea {
    SLIDE 12: THANK YOU & FOOTER
    =================================================================== */
 .footer {
-  background: #000000;
+  background: var(--bg-alt);
   padding: 96px 0 40px 0;
 }
 
@@ -1993,21 +2037,22 @@ button, input, select, textarea {
 }
 
 .thankyou-gold-frame {
-  border: 1px solid var(--gold-primary);
-  background: #000000;
+  border: 1px solid var(--border-color);
+  background: #FFFFFF;
   padding: 64px 56px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  box-shadow: var(--shadow-md);
 }
 
 .thankyou-display-title {
   font-family: var(--font-heading);
-  font-size: 5.4rem;
-  font-weight: 600;
+  font-size: 5rem;
+  font-weight: 500;
   line-height: 1.04;
-  letter-spacing: 5px;
-  color: var(--gold-primary);
+  letter-spacing: 4px;
+  color: var(--text-main);
   text-transform: uppercase;
   margin-bottom: 24px;
 }
@@ -2015,6 +2060,8 @@ button, input, select, textarea {
 .thankyou-photo {
   min-height: 460px;
   overflow: hidden;
+  border: 6px solid #FFFFFF;
+  box-shadow: var(--shadow-md);
 }
 
 .thankyou-photo img {
@@ -2030,12 +2077,12 @@ button, input, select, textarea {
   flex-wrap: wrap;
   gap: 20px;
   padding-top: 28px;
-  border-top: 1px solid rgba(209, 154, 34, 0.3);
+  border-top: 1px solid var(--border-color);
 }
 
 .footer-copy {
   font-size: 0.85rem;
-  color: var(--text-dim);
+  color: var(--text-muted);
 }
 
 /* ===================================================================
@@ -2064,7 +2111,7 @@ button, input, select, textarea {
 }
 
 .float-btn:hover {
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
 
 .float-whatsapp {
@@ -2073,14 +2120,14 @@ button, input, select, textarea {
 }
 
 .float-call {
-  background: var(--gold-primary);
-  color: #000000;
+  background: var(--text-main);
+  color: #ffffff;
 }
 
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.88);
+  background: rgba(28, 25, 23, 0.55);
   backdrop-filter: blur(8px);
   z-index: 1000;
   display: flex;
@@ -2098,8 +2145,8 @@ button, input, select, textarea {
 }
 
 .modal-content {
-  background: #000000;
-  border: 1px solid var(--gold-primary);
+  background: #FFFFFF;
+  border: 1px solid var(--border-color);
   width: 100%;
   max-width: 540px;
   padding: 38px;
@@ -2120,7 +2167,7 @@ button, input, select, textarea {
   top: 18px;
   right: 18px;
   background: transparent;
-  color: var(--gold-primary);
+  color: var(--text-muted);
   font-size: 1.6rem;
   cursor: pointer;
 }
@@ -2136,12 +2183,12 @@ button, input, select, textarea {
 }
 
 .toast {
-  background: #000000;
-  border: 1px solid var(--gold-primary);
+  background: #FFFFFF;
+  border: 1px solid var(--border-color);
   border-left: 4px solid var(--gold-primary);
   box-shadow: var(--shadow-lg);
   padding: 14px 20px;
-  color: #ffffff;
+  color: var(--text-main);
   font-size: 0.9rem;
   display: flex;
   align-items: center;
@@ -2176,11 +2223,11 @@ button, input, select, textarea {
   }
 
   .hero-display-title {
-    font-size: 4.5rem;
+    font-size: 4.2rem;
   }
 
   .canva-serif-title {
-    font-size: 3rem;
+    font-size: 2.8rem;
   }
 
   .about-inset-square {
@@ -2190,12 +2237,12 @@ button, input, select, textarea {
   .history-col-image {
     height: 380px;
     border-right: none;
-    border-bottom: 1px solid var(--gold-primary);
+    border-bottom: 1px solid var(--border-color);
   }
 
   .history-col-center {
     border-right: none;
-    border-bottom: 1px solid var(--gold-primary);
+    border-bottom: 1px solid var(--border-color);
     padding: 56px 32px;
   }
 
@@ -2220,8 +2267,8 @@ button, input, select, textarea {
   .team-center-col {
     border-left: none;
     border-right: none;
-    border-top: 1px solid var(--gold-primary);
-    border-bottom: 1px solid var(--gold-primary);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
     order: -1;
   }
 
@@ -2251,20 +2298,21 @@ button, input, select, textarea {
     top: 100%;
     left: 0;
     right: 0;
-    background: #000000;
-    border-bottom: 1px solid var(--gold-primary);
+    background: #FFFFFF;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow-md);
     padding: 24px;
     gap: 18px;
   }
 
   .hero-display-title,
   .thankyou-display-title {
-    font-size: 3.1rem;
-    letter-spacing: 3px;
+    font-size: 2.9rem;
+    letter-spacing: 2px;
   }
 
   .canva-serif-title {
-    font-size: 2.35rem;
+    font-size: 2.25rem;
   }
 
   .intro-collage {

@@ -201,9 +201,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (filtered.length === 0) {
       servicesGrid.innerHTML = `
-        <div style="grid-column: 1/-1; text-align: center; padding: 48px; background: var(--bg-card); border-radius: var(--radius-md);">
+        <div style="grid-column: 1/-1; text-align: center; padding: 48px; background: var(--bg-card); border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
           <i class="fas fa-search" style="font-size: 2rem; color: var(--gold-primary); margin-bottom: 12px;"></i>
-          <h3 style="color: #fff;">No matching services found</h3>
+          <h3 style="color: var(--text-main);">No matching services found</h3>
           <p style="color: var(--text-muted); font-size: 0.9rem;">Try adjusting your search keyword or browse all categories.</p>
         </div>
       `;
@@ -675,27 +675,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
       <div class="receipt-row">
         <span>Client Name:</span>
-        <strong style="color: #fff;">${booking.customerName}</strong>
+        <strong style="color: var(--text-main);">${booking.customerName}</strong>
       </div>
       <div class="receipt-row">
         <span>Contact Phone:</span>
-        <strong style="color: #fff;">${booking.customerPhone}</strong>
+        <strong style="color: var(--text-main);">${booking.customerPhone}</strong>
       </div>
       <div class="receipt-row">
         <span>Date & Slot:</span>
-        <strong style="color: #fff;">${booking.date} at ${booking.timeSlot}</strong>
+        <strong style="color: var(--text-main);">${booking.date} at ${booking.timeSlot}</strong>
       </div>
       <div class="receipt-row">
         <span>Preferred Stylist:</span>
-        <strong style="color: #fff;">${booking.stylistName}</strong>
+        <strong style="color: var(--text-main);">${booking.stylistName}</strong>
       </div>
       <div class="receipt-row">
         <span>Services Booked:</span>
-        <strong style="color: #fff; text-align: right; max-width: 60%;">${booking.serviceNames.join(', ')}</strong>
+        <strong style="color: var(--text-main); text-align: right; max-width: 60%;">${booking.serviceNames.join(', ')}</strong>
       </div>
       <div class="receipt-row">
         <span>Payable at Salon:</span>
-        <span style="font-size: 1.25rem; color: var(--gold-light);">₹${booking.totalAmount}</span>
+        <span style="font-size: 1.25rem; color: var(--gold-primary);">₹${booking.totalAmount}</span>
       </div>
       <div style="margin-top: 14px; font-size: 0.75rem; color: var(--text-dim); text-align: center;">
         📍 Near Mahatma Gandhi Cancer Hospital, MVP Sector 3, Visakhapatnam
@@ -786,7 +786,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <img src="${item.image}" alt="${item.title}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80';">
             <div class="gallery-overlay">
               <h4>${item.title}</h4>
-              <span style="color: var(--gold-primary); font-size: 0.75rem; text-transform: uppercase;">Toppers Grand Vizag</span>
+              <span style="color: var(--gold-light); font-size: 0.75rem; text-transform: uppercase;">Toppers Grand Vizag</span>
             </div>
           </div>
         `).join('');
@@ -861,16 +861,16 @@ document.addEventListener('DOMContentLoaded', () => {
             trackResultBox.style.display = 'block';
             trackResultBox.innerHTML = `
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                <h4 style="color: #fff; font-size: 1rem;">Booking Details</h4>
-                <span style="background: rgba(212, 175, 55, 0.2); color: var(--gold-light); padding: 3px 10px; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 700;">
+                <h4 style="color: var(--text-main); font-size: 1rem;">Booking Details</h4>
+                <span style="background: rgba(176, 130, 39, 0.14); color: var(--gold-primary); padding: 3px 10px; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 600;">
                   ${b.status}
                 </span>
               </div>
-              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px;">Client: <strong style="color: #fff;">${b.customerName}</strong></p>
-              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px;">Date & Time: <strong style="color: #fff;">${b.date} at ${b.timeSlot}</strong></p>
-              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px;">Stylist: <strong style="color: #fff;">${b.stylistName}</strong></p>
-              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px;">Services: <strong style="color: #fff;">${b.serviceNames.join(', ')}</strong></p>
-              <p style="font-size: 0.85rem; color: var(--text-muted);">Amount: <strong style="color: var(--gold-light);">₹${b.totalAmount}</strong></p>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px;">Client: <strong style="color: var(--text-main);">${b.customerName}</strong></p>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px;">Date & Time: <strong style="color: var(--text-main);">${b.date} at ${b.timeSlot}</strong></p>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px;">Stylist: <strong style="color: var(--text-main);">${b.stylistName}</strong></p>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px;">Services: <strong style="color: var(--text-main);">${b.serviceNames.join(', ')}</strong></p>
+              <p style="font-size: 0.85rem; color: var(--text-muted);">Amount: <strong style="color: var(--gold-primary);">₹${b.totalAmount}</strong></p>
             `;
           } else {
             showToast('No booking found with this ID', 'error');
