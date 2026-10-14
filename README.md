@@ -1,11 +1,11 @@
-# ✂️ Toppers Grand Unisex Salon - Full-Stack Website & Admin Dashboard
+# 🪷 Hiwaga Beauty Salon - Full-Stack Website & Admin Dashboard
 
-A full-stack, responsive website and administrative suite built for **Toppers Grand Unisex Salon**, located in **MVP Sector 3, MVP Colony, Visakhapatnam (Vizag)**.
+A full-stack, responsive website and administrative suite built for **Hiwaga Beauty Salon**, located in **MVP Sector 3, MVP Colony, Visakhapatnam (Vizag)**.
 
 ---
 
 ## 📍 Google Maps Location & Analysis
-- **Business Name:** Toppers Grand Unisex Salon
+- **Business Name:** Hiwaga Beauty Salon
 - **Coordinates:** `17.744141, 83.333954`
 - **Location:** MVP Sector 3, Near Mahatma Gandhi Cancer Hospital, MVP Colony, Visakhapatnam, Andhra Pradesh 530017
 - **Phone:** `+91 90660 31999` / `+91 891 250 8899`
@@ -28,7 +28,7 @@ The server will boot up at:
 
 ### 2. Admin Credentials
 - **Username:** `admin`
-- **Password:** `toppers@2026`
+- **Password:** `hiwaga@2026`
 *(You can update this password anytime directly within the Admin Settings tab!)*
 
 ---
@@ -36,7 +36,7 @@ The server will boot up at:
 ## ✨ Features Breakdown
 
 ### 🌟 1. Customer-Facing Website (`public/index.html`)
-- **Luxury Gold & Slate Design System:** High-end aesthetics tailored for a premium unisex salon with smooth micro-interactions and glassmorphism.
+- **Luxury Rose & Velvet Editorial Design System:** High-end aesthetics tailored for a premium salon with soft silk alabaster backgrounds, radiant blush rose peony accents, and deep mulberry typography.
 - **5-Step Online Booking Wizard:**
   - **Step 1: Choose Services** (select multiple services with live total duration & price calculation).
   - **Step 2: Choose Stylist** (Option to pick "Any Available Stylist" or select specific Master Stylists).
@@ -72,7 +72,7 @@ The server will boot up at:
 - **Stylists & Team Roster CRUD:**
   - Add, edit, or remove master stylists, roles, experience, and photo links.
 - **Offers & Promo Codes CRUD:**
-  - Create festival discounts, manage promo codes (e.g. `VIZAGGLOW`, `TOPPERSGROOM`).
+  - Create festival discounts, manage promo codes (e.g. `VIZAGGLOW`, `HIWAGAGROOM`).
 - **Customer Reviews Management:**
   - Approve reviews, toggle "Featured ★" status, or remove spam.
 - **Customer Inquiries:**
@@ -97,7 +97,7 @@ The server will boot up at:
 
 ## 📁 Project Structure
 ```
-toppers grand salon/
+hiwaga beauty salon/
 ├── server.js               # Express server & REST API endpoints
 ├── db.js                   # Database layer & model helpers
 ├── package.json            # Project manifest & scripts

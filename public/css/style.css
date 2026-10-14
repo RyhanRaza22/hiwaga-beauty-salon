@@ -1,29 +1,29 @@
 /* ===================================================================
-   TOPPERS GRAND UNISEX SALON - MINIMAL & PREMIUM EDITORIAL DESIGN
-   Warm Alabaster, Porcelain White, Espresso Ink & Champagne Gold
+   HIWAGA BEAUTY SALON - LUXE ROSE & BLUSH EDITORIAL PALETTE
+   Soft Rose Alabaster, Blossom Pink, Deep Velvet Wine & Mulberry
    MVP Colony, Visakhapatnam, Andhra Pradesh
    =================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
 
 :root {
-  /* Minimal & Premium Warm Ivory & Porcelain Palette */
-  --bg-dark: #FAF7F2;
-  --bg-alt: #F3EFE6;
+  /* Minimal & Premium Soft Silk Alabaster & Blush Palette */
+  --bg-dark: #FAF5F7;
+  --bg-alt: #F3E8EC;
   --bg-card: #FFFFFF;
-  --bg-card-hover: #FCFBF8;
-  --bg-card-subtle: #F5F1E8;
+  --bg-card-hover: #FCF7F9;
+  --bg-card-subtle: #F6EDF1;
 
-  /* Refined Burnished Champagne Gold */
-  --gold-primary: #B08227;
-  --gold-light: #C89B3C;
-  --gold-dark: #8C651A;
-  --gold-gradient: linear-gradient(135deg, #C89B3C 0%, #B08227 55%, #8C651A 100%);
-  --gold-gradient-glow: linear-gradient(135deg, rgba(176, 130, 39, 0.14), rgba(176, 130, 39, 0.03));
+  /* Radiant Rose Peony & Velvet Plum Palette */
+  --gold-primary: #C24A72;
+  --gold-light: #DE6D94;
+  --gold-dark: #8E234A;
+  --gold-gradient: linear-gradient(135deg, #DE6D94 0%, #C24A72 55%, #8E234A 100%);
+  --gold-gradient-glow: linear-gradient(135deg, rgba(194, 74, 114, 0.14), rgba(194, 74, 114, 0.03));
 
-  --border-color: rgba(176, 130, 39, 0.32);
-  --border-subtle: rgba(176, 130, 39, 0.18);
-  --border-glow: rgba(176, 130, 39, 0.65);
+  --border-color: rgba(194, 74, 114, 0.28);
+  --border-subtle: rgba(194, 74, 114, 0.16);
+  --border-glow: rgba(194, 74, 114, 0.65);
 
   /* Status Colors */
   --success: #0D9488;
@@ -32,9 +32,9 @@
   --info: #2563EB;
 
   /* Minimal Editorial Typography */
-  --text-main: #1C1917;
-  --text-muted: #57524A;
-  --text-dim: #8A8277;
+  --text-main: #23161E;
+  --text-muted: #5C4854;
+  --text-dim: #8E7784;
   --font-heading: 'Playfair Display', Georgia, serif;
   --font-body: 'Poppins', system-ui, -apple-system, sans-serif;
 
@@ -44,10 +44,10 @@
   --radius-lg: 10px;
   --radius-full: 9999px;
 
-  --shadow-sm: 0 4px 16px rgba(28, 25, 23, 0.04);
-  --shadow-md: 0 12px 32px rgba(28, 25, 23, 0.06);
-  --shadow-lg: 0 24px 54px rgba(28, 25, 23, 0.09);
-  --shadow-gold: 0 12px 28px rgba(176, 130, 39, 0.15);
+  --shadow-sm: 0 4px 16px rgba(35, 22, 30, 0.04);
+  --shadow-md: 0 12px 32px rgba(35, 22, 30, 0.06);
+  --shadow-lg: 0 24px 54px rgba(35, 22, 30, 0.09);
+  --shadow-gold: 0 12px 28px rgba(194, 74, 114, 0.18);
 
   --transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   --container-max: 1280px;
@@ -1518,7 +1518,7 @@ button, input, select, textarea {
 }
 
 .booking-service-item.selected {
-  background: rgba(176, 130, 39, 0.08);
+  background: rgba(194, 74, 114, 0.08);
   border-color: var(--gold-primary);
 }
 
@@ -1593,7 +1593,7 @@ button, input, select, textarea {
 }
 
 .stylist-pick-card.selected {
-  background: rgba(176, 130, 39, 0.08);
+  background: rgba(194, 74, 114, 0.08);
   border-color: var(--gold-primary);
   box-shadow: var(--shadow-gold);
 }
@@ -1660,7 +1660,7 @@ button, input, select, textarea {
 .form-control:focus {
   background: #FFFFFF;
   border-color: var(--gold-primary);
-  box-shadow: 0 0 0 3px rgba(176, 130, 39, 0.12);
+  box-shadow: 0 0 0 3px rgba(194, 74, 114, 0.12);
 }
 
 .time-slots-grid {
@@ -1739,7 +1739,7 @@ button, input, select, textarea {
 .success-badge-icon {
   width: 72px;
   height: 72px;
-  background: rgba(176, 130, 39, 0.1);
+  background: rgba(194, 74, 114, 0.1);
   border: 1px solid var(--gold-primary);
   border-radius: 50%;
   display: flex;

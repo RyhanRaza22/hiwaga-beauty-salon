@@ -1,24 +1,25 @@
 /* ===================================================================
-   TOPPERS GRAND UNISEX SALON - ADMIN DASHBOARD STYLES
+   HIWAGA BEAUTY SALON - ADMIN DASHBOARD STYLES
+   Velvet Plum Noir, Blush Rose & Berry Accents
    =================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
 
 :root {
-  --admin-bg: #000000;
-  --admin-sidebar: #050505;
-  --admin-card: #080808;
-  --admin-card-hover: #111111;
-  --admin-card-header: #050505;
-  --admin-border: rgba(209, 154, 34, 0.25);
-  --admin-border-gold: #d19a22;
+  --admin-bg: #1B121D;
+  --admin-sidebar: #140C16;
+  --admin-card: #231826;
+  --admin-card-hover: #2C1F30;
+  --admin-card-header: #1C131F;
+  --admin-border: rgba(222, 109, 148, 0.22);
+  --admin-border-gold: #DE6D94;
 
-  --gold: #d19a22;
-  --gold-light: #e4b23c;
-  --gold-gradient: linear-gradient(135deg, #e4b23c 0%, #d19a22 100%);
+  --gold: #C24A72;
+  --gold-light: #DE6D94;
+  --gold-gradient: linear-gradient(135deg, #DE6D94 0%, #C24A72 100%);
 
   --text-main: #ffffff;
-  --text-muted: rgba(255, 255, 255, 0.8);
+  --text-muted: rgba(255, 255, 255, 0.85);
   --text-dim: rgba(255, 255, 255, 0.55);
 
   --success: #10b981;
@@ -26,9 +27,9 @@
   --danger: #ef4444;
   --info: #3b82f6;
 
-  --radius-sm: 0px;
-  --radius-md: 0px;
-  --radius-lg: 0px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
   --radius-full: 9999px;
 
   --transition: all 0.2s ease;
@@ -69,7 +70,7 @@ button, input, select, textarea {
 .admin-login-overlay {
   position: fixed;
   inset: 0;
-  background: radial-gradient(circle at center, #141c2e 0%, #090d14 100%);
+  background: radial-gradient(circle at center, #2E152A 0%, #110813 100%);
   z-index: 9999;
   display: flex;
   align-items: center;
@@ -99,8 +100,8 @@ button, input, select, textarea {
   justify-content: center;
   font-size: 2rem;
   font-weight: 900;
-  color: #090d14;
-  box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+  color: #ffffff;
+  box-shadow: 0 0 25px rgba(222, 109, 148, 0.45);
 }
 
 .login-card h2 {
@@ -146,7 +147,7 @@ button, input, select, textarea {
   height: 38px;
   border-radius: 10px;
   background: var(--gold-gradient);
-  color: #090d14;
+  color: #ffffff;
   font-weight: 900;
   display: flex;
   align-items: center;
@@ -163,7 +164,7 @@ button, input, select, textarea {
 
 .sidebar-header span {
   font-size: 0.7rem;
-  color: var(--gold);
+  color: var(--gold-light);
   text-transform: uppercase;
   letter-spacing: 1px;
 }
@@ -196,7 +197,7 @@ button, input, select, textarea {
 }
 
 .nav-item.active {
-  background: rgba(212, 175, 55, 0.12);
+  background: rgba(222, 109, 148, 0.16);
   color: var(--gold-light);
   border-left: 3px solid var(--gold);
 }
@@ -321,7 +322,7 @@ button, input, select, textarea {
   font-size: 1.3rem;
 }
 
-.kpi-icon.revenue { background: rgba(212, 175, 55, 0.15); color: var(--gold-light); }
+.kpi-icon.revenue { background: rgba(222, 109, 148, 0.18); color: var(--gold-light); }
 .kpi-icon.appointments { background: rgba(59, 130, 246, 0.15); color: var(--info); }
 .kpi-icon.pending { background: rgba(245, 158, 11, 0.15); color: var(--warning); }
 .kpi-icon.services { background: rgba(16, 185, 129, 0.15); color: var(--success); }
@@ -420,11 +421,11 @@ button, input, select, textarea {
 
 .btn-gold {
   background: var(--gold-gradient);
-  color: #090d14;
+  color: #ffffff;
 }
 
 .btn-gold:hover {
-  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+  box-shadow: 0 4px 15px rgba(222, 109, 148, 0.45);
 }
 
 .btn-outline-gold {
@@ -434,7 +435,7 @@ button, input, select, textarea {
 }
 
 .btn-outline-gold:hover {
-  background: rgba(212, 175, 55, 0.1);
+  background: rgba(222, 109, 148, 0.15);
 }
 
 .btn-danger {
@@ -469,7 +470,7 @@ button, input, select, textarea {
 .form-control {
   width: 100%;
   padding: 10px 14px;
-  background: #0d121c;
+  background: #281D2C;
   border: 1px solid var(--admin-border);
   border-radius: var(--radius-sm);
   color: #fff;
@@ -479,14 +480,14 @@ button, input, select, textarea {
 
 .form-control:focus {
   border-color: var(--gold);
-  box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+  box-shadow: 0 0 10px rgba(222, 109, 148, 0.3);
 }
 
 /* Modals */
 .admin-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(18, 10, 20, 0.85);
   backdrop-filter: blur(6px);
   z-index: 1000;
   display: flex;

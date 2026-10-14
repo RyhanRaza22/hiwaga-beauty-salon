@@ -1,10 +1,10 @@
 // ===================================================================
-// TOPPERS GRAND UNISEX SALON - ADMIN DASHBOARD SCRIPT
+// HIWAGA BEAUTY SALON - ADMIN DASHBOARD SCRIPT
 // MVP Colony, Visakhapatnam
 // ===================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-  let authToken = localStorage.getItem('toppers_admin_token');
+  let authToken = localStorage.getItem('hiwaga_admin_token');
   let currentAdminUser = null;
   let cachedBookings = [];
   let cachedServices = [];
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const walkServiceSelect = document.getElementById('walkServiceSelect');
 
   // Booking Sync State Helper (ensures serverless cold-start resilience)
-  const SYNC_STORAGE_KEY = 'toppers_booking_sync_v1';
+  const SYNC_STORAGE_KEY = 'hiwaga_booking_sync_v1';
   function getSyncState() {
     try {
       const raw = localStorage.getItem(SYNC_STORAGE_KEY);
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showLogin(false);
         initDashboard();
       } else {
-        localStorage.removeItem('toppers_admin_token');
+        localStorage.removeItem('hiwaga_admin_token');
         authToken = null;
         showLogin(true);
       }
@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = await res.json();
         if (data.success) {
           authToken = data.token;
-          localStorage.setItem('toppers_admin_token', authToken);
+          localStorage.setItem('hiwaga_admin_token', authToken);
           currentAdminUser = data.user;
           if (currentUserName) currentUserName.textContent = data.user.name;
           showLogin(false);
@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (btnLogout) {
     btnLogout.addEventListener('click', () => {
-      localStorage.removeItem('toppers_admin_token');
+      localStorage.removeItem('hiwaga_admin_token');
       authToken = null;
       showLogin(true);
       adminToast('You have been logged out.', 'info');
@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const res = await fetch(url, { ...options, headers });
     if (res.status === 401 || res.status === 403) {
-      localStorage.removeItem('toppers_admin_token');
+      localStorage.removeItem('hiwaga_admin_token');
       showLogin(true);
       throw new Error('Authentication expired');
     }
@@ -416,7 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const cleanPhone = (b.customerPhone || '').replace(/[^0-9]/g, '');
       const servicesList = Array.isArray(b.serviceNames) ? b.serviceNames.join(', ') : (b.customServiceName || 'Salon Service');
       const whatsAppMsg = encodeURIComponent(
-        `Hello ${b.customerName}! Greetings from Toppers Grand Unisex Salon, MVP Colony.\n` +
+        `Hello ${b.customerName}! Greetings from Hiwaga Beauty Salon, MVP Colony.\n` +
         `Your appointment (Ref ID: ${b.id}) on ${b.date} at ${b.timeSlot} is ${b.status}.\n` +
         `Services: ${servicesList}\n` +
         `Stylist: ${b.stylistName || 'Any Available Stylist'}\n` +
@@ -1044,7 +1044,7 @@ document.addEventListener('DOMContentLoaded', () => {
               </td>
               <td>
                 <div style="display: flex; gap: 6px;">
-                  <a href="https://wa.me/${cleanPhone}?text=Hello%20${encodeURIComponent(inq.name)},%20thank%20you%20for%20contacting%20Toppers%20Grand%20Salon%20Vizag." target="_blank" class="btn btn-sm btn-gold" title="Reply on WhatsApp">
+                  <a href="https://wa.me/${cleanPhone}?text=Hello%20${encodeURIComponent(inq.name)},%20thank%20you%20for%20contacting%20Hiwaga%20Beauty%20Salon%20Vizag." target="_blank" class="btn btn-sm btn-gold" title="Reply on WhatsApp">
                     <i class="fab fa-whatsapp"></i>
                   </a>
                   <button class="btn btn-sm btn-outline-gold" onclick="markInquiryRead('${inq.id}')" title="Mark Replied">
