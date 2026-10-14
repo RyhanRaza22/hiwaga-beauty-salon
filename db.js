@@ -50,7 +50,7 @@ function getInitialData() {
       tagline: "Premier Hair Styling, Luxury Spa & Bridal Studio",
       address: "MVP Sector 3, Near Mahatma Gandhi Cancer Hospital, MVP Colony, Visakhapatnam, Andhra Pradesh 530017",
       phone: "+91 73373 98983",
-      altPhone: "+91 891 250 8899",
+      altPhone: "+91 73373 98983",
       whatsapp: "+91 73373 98983",
       email: "hiwagabeautysalon@gmail.com",
       operatingHours: "Monday - Sunday: 8:00 AM – 9:00 PM",

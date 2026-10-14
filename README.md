@@ -8,7 +8,7 @@ A full-stack, responsive website and administrative suite built for **Hiwaga Bea
 - **Business Name:** Hiwaga Beauty Salon
 - **Coordinates:** `17.744141, 83.333954`
 - **Location:** MVP Sector 3, Near Mahatma Gandhi Cancer Hospital, MVP Colony, Visakhapatnam, Andhra Pradesh 530017
-- **Phone:** `+91 73373 98983` / `+91 891 250 8899`
+- **Phone:** `+91 73373 98983`
 - **WhatsApp:** `+91 73373 98983`
 - **Hours:** Monday – Sunday: 8:00 AM – 9:00 PM (Open 7 Days a Week)
 - **Google Rating:** 4.8 / 5.0 (485+ Verified Google Reviews)
