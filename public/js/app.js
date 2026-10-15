@@ -4,9 +4,260 @@
 // ===================================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-  // State variables
-  let allServices = [];
-  let allStylists = [];
+  // Default Fallback Catalog for instant rendering & offline resilience
+  const DEFAULT_SERVICES = [
+    {
+      id: "srv-m-1",
+      name: "Signature Men's Haircut & Styling",
+      category: "men",
+      durationMinutes: 30,
+      price: 299,
+      originalPrice: 350,
+      description: "Consultation, precision haircut tailored to face profile, scalp wash, blow dry & styling wax finish.",
+      image: "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?auto=format&fit=crop&w=600&q=80",
+      popular: true,
+      active: true
+    },
+    {
+      id: "srv-m-2",
+      name: "Royal Beard Sculpting & Razor Finish",
+      category: "men",
+      durationMinutes: 25,
+      price: 199,
+      originalPrice: 250,
+      description: "Hot towel therapy, precision trimming, sharp blade contouring, organic beard oil nourishment.",
+      image: "https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=600&q=80",
+      popular: false,
+      active: true
+    },
+    {
+      id: "srv-m-3",
+      name: "Men's Grand Executive Combo",
+      category: "men",
+      durationMinutes: 60,
+      price: 549,
+      originalPrice: 700,
+      description: "Signature haircut + beard sculpting + de-tan face scrub + relaxing 10-min neck & shoulder massage.",
+      image: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=600&q=80",
+      popular: true,
+      active: true
+    },
+    {
+      id: "srv-m-4",
+      name: "Men's Charcoal Detox Facial",
+      category: "men",
+      durationMinutes: 45,
+      price: 999,
+      originalPrice: 1299,
+      description: "Deep pore dirt extraction, blackhead removal, activated charcoal glow pack, calming mint toner.",
+      image: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?auto=format&fit=crop&w=600&q=80",
+      popular: false,
+      active: true
+    },
+    {
+      id: "srv-w-1",
+      name: "Designer Haircut, Wash & Blowdry",
+      category: "women",
+      durationMinutes: 45,
+      price: 699,
+      originalPrice: 850,
+      description: "Expert consultation, face-framing layers, curtain bangs or blunt cut, L'Oréal shampoo & serum blowdry.",
+      image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80",
+      popular: true,
+      active: true
+    },
+    {
+      id: "srv-w-2",
+      name: "L'Oréal Professionnel Global Hair Color",
+      category: "hair-care",
+      durationMinutes: 90,
+      price: 2499,
+      originalPrice: 3200,
+      description: "Ammonia-free rich pigment formula with high shine, 100% grey coverage, deep bond protection.",
+      image: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=600&q=80",
+      popular: true,
+      active: true
+    },
+    {
+      id: "srv-w-3",
+      name: "Sun-Kissed Balayage & Ombre Highlights",
+      category: "hair-care",
+      durationMinutes: 120,
+      price: 3799,
+      originalPrice: 4800,
+      description: "Hand-painted seamless highlights tailored to skin tone, gloss toner, gloss lock treatment included.",
+      image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=600&q=80",
+      popular: true,
+      active: true
+    },
+    {
+      id: "srv-w-4",
+      name: "Keratin Smooth Protein Therapy",
+      category: "hair-care",
+      durationMinutes: 150,
+      price: 3499,
+      originalPrice: 4500,
+      description: "Eliminates frizz, repairs damaged cuticles, delivers silky, mirror-like straight hair for up to 5 months.",
+      image: "https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=600&q=80",
+      popular: true,
+      active: true
+    },
+    {
+      id: "srv-w-5",
+      name: "Hair Botox & Nanoplastia Ritual",
+      category: "hair-care",
+      durationMinutes: 150,
+      price: 4299,
+      originalPrice: 5500,
+      description: "Deep collagen infusion for over-processed, bleached or frizzy locks. Intense volume control and radiant shine.",
+      image: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=600&q=80",
+      popular: false,
+      active: true
+    },
+    {
+      id: "srv-s-1",
+      name: "Hydra Deep-Aqua Glow Facial",
+      category: "skin-facials",
+      durationMinutes: 60,
+      price: 1899,
+      originalPrice: 2500,
+      description: "Vacuum vortex suction pore cleansing, hyaluronic acid infusion, LED light therapy for glass skin.",
+      image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80",
+      popular: true,
+      active: true
+    },
+    {
+      id: "srv-s-2",
+      name: "O3+ Bridal Radiance D-Tan & Facial",
+      category: "skin-facials",
+      durationMinutes: 75,
+      price: 2399,
+      originalPrice: 2999,
+      description: "Oxygenating treatment for sun damage repair, melanin regulation, skin brightening & instant festive luminosity.",
+      image: "https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=600&q=80",
+      popular: true,
+      active: true
+    },
+    {
+      id: "srv-s-3",
+      name: "Vitamin C Radiance & Anti-Pigment Facial",
+      category: "skin-facials",
+      durationMinutes: 50,
+      price: 1499,
+      originalPrice: 1900,
+      description: "Pure botanical vitamin C antioxidant boost, dark spot reduction, firming peptide mask massage.",
+      image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80",
+      popular: false,
+      active: true
+    },
+    {
+      id: "srv-b-1",
+      name: "HD Bridal Makeover & Hair Artistry",
+      category: "bridal-groom",
+      durationMinutes: 180,
+      price: 7999,
+      originalPrice: 10000,
+      description: "High-definition camera ready base, luxury lash extensions, intricate bridal hairstyle, saree/lehenga draping.",
+      image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=600&q=80",
+      popular: true,
+      active: true
+    },
+    {
+      id: "srv-b-2",
+      name: "Airbrush Grand Bridal Transformation",
+      category: "bridal-groom",
+      durationMinutes: 210,
+      price: 11999,
+      originalPrice: 15000,
+      description: "Waterproof, 24-hour sweat resistant silicon airbrush makeup, couture hair updo, jewelry setting & trial touch-up.",
+      image: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=600&q=80",
+      popular: true,
+      active: true
+    },
+    {
+      id: "srv-b-3",
+      name: "Royal Groom Grand Wedding Package",
+      category: "bridal-groom",
+      durationMinutes: 120,
+      price: 3299,
+      originalPrice: 4200,
+      description: "Bespoke haircut, beard sculpting, de-tan glow facial, manicure, hair styling & grooming touch-up on wedding day.",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80",
+      popular: false,
+      active: true
+    },
+    {
+      id: "srv-p-1",
+      name: "Crystal Spa Pedicure & Foot Reflexology",
+      category: "spa-nails",
+      durationMinutes: 50,
+      price: 799,
+      originalPrice: 999,
+      description: "Sea salt bubble soak, callus smoothing, dead skin scrub, hydration mask, hot stone reflexology foot rub.",
+      image: "https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?auto=format&fit=crop&w=600&q=80",
+      popular: true,
+      active: true
+    },
+    {
+      id: "srv-p-2",
+      name: "Gel Extensions & Chrome Nail Art",
+      category: "spa-nails",
+      durationMinutes: 90,
+      price: 1499,
+      originalPrice: 1999,
+      description: "Custom tip shaping, durable gel overlay, mirror chrome or glitter nail art on all 10 fingers.",
+      image: "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=600&q=80",
+      popular: true,
+      active: true
+    }
+  ];
+
+  const DEFAULT_STYLISTS = [
+    {
+      id: "sty-1",
+      name: "Kiran Varma",
+      role: "Senior Art Director & L'Oréal Certified Colorist",
+      specialization: "Creative Balayage, Precision Fades & Hair Botox",
+      experience: "9+ Years Experience",
+      photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      rating: 4.9,
+      active: true
+    },
+    {
+      id: "sty-2",
+      name: "Ananya Sharma",
+      role: "Lead Bridal Aesthetician & Makeup Artist",
+      specialization: "HD Bridal Makeovers, Airbrush & Skin Radiance",
+      experience: "7+ Years Experience",
+      photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
+      rating: 4.95,
+      active: true
+    },
+    {
+      id: "sty-3",
+      name: "Rahul Naidu",
+      role: "Master Barber & Beard Stylist",
+      specialization: "Fade Art, Beard Sculpting & Scalp Treatments",
+      experience: "6+ Years Experience",
+      photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+      rating: 4.85,
+      active: true
+    },
+    {
+      id: "sty-4",
+      name: "Pooja Reddy",
+      role: "Nail Artist & Skin Specialist",
+      specialization: "HydraFacials, Gel Extensions & Nail Aesthetics",
+      experience: "5+ Years Experience",
+      photo: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
+      rating: 4.8,
+      active: true
+    }
+  ];
+
+  // State variables with immediate default values
+  let allServices = [...DEFAULT_SERVICES];
+  let allStylists = [...DEFAULT_STYLISTS];
   let selectedCategory = 'all';
   let searchQuery = '';
 
@@ -125,19 +376,25 @@ document.addEventListener('DOMContentLoaded', () => {
   async function initApp() {
     setupMobileMenu();
     setupDateConstraints();
-    init3DEffects();
-    initScrollTransmission();
-    await syncClientBookings();
-    await Promise.all([
-      loadServices(),
-      loadStylists(),
-      loadOffers(),
-      loadGallery(),
-      loadReviews()
-    ]);
+    setupWizardStepNavigation();
+
+    // 1. Immediately render booking wizard and components for instant 0ms visibility
     renderBookingServicesList();
     renderBookingStylists();
     fetchTimeSlots();
+    switchStep(1);
+
+    // 2. Initialize visual enhancements safely
+    try { init3DEffects(); } catch (e) { console.warn('3D effects:', e); }
+    try { initScrollTransmission(); } catch (e) { console.warn('Scroll transmission:', e); }
+
+    // 3. Background sync and live data fetching
+    syncClientBookings().catch(e => console.warn('Sync bookings:', e));
+    loadServices().catch(e => console.warn('Load services:', e));
+    loadStylists().catch(e => console.warn('Load stylists:', e));
+    loadOffers().catch(e => console.warn('Load offers:', e));
+    loadGallery().catch(e => console.warn('Load gallery:', e));
+    loadReviews().catch(e => console.warn('Load reviews:', e));
   }
 
   // Mobile menu toggle
@@ -175,12 +432,15 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const res = await fetch('/api/services');
       const data = await res.json();
-      if (data.success) {
+      if (data.success && Array.isArray(data.data) && data.data.length > 0) {
         allServices = data.data;
         renderServicesGrid();
+        renderBookingServicesList();
       }
     } catch (err) {
-      console.error('Error fetching services:', err);
+      console.warn('Backend services API offline or unreachable, using default catalog:', err);
+      renderServicesGrid();
+      renderBookingServicesList();
     }
   }
 
@@ -378,12 +638,15 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const res = await fetch('/api/stylists');
       const data = await res.json();
-      if (data.success) {
+      if (data.success && Array.isArray(data.data) && data.data.length > 0) {
         allStylists = data.data;
         renderStylistsSection();
+        renderBookingStylists();
       }
     } catch (err) {
-      console.error('Error loading stylists:', err);
+      console.warn('Backend stylists API offline or unreachable, using default roster:', err);
+      renderStylistsSection();
+      renderBookingStylists();
     }
   }
 
@@ -495,13 +758,22 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const res = await fetch(`/api/slots?date=${bookingState.selectedDate}&stylistId=${bookingState.selectedStylistId}`);
       const data = await res.json();
-      if (data.success) {
+      if (data.success && Array.isArray(data.slots) && data.slots.length > 0) {
         renderTimeSlots(data.slots);
+        return;
       }
     } catch (err) {
-      console.error('Error fetching slots:', err);
-      wizardTimeSlotsGrid.innerHTML = '<div style="color: var(--danger); font-size: 0.85rem;">Failed to load time slots. Please try again.</div>';
+      console.warn('Backend slots API offline or unreachable, generating standard slots:', err);
     }
+
+    const defaultTimes = [
+      '08:00 AM', '08:30 AM', '09:00 AM', '09:30 AM', '10:00 AM', '10:30 AM',
+      '11:00 AM', '11:30 AM', '12:00 PM', '12:30 PM', '01:00 PM', '01:30 PM',
+      '02:00 PM', '02:30 PM', '03:00 PM', '03:30 PM', '04:00 PM', '04:30 PM',
+      '05:00 PM', '05:30 PM', '06:00 PM', '06:30 PM', '07:00 PM', '07:30 PM',
+      '08:00 PM', '08:30 PM'
+    ];
+    renderTimeSlots(defaultTimes.map(time => ({ time, available: true })));
   }
 
   function renderTimeSlots(slots) {
@@ -543,22 +815,27 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentStepIdx = 1;
 
   function switchStep(stepNumber) {
-    const isForward = stepNumber >= currentStepIdx;
-    currentStepIdx = stepNumber;
+    const isSuccess = stepNumber === 'Success';
+    const numericStep = isSuccess ? 4 : (parseInt(stepNumber, 10) || 1);
+    const isForward = isSuccess || numericStep >= currentStepIdx;
+    currentStepIdx = numericStep;
 
     // Update liquid progress track fill
     const progressFill = document.getElementById('wizardProgressFill');
     if (progressFill) {
-      const pct = ((stepNumber - 1) / 3) * 100;
-      progressFill.style.width = `${pct}%`;
+      const pct = isSuccess ? 100 : ((numericStep - 1) / 3) * 100;
+      progressFill.style.width = `${Math.min(100, Math.max(0, pct))}%`;
     }
 
     document.querySelectorAll('.wizard-step-node').forEach(node => {
-      const step = parseInt(node.getAttribute('data-step'));
-      if (step === stepNumber) {
+      const step = parseInt(node.getAttribute('data-step'), 10);
+      if (isSuccess) {
+        node.classList.remove('active');
+        node.classList.add('completed');
+      } else if (step === numericStep) {
         node.classList.add('active');
         node.classList.remove('completed');
-      } else if (step < stepNumber) {
+      } else if (step < numericStep) {
         node.classList.remove('active');
         node.classList.add('completed');
       } else {
@@ -575,6 +852,28 @@ document.addEventListener('DOMContentLoaded', () => {
       activeContent.classList.add('active');
       activeContent.classList.add(isForward ? 'trans-in-forward' : 'trans-in-backward');
     }
+  }
+
+  function setupWizardStepNavigation() {
+    document.querySelectorAll('.wizard-step-node').forEach(node => {
+      node.addEventListener('click', () => {
+        const targetStep = parseInt(node.getAttribute('data-step'), 10);
+        if (!targetStep || targetStep === currentStepIdx) return;
+
+        if (targetStep > 1 && bookingState.selectedServices.length === 0) {
+          showToast('Please select at least one service before proceeding.', 'error');
+          return;
+        }
+
+        if (targetStep === 4 && !bookingState.selectedTimeSlot) {
+          showToast('Please pick an available time slot before continuing.', 'error');
+          switchStep(3);
+          return;
+        }
+
+        switchStep(targetStep);
+      });
+    });
   }
 
   // Step 1 -> 2

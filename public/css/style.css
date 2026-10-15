@@ -1423,6 +1423,14 @@ button, input, select, textarea {
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s ease;
+}
+
+.wizard-step-node:hover .step-circle {
+  border-color: var(--gold-primary);
+  transform: scale(1.06);
 }
 
 .step-circle {
@@ -2697,9 +2705,11 @@ button, input, select, textarea {
   .hero-3d-canvas {
     display: none !important;
   }
-  [data-reveal-3d] {
+  [data-reveal-3d],
+  .wizard-step-content.active {
     opacity: 1 !important;
     transform: none !important;
+    animation: none !important;
   }
 }
 
@@ -2812,7 +2822,8 @@ button, input, select, textarea {
 }
 
 .wizard-step-content.active {
-  display: block;
+  display: block !important;
+  opacity: 1 !important;
 }
 
 .wizard-step-content.trans-in-forward {

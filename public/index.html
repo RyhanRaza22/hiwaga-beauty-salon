@@ -9,7 +9,7 @@
 
   <!-- Favicon & Stylesheet -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪷</text></svg>">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=2.5">
   
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -570,14 +570,183 @@
         </div>
 
         <!-- STEP 1: SELECT SERVICES -->
-        <div class="wizard-step-content active" id="wizardStep1">
+        <div class="wizard-step-content active" id="wizardStep1" style="display: block !important; opacity: 1 !important;">
           <h3 class="wizard-step-heading">1. Choose One or More Services</h3>
           <p class="wizard-step-sub">
             Click any service to add it to your appointment session.
           </p>
 
           <div class="booking-services-list" id="wizardServicesList">
-            <!-- Injected via JavaScript -->
+            <div class="booking-service-item" data-id="srv-m-1">
+              <div class="bs-info">
+                <div class="bs-checkbox"></div>
+                <div class="bs-details">
+                  <h4>Signature Men's Haircut & Styling</h4>
+                  <span><i class="far fa-clock"></i> 30 mins</span>
+                </div>
+              </div>
+              <div class="bs-price">₹299</div>
+            </div>
+            <div class="booking-service-item" data-id="srv-m-2">
+              <div class="bs-info">
+                <div class="bs-checkbox"></div>
+                <div class="bs-details">
+                  <h4>Royal Beard Sculpting & Razor Finish</h4>
+                  <span><i class="far fa-clock"></i> 25 mins</span>
+                </div>
+              </div>
+              <div class="bs-price">₹199</div>
+            </div>
+            <div class="booking-service-item" data-id="srv-m-3">
+              <div class="bs-info">
+                <div class="bs-checkbox"></div>
+                <div class="bs-details">
+                  <h4>Men's Grand Executive Combo</h4>
+                  <span><i class="far fa-clock"></i> 60 mins</span>
+                </div>
+              </div>
+              <div class="bs-price">₹549</div>
+            </div>
+            <div class="booking-service-item" data-id="srv-m-4">
+              <div class="bs-info">
+                <div class="bs-checkbox"></div>
+                <div class="bs-details">
+                  <h4>Men's Charcoal Detox Facial</h4>
+                  <span><i class="far fa-clock"></i> 45 mins</span>
+                </div>
+              </div>
+              <div class="bs-price">₹999</div>
+            </div>
+            <div class="booking-service-item" data-id="srv-w-1">
+              <div class="bs-info">
+                <div class="bs-checkbox"></div>
+                <div class="bs-details">
+                  <h4>Designer Haircut, Wash & Blowdry</h4>
+                  <span><i class="far fa-clock"></i> 45 mins</span>
+                </div>
+              </div>
+              <div class="bs-price">₹699</div>
+            </div>
+            <div class="booking-service-item" data-id="srv-w-2">
+              <div class="bs-info">
+                <div class="bs-checkbox"></div>
+                <div class="bs-details">
+                  <h4>L'Oréal Professionnel Global Hair Color</h4>
+                  <span><i class="far fa-clock"></i> 90 mins</span>
+                </div>
+              </div>
+              <div class="bs-price">₹2499</div>
+            </div>
+            <div class="booking-service-item" data-id="srv-w-3">
+              <div class="bs-info">
+                <div class="bs-checkbox"></div>
+                <div class="bs-details">
+                  <h4>Sun-Kissed Balayage & Ombre Highlights</h4>
+                  <span><i class="far fa-clock"></i> 120 mins</span>
+                </div>
+              </div>
+              <div class="bs-price">₹3799</div>
+            </div>
+            <div class="booking-service-item" data-id="srv-w-4">
+              <div class="bs-info">
+                <div class="bs-checkbox"></div>
+                <div class="bs-details">
+                  <h4>Keratin Smooth Protein Therapy</h4>
+                  <span><i class="far fa-clock"></i> 150 mins</span>
+                </div>
+              </div>
+              <div class="bs-price">₹3499</div>
+            </div>
+            <div class="booking-service-item" data-id="srv-w-5">
+              <div class="bs-info">
+                <div class="bs-checkbox"></div>
+                <div class="bs-details">
+                  <h4>Hair Botox & Nanoplastia Ritual</h4>
+                  <span><i class="far fa-clock"></i> 150 mins</span>
+                </div>
+              </div>
+              <div class="bs-price">₹4299</div>
+            </div>
+            <div class="booking-service-item" data-id="srv-s-1">
+              <div class="bs-info">
+                <div class="bs-checkbox"></div>
+                <div class="bs-details">
+                  <h4>Hydra Deep-Aqua Glow Facial</h4>
+                  <span><i class="far fa-clock"></i> 60 mins</span>
+                </div>
+              </div>
+              <div class="bs-price">₹1899</div>
+            </div>
+            <div class="booking-service-item" data-id="srv-s-2">
+              <div class="bs-info">
+                <div class="bs-checkbox"></div>
+                <div class="bs-details">
+                  <h4>O3+ Bridal Radiance D-Tan & Facial</h4>
+                  <span><i class="far fa-clock"></i> 75 mins</span>
+                </div>
+              </div>
+              <div class="bs-price">₹2399</div>
+            </div>
+            <div class="booking-service-item" data-id="srv-s-3">
+              <div class="bs-info">
+                <div class="bs-checkbox"></div>
+                <div class="bs-details">
+                  <h4>Vitamin C Radiance & Anti-Pigment Facial</h4>
+                  <span><i class="far fa-clock"></i> 50 mins</span>
+                </div>
+              </div>
+              <div class="bs-price">₹1499</div>
+            </div>
+            <div class="booking-service-item" data-id="srv-b-1">
+              <div class="bs-info">
+                <div class="bs-checkbox"></div>
+                <div class="bs-details">
+                  <h4>HD Bridal Makeover & Hair Artistry</h4>
+                  <span><i class="far fa-clock"></i> 180 mins</span>
+                </div>
+              </div>
+              <div class="bs-price">₹7999</div>
+            </div>
+            <div class="booking-service-item" data-id="srv-b-2">
+              <div class="bs-info">
+                <div class="bs-checkbox"></div>
+                <div class="bs-details">
+                  <h4>Airbrush Grand Bridal Transformation</h4>
+                  <span><i class="far fa-clock"></i> 210 mins</span>
+                </div>
+              </div>
+              <div class="bs-price">₹11999</div>
+            </div>
+            <div class="booking-service-item" data-id="srv-b-3">
+              <div class="bs-info">
+                <div class="bs-checkbox"></div>
+                <div class="bs-details">
+                  <h4>Royal Groom Grand Wedding Package</h4>
+                  <span><i class="far fa-clock"></i> 120 mins</span>
+                </div>
+              </div>
+              <div class="bs-price">₹3299</div>
+            </div>
+            <div class="booking-service-item" data-id="srv-p-1">
+              <div class="bs-info">
+                <div class="bs-checkbox"></div>
+                <div class="bs-details">
+                  <h4>Crystal Spa Pedicure & Foot Reflexology</h4>
+                  <span><i class="far fa-clock"></i> 50 mins</span>
+                </div>
+              </div>
+              <div class="bs-price">₹799</div>
+            </div>
+            <div class="booking-service-item" data-id="srv-p-2">
+              <div class="bs-info">
+                <div class="bs-checkbox"></div>
+                <div class="bs-details">
+                  <h4>Gel Extensions & Chrome Nail Art</h4>
+                  <span><i class="far fa-clock"></i> 90 mins</span>
+                </div>
+              </div>
+              <div class="bs-price">₹1499</div>
+            </div>
           </div>
 
           <div class="booking-summary-bar">
@@ -1009,6 +1178,6 @@
   <div class="toast-container" id="toastContainer"></div>
 
   <!-- Application Script -->
-  <script src="js/app.js"></script>
+  <script src="js/app.js?v=2.5"></script>
 </body>
 </html>
