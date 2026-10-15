@@ -15,6 +15,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+  <!-- Real-Time Luxury Scroll Transmission Progress Bar -->
+  <div class="scroll-transmission-bar" id="scrollTransmissionBar"></div>
 
   <!-- ==========================================
        STICKY NAVBAR (CANVA LICERIA & CO. HEADER)
@@ -544,8 +546,11 @@
       </div>
 
       <div class="booking-wizard-card">
-        <!-- Progress Steps -->
+        <!-- Progress Steps with Liquid Transmission Line -->
         <div class="wizard-steps-header">
+          <div class="wizard-progress-track">
+            <div class="wizard-progress-fill" id="wizardProgressFill"></div>
+          </div>
           <div class="wizard-step-node active" data-step="1">
             <div class="step-circle">1</div>
             <span class="step-title">Select Services</span>

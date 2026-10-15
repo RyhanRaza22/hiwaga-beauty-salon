@@ -126,6 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupMobileMenu();
     setupDateConstraints();
     init3DEffects();
+    initScrollTransmission();
     await syncClientBookings();
     await Promise.all([
       loadServices(),
@@ -211,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    servicesGrid.innerHTML = filtered.map(service => {
+    servicesGrid.innerHTML = filtered.map((service, idx) => {
       const categoryNames = {
         'men': "Men's Grooming",
         'women': "Women's Styling",
@@ -235,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const isSelectedInBooking = bookingState.selectedServices.some(s => s.id === service.id);
 
       return `
-        <div class="service-card" data-tilt-3d="card">
+        <div class="service-card" data-tilt-3d="card" style="--card-idx: ${idx};">
           <div class="card-3d-glare"></div>
           <div class="service-card-image">
             <img src="${service.image || 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80'}" alt="${service.name}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80';">
@@ -538,12 +539,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Step switching helper
+  // Step switching helper with 3D Directional Transmission
+  let currentStepIdx = 1;
+
   function switchStep(stepNumber) {
+    const isForward = stepNumber >= currentStepIdx;
+    currentStepIdx = stepNumber;
+
+    // Update liquid progress track fill
+    const progressFill = document.getElementById('wizardProgressFill');
+    if (progressFill) {
+      const pct = ((stepNumber - 1) / 3) * 100;
+      progressFill.style.width = `${pct}%`;
+    }
+
     document.querySelectorAll('.wizard-step-node').forEach(node => {
       const step = parseInt(node.getAttribute('data-step'));
       if (step === stepNumber) {
         node.classList.add('active');
+        node.classList.remove('completed');
       } else if (step < stepNumber) {
         node.classList.remove('active');
         node.classList.add('completed');
@@ -553,12 +567,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.querySelectorAll('.wizard-step-content').forEach(content => {
-      content.classList.remove('active');
+      content.classList.remove('active', 'trans-in-forward', 'trans-in-backward');
     });
 
     const activeContent = document.getElementById(`wizardStep${stepNumber}`);
     if (activeContent) {
       activeContent.classList.add('active');
+      activeContent.classList.add(isForward ? 'trans-in-forward' : 'trans-in-backward');
     }
   }
 
@@ -1278,5 +1293,53 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     revealTargets.forEach(el => observer.observe(el));
+  }
+
+  // 4. Scroll-Driven Transmission Progress & Active Nav Tracker
+  function initScrollTransmission() {
+    const bar = document.getElementById('scrollTransmissionBar');
+    const navbar = document.getElementById('navbar');
+    const sections = document.querySelectorAll('.canva-slide[id]');
+    const navItems = document.querySelectorAll('.nav-link[href^="#"]');
+
+    function onScroll() {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (docHeight > 0 && bar) {
+        const pct = Math.min(100, Math.max(0, (scrollTop / docHeight) * 100));
+        bar.style.width = pct + '%';
+      }
+
+      // Frosted navbar transmission blur & elevation
+      if (navbar) {
+        if (scrollTop > 35) {
+          navbar.classList.add('navbar-scrolled');
+        } else {
+          navbar.classList.remove('navbar-scrolled');
+        }
+      }
+
+      // Active nav link transmission indicator
+      let currentSection = '';
+      sections.forEach(sec => {
+        const top = sec.offsetTop - 140;
+        if (scrollTop >= top) {
+          currentSection = sec.getAttribute('id');
+        }
+      });
+
+      if (currentSection) {
+        navItems.forEach(item => {
+          if (item.getAttribute('href') === `#${currentSection}`) {
+            item.classList.add('active');
+          } else {
+            item.classList.remove('active');
+          }
+        });
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
   }
 });
