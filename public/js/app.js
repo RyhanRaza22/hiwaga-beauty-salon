@@ -811,31 +811,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Step switching helper with 3D Directional Transmission
-  let currentStepIdx = 1;
-
+  // Step switching helper
   function switchStep(stepNumber) {
-    const isSuccess = stepNumber === 'Success';
-    const numericStep = isSuccess ? 4 : (parseInt(stepNumber, 10) || 1);
-    const isForward = isSuccess || numericStep >= currentStepIdx;
-    currentStepIdx = numericStep;
-
-    // Update liquid progress track fill
-    const progressFill = document.getElementById('wizardProgressFill');
-    if (progressFill) {
-      const pct = isSuccess ? 100 : ((numericStep - 1) / 3) * 100;
-      progressFill.style.width = `${Math.min(100, Math.max(0, pct))}%`;
-    }
-
     document.querySelectorAll('.wizard-step-node').forEach(node => {
       const step = parseInt(node.getAttribute('data-step'), 10);
-      if (isSuccess) {
+      if (stepNumber === 'Success') {
         node.classList.remove('active');
         node.classList.add('completed');
-      } else if (step === numericStep) {
+      } else if (step === stepNumber) {
         node.classList.add('active');
         node.classList.remove('completed');
-      } else if (step < numericStep) {
+      } else if (step < stepNumber) {
         node.classList.remove('active');
         node.classList.add('completed');
       } else {
@@ -844,13 +830,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.querySelectorAll('.wizard-step-content').forEach(content => {
-      content.classList.remove('active', 'trans-in-forward', 'trans-in-backward');
+      content.classList.remove('active');
     });
 
     const activeContent = document.getElementById(`wizardStep${stepNumber}`);
     if (activeContent) {
       activeContent.classList.add('active');
-      activeContent.classList.add(isForward ? 'trans-in-forward' : 'trans-in-backward');
     }
   }
 
@@ -858,7 +843,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.wizard-step-node').forEach(node => {
       node.addEventListener('click', () => {
         const targetStep = parseInt(node.getAttribute('data-step'), 10);
-        if (!targetStep || targetStep === currentStepIdx) return;
+        if (!targetStep) return;
 
         if (targetStep > 1 && bookingState.selectedServices.length === 0) {
           showToast('Please select at least one service before proceeding.', 'error');
