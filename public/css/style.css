@@ -2360,3 +2360,345 @@ button, input, select, textarea {
     padding: 36px 24px;
   }
 }
+
+/* ===================================================================
+   3D IMMERSIVE EFFECTS & MODERN DEPTH SYSTEM
+   =================================================================== */
+
+/* Hero 3D Canvas */
+.hero-3d-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Hero 3D Wrapper & Badges */
+.hero-visual {
+  perspective: 1200px;
+}
+
+.hero-3d-wrapper {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+
+.hero-3d-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.45), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 5;
+  mix-blend-mode: overlay;
+}
+
+.hero-3d-wrapper:hover .hero-3d-glare {
+  opacity: 1;
+}
+
+/* Floating 3D Badges in Hero */
+.hero-3d-badge {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--border-color);
+  padding: 12px 18px;
+  border-radius: 6px;
+  box-shadow: 0 16px 36px rgba(194, 74, 114, 0.18), 0 4px 10px rgba(35, 22, 30, 0.06);
+  z-index: 10;
+  pointer-events: none;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.hero-float-badge-top {
+  top: -18px;
+  left: -32px;
+  transform: translateZ(55px);
+  animation: float3dBadgeTop 4.2s ease-in-out infinite alternate;
+}
+
+.hero-float-badge-bottom {
+  bottom: -22px;
+  right: -28px;
+  transform: translateZ(65px);
+  animation: float3dBadgeBottom 4.8s ease-in-out infinite alternate;
+}
+
+.hero-3d-badge strong {
+  display: block;
+  font-size: 0.86rem;
+  color: var(--text-main);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.hero-3d-badge small {
+  font-size: 0.72rem;
+  color: var(--gold-primary);
+  letter-spacing: 0.5px;
+}
+
+.badge-emblem {
+  font-size: 1.4rem;
+  filter: drop-shadow(0 2px 4px rgba(194, 74, 114, 0.3));
+}
+
+.badge-star-rating {
+  font-size: 0.82rem;
+  font-weight: 700;
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding: 4px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+}
+
+@keyframes float3dBadgeTop {
+  0% { transform: translateY(0px) translateZ(55px) rotate(-1deg); }
+  100% { transform: translateY(-12px) translateZ(65px) rotate(1deg); }
+}
+
+@keyframes float3dBadgeBottom {
+  0% { transform: translateY(0px) translateZ(65px) rotate(1deg); }
+  100% { transform: translateY(-10px) translateZ(75px) rotate(-1.5deg); }
+}
+
+/* 3D Interactive Cards Tilt & Specular Glare */
+.service-card,
+.offer-card,
+.stylist-card,
+.gallery-item {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  will-change: transform;
+  position: relative;
+  transition: transform 0.16s ease-out, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+/* 3D Depth Layer Pop-outs */
+.service-card .service-cat-badge,
+.service-card .service-popular-badge {
+  transform: translateZ(32px);
+  transition: transform 0.2s ease;
+}
+
+.service-card .bs-icon-box {
+  transform: translateZ(36px);
+  box-shadow: 0 8px 16px rgba(194, 74, 114, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.service-card .service-card-title,
+.offer-card .offer-title {
+  transform: translateZ(24px);
+}
+
+.service-card .btn-quick-book,
+.offer-card .btn-apply-offer {
+  transform: translateZ(28px);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.service-card .service-price-block,
+.offer-card .offer-coupon-box {
+  transform: translateZ(20px);
+}
+
+/* Dynamic 3D Glare Sheen Overlay */
+.card-3d-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 6;
+  background: radial-gradient(circle 240px at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 255, 255, 0.45), transparent 75%);
+  transition: opacity 0.3s ease;
+  mix-blend-mode: overlay;
+}
+
+.service-card:hover .card-3d-glare,
+.offer-card:hover .card-3d-glare,
+.stylist-card:hover .card-3d-glare,
+.gallery-item:hover .card-3d-glare {
+  opacity: 1;
+}
+
+/* Realistic 3D Phone Mockup (Contact Section) */
+.canva-contact-showcase {
+  perspective: 1400px;
+}
+
+.canva-phone-mockup {
+  transform-style: preserve-3d;
+  will-change: transform;
+  transform: perspective(1200px) rotateY(-8deg) rotateX(4deg);
+  transition: transform 0.2s ease-out, box-shadow 0.3s ease;
+  box-shadow: -20px 24px 48px rgba(35, 22, 30, 0.22), 0 0 0 1px rgba(194, 74, 114, 0.25);
+  animation: phone3dFloatIdle 5s ease-in-out infinite alternate;
+}
+
+.canva-phone-mockup:hover {
+  animation-play-state: paused;
+}
+
+@keyframes phone3dFloatIdle {
+  0% {
+    transform: perspective(1200px) rotateY(-9deg) rotateX(4deg) translateY(0);
+    box-shadow: -20px 24px 48px rgba(35, 22, 30, 0.22);
+  }
+  100% {
+    transform: perspective(1200px) rotateY(-5deg) rotateX(8deg) translateY(-14px);
+    box-shadow: -24px 34px 58px rgba(194, 74, 114, 0.25);
+  }
+}
+
+.phone-screen-glare {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.08) 35%, transparent 60%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.phone-3d-bubble {
+  position: absolute;
+  bottom: 24px;
+  left: 14px;
+  right: 14px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(194, 74, 114, 0.28);
+  border-radius: 14px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.22), 0 4px 10px rgba(194, 74, 114, 0.15);
+  transform: translateZ(52px);
+  z-index: 6;
+  pointer-events: none;
+  animation: bubble3dPulse 3.5s ease-in-out infinite alternate;
+}
+
+.phone-3d-bubble .bubble-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35);
+}
+
+.phone-3d-bubble .bubble-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.bubble-sender {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.bubble-msg {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+@keyframes bubble3dPulse {
+  0% { transform: translateZ(50px) translateY(0); }
+  100% { transform: translateZ(62px) translateY(-4px); }
+}
+
+/* 3D Elevated Floating Action Buttons */
+.floating-actions {
+  perspective: 600px;
+}
+
+.float-btn {
+  transform-style: preserve-3d;
+  box-shadow: 0 14px 28px rgba(35, 22, 30, 0.22), 0 4px 10px rgba(194, 74, 114, 0.25), inset 0 2px 3px rgba(255, 255, 255, 0.45);
+  transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.24s ease;
+  animation: floatBtn3d 3.5s ease-in-out infinite alternate;
+}
+
+.float-btn:nth-child(2) {
+  animation-delay: -1.75s;
+}
+
+.float-btn:hover {
+  transform: translateY(-8px) translateZ(24px) scale(1.12) !important;
+  box-shadow: 0 20px 40px rgba(194, 74, 114, 0.38), 0 8px 16px rgba(35, 22, 30, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.6);
+}
+
+@keyframes floatBtn3d {
+  0% { transform: translateY(0px) rotate(0deg); }
+  100% { transform: translateY(-6px) rotate(2deg); }
+}
+
+/* 3D Tactile Buttons */
+.btn {
+  transform-style: preserve-3d;
+  transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.18s ease, background 0.2s ease;
+}
+
+.btn:active {
+  transform: translateY(2px) translateZ(-6px) scale(0.98);
+}
+
+/* 3D Scroll Perspective Reveal */
+[data-reveal-3d] {
+  opacity: 0;
+  transform: perspective(1000px) rotateX(12deg) translateY(36px) scale(0.97);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+[data-reveal-3d].revealed-3d {
+  opacity: 1;
+  transform: perspective(1000px) rotateX(0deg) translateY(0) scale(1);
+}
+
+/* Respect Accessibility Preference */
+@media (prefers-reduced-motion: reduce) {
+  .hero-3d-wrapper,
+  .canva-phone-mockup,
+  .service-card,
+  .offer-card,
+  .stylist-card,
+  .gallery-item,
+  .float-btn,
+  .hero-3d-badge {
+    animation: none !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .hero-3d-canvas {
+    display: none !important;
+  }
+  [data-reveal-3d] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

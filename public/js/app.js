@@ -125,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
   async function initApp() {
     setupMobileMenu();
     setupDateConstraints();
+    init3DEffects();
     await syncClientBookings();
     await Promise.all([
       loadServices(),
@@ -234,7 +235,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const isSelectedInBooking = bookingState.selectedServices.some(s => s.id === service.id);
 
       return `
-        <div class="service-card">
+        <div class="service-card" data-tilt-3d="card">
+          <div class="card-3d-glare"></div>
           <div class="service-card-image">
             <img src="${service.image || 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80'}" alt="${service.name}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=600&q=80';">
             <span class="slide8-cat-pill service-cat-badge">${catLabel}</span>
@@ -393,7 +395,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const rightStylists = allStylists.slice(mid);
 
     const renderCard = (st) => `
-      <div class="stylist-card">
+      <div class="stylist-card" data-tilt-3d="card">
+        <div class="card-3d-glare"></div>
         <div class="stylist-img-wrap">
           <img src="${st.photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80'}" alt="${st.name}" loading="lazy">
         </div>
@@ -744,7 +747,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const grid = document.getElementById('offersGrid');
         if (!grid) return;
         grid.innerHTML = data.data.map(off => `
-          <div class="offer-card">
+          <div class="offer-card" data-tilt-3d="card">
+            <div class="card-3d-glare"></div>
             ${off.badge ? `<span class="offer-ribbon">${off.badge}</span>` : ''}
             <div class="offer-badge-percent">${off.discountPercent}% OFF</div>
             <h3 class="offer-title">${off.title}</h3>
@@ -782,7 +786,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const grid = document.getElementById('galleryGrid');
         if (!grid) return;
         grid.innerHTML = data.data.map(item => `
-          <div class="gallery-item" onclick="window.open('${item.image}', '_blank')">
+          <div class="gallery-item" data-tilt-3d="card" onclick="window.open('${item.image}', '_blank')">
+            <div class="card-3d-glare"></div>
             <img src="${item.image}" alt="${item.title}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80';">
             <div class="gallery-overlay">
               <h4>${item.title}</h4>
@@ -968,5 +973,310 @@ document.addEventListener('DOMContentLoaded', () => {
       toast.style.transition = 'all 0.3s ease';
       setTimeout(() => toast.remove(), 300);
     }, 4000);
+  }
+
+  // ==========================================
+  // 3D IMMERSIVE EFFECTS SYSTEM
+  // ==========================================
+  function init3DEffects() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return;
+    }
+
+    init3DHeroCanvas();
+    init3DCardTilt();
+    init3DScrollReveal();
+  }
+
+  // 1. 3D Ambient Particle Simulation in Hero
+  function init3DHeroCanvas() {
+    const canvas = document.getElementById('hero3dCanvas');
+    const hero = document.getElementById('home');
+    if (!canvas || !hero) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let width = 0;
+    let height = 0;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let isVisible = true;
+    let animationId = null;
+
+    function resize() {
+      width = hero.clientWidth;
+      height = hero.clientHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = width + 'px';
+      canvas.style.height = height + 'px';
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+    }
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+
+    // Petal & sparkle models in 3D perspective space
+    const particles = [];
+    const numPetals = 20;
+    const numSparkles = 16;
+
+    const petalColors = [
+      'rgba(222, 109, 148, 0.45)',
+      'rgba(194, 74, 114, 0.48)',
+      'rgba(243, 232, 236, 0.65)',
+      'rgba(142, 35, 74, 0.32)'
+    ];
+
+    for (let i = 0; i < numPetals; i++) {
+      particles.push({
+        type: 'petal',
+        x: Math.random() * width,
+        y: Math.random() * height,
+        z: Math.random() * 240 + 40,
+        size: Math.random() * 10 + 8,
+        color: petalColors[Math.floor(Math.random() * petalColors.length)],
+        rotX: Math.random() * Math.PI * 2,
+        rotY: Math.random() * Math.PI * 2,
+        rotZ: Math.random() * Math.PI * 2,
+        rotSpeedX: (Math.random() - 0.5) * 0.02,
+        rotSpeedY: (Math.random() - 0.5) * 0.025,
+        rotSpeedZ: (Math.random() - 0.5) * 0.015,
+        speedY: Math.random() * 0.75 + 0.45,
+        swaySpeed: Math.random() * 0.018 + 0.008,
+        swayOffset: Math.random() * Math.PI * 2
+      });
+    }
+
+    for (let i = 0; i < numSparkles; i++) {
+      particles.push({
+        type: 'sparkle',
+        x: Math.random() * width,
+        y: Math.random() * height,
+        z: Math.random() * 280 + 30,
+        radius: Math.random() * 2 + 1,
+        alpha: Math.random() * 0.7 + 0.3,
+        pulseSpeed: Math.random() * 0.03 + 0.015,
+        speedY: -(Math.random() * 0.35 + 0.15),
+        speedX: (Math.random() - 0.5) * 0.25
+      });
+    }
+
+    let mouseDriftX = 0;
+
+    hero.addEventListener('mousemove', (e) => {
+      const rect = hero.getBoundingClientRect();
+      const mouseX = (e.clientX - rect.left) / rect.width - 0.5;
+      mouseDriftX = mouseX * 0.9;
+    }, { passive: true });
+
+    hero.addEventListener('mouseleave', () => {
+      mouseDriftX = 0;
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      isVisible = entries[0].isIntersecting;
+      if (isVisible && !animationId) {
+        lastTime = performance.now();
+        render(lastTime);
+      }
+    }, { threshold: 0.05 });
+    observer.observe(hero);
+
+    let lastTime = performance.now();
+
+    function drawPetal(p) {
+      const fov = 340;
+      const scale = fov / (fov + p.z);
+      const projX = p.x;
+      const projY = p.y;
+      const projSize = p.size * scale;
+
+      ctx.save();
+      ctx.translate(projX, projY);
+      ctx.rotate(p.rotZ);
+      const flipScaleX = Math.cos(p.rotX);
+      const flipScaleY = Math.cos(p.rotY);
+      ctx.scale(flipScaleX, flipScaleY);
+
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.moveTo(0, -projSize);
+      ctx.bezierCurveTo(projSize * 0.8, -projSize * 0.5, projSize * 0.8, projSize * 0.5, 0, projSize);
+      ctx.bezierCurveTo(-projSize * 0.8, projSize * 0.5, -projSize * 0.8, -projSize * 0.5, 0, -projSize);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawSparkle(s) {
+      const fov = 340;
+      const scale = fov / (fov + s.z);
+      const projX = s.x;
+      const projY = s.y;
+      const projR = s.radius * scale;
+
+      ctx.save();
+      ctx.translate(projX, projY);
+      ctx.fillStyle = `rgba(222, 109, 148, ${Math.max(0, s.alpha)})`;
+      ctx.beginPath();
+      ctx.arc(0, 0, projR, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = `rgba(247, 215, 148, ${Math.max(0, s.alpha * 0.45)})`;
+      ctx.beginPath();
+      ctx.arc(0, 0, projR * 2.2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function render(currentTime) {
+      if (!isVisible) {
+        animationId = null;
+        return;
+      }
+
+      ctx.clearRect(0, 0, width, height);
+
+      particles.forEach(p => {
+        if (p.type === 'petal') {
+          p.rotX += p.rotSpeedX;
+          p.rotY += p.rotSpeedY;
+          p.rotZ += p.rotSpeedZ;
+          p.y += p.speedY;
+          p.x += Math.sin(p.y * p.swaySpeed + p.swayOffset) * 0.55 + mouseDriftX;
+
+          if (p.y > height + 30) {
+            p.y = -25;
+            p.x = Math.random() * width;
+          }
+          if (p.x < -30) p.x = width + 20;
+          if (p.x > width + 30) p.x = -20;
+
+          drawPetal(p);
+        } else if (p.type === 'sparkle') {
+          p.y += p.speedY;
+          p.x += p.speedX;
+          p.alpha += Math.sin(currentTime * p.pulseSpeed) * 0.012;
+
+          if (p.y < -20) {
+            p.y = height + 20;
+            p.x = Math.random() * width;
+          }
+          drawSparkle(p);
+        }
+      });
+
+      animationId = requestAnimationFrame(render);
+    }
+
+    render(performance.now());
+  }
+
+  // 2. Hardware-accelerated 3D Card & Mockup Perspective Tilt
+  function init3DCardTilt() {
+    let currentTarget = null;
+    let targetType = 'card';
+    let rect = null;
+    let rafId = null;
+    let targetRotX = 0;
+    let targetRotY = 0;
+    let currentRotX = 0;
+    let currentRotY = 0;
+
+    function updateTransform() {
+      if (!currentTarget) return;
+
+      currentRotX += (targetRotX - currentRotX) * 0.16;
+      currentRotY += (targetRotY - currentRotY) * 0.16;
+
+      const persp = targetType === 'phone' ? 1400 : targetType === 'hero' ? 1200 : 1000;
+      const scale = targetType === 'phone' ? 1.03 : targetType === 'hero' ? 1.02 : 1.025;
+
+      if (targetType === 'phone') {
+        currentTarget.style.transform = `perspective(${persp}px) rotateY(${(-8 + currentRotY).toFixed(2)}deg) rotateX(${(4 + currentRotX).toFixed(2)}deg) scale3d(${scale}, ${scale}, ${scale})`;
+      } else {
+        currentTarget.style.transform = `perspective(${persp}px) rotateX(${currentRotX.toFixed(2)}deg) rotateY(${currentRotY.toFixed(2)}deg) scale3d(${scale}, ${scale}, ${scale})`;
+      }
+
+      if (Math.abs(targetRotX - currentRotX) > 0.05 || Math.abs(targetRotY - currentRotY) > 0.05) {
+        rafId = requestAnimationFrame(updateTransform);
+      } else {
+        rafId = null;
+      }
+    }
+
+    document.addEventListener('pointermove', (e) => {
+      const el = e.target.closest('[data-tilt-3d], .service-card, .offer-card, .stylist-card, .gallery-item, .canva-phone-mockup');
+      if (!el) {
+        if (currentTarget) resetTilt(currentTarget, targetType);
+        currentTarget = null;
+        return;
+      }
+
+      if (currentTarget !== el) {
+        if (currentTarget) resetTilt(currentTarget, targetType);
+        currentTarget = el;
+        targetType = el.getAttribute('data-tilt-3d') || (el.classList.contains('canva-phone-mockup') ? 'phone' : 'card');
+        rect = el.getBoundingClientRect();
+      }
+
+      if (!rect) rect = el.getBoundingClientRect();
+
+      const dx = (e.clientX - rect.left) / rect.width - 0.5;
+      const dy = (e.clientY - rect.top) / rect.height - 0.5;
+
+      const maxTilt = targetType === 'phone' ? 16 : targetType === 'hero' ? 9 : 12;
+      targetRotX = -dy * maxTilt;
+      targetRotY = dx * maxTilt;
+
+      el.style.setProperty('--glare-x', `${((dx + 0.5) * 100).toFixed(1)}%`);
+      el.style.setProperty('--glare-y', `${((dy + 0.5) * 100).toFixed(1)}%`);
+
+      if (!rafId) {
+        rafId = requestAnimationFrame(updateTransform);
+      }
+    }, { passive: true });
+
+    function resetTilt(el, type) {
+      targetRotX = 0;
+      targetRotY = 0;
+      if (type === 'phone') {
+        el.style.transform = 'perspective(1200px) rotateY(-8deg) rotateX(4deg)';
+      } else {
+        el.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      }
+    }
+
+    document.addEventListener('pointerleave', () => {
+      if (currentTarget) {
+        resetTilt(currentTarget, targetType);
+        currentTarget = null;
+      }
+    });
+  }
+
+  // 3. 3D Scroll Perspective Reveal Observer
+  function init3DScrollReveal() {
+    if (!('IntersectionObserver' in window)) return;
+
+    const revealTargets = document.querySelectorAll(
+      '.services-section, .offers-section, .stylists-section, .gallery-section, .canva-contact-showcase, .thankyou-grid, .intro-grid, .welcome-grid, .mission-grid'
+    );
+
+    revealTargets.forEach(el => el.setAttribute('data-reveal-3d', ''));
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed-3d');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    revealTargets.forEach(el => observer.observe(el));
   }
 });

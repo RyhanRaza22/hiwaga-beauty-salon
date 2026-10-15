@@ -76,6 +76,9 @@
        SLIDE 1: HERO SECTION (BEAUTY SALON)
        ========================================== -->
   <section class="hero canva-slide" id="home">
+    <!-- Ambient 3D Rose Petal & Shimmer Particle Canvas -->
+    <canvas id="hero3dCanvas" class="hero-3d-canvas" aria-hidden="true"></canvas>
+
     <!-- Right-side ambient salon mirror backdrop separated by full-height 1px gold vertical line -->
     <div class="hero-right-backdrop">
       <img src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?auto=format&fit=crop&w=1000&q=80" alt="Salon Mirror Ambience">
@@ -109,10 +112,28 @@
         </div>
       </div>
 
-      <!-- Portrait image overlapping the vertical gold line -->
+      <!-- Portrait image overlapping the vertical gold line with 3D Depth Card & Floating Badges -->
       <div class="hero-visual">
-        <div class="hero-overlap-portrait">
-          <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=900&q=85" alt="Hiwaga Beauty Salon Hair Artistry" id="heroImage">
+        <div class="hero-3d-wrapper" data-tilt-3d="hero">
+          <div class="hero-overlap-portrait">
+            <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=900&q=85" alt="Hiwaga Beauty Salon Hair Artistry" id="heroImage">
+            <div class="hero-3d-glare"></div>
+          </div>
+          <!-- 3D Floating Accents -->
+          <div class="hero-3d-badge hero-float-badge-top">
+            <span class="badge-emblem">🪷</span>
+            <div>
+              <strong>Luxe Atelier</strong>
+              <small>L'Oréal Professionnel</small>
+            </div>
+          </div>
+          <div class="hero-3d-badge hero-float-badge-bottom">
+            <span class="badge-star-rating">★ 4.8</span>
+            <div>
+              <strong>485+ Verified Reviews</strong>
+              <small>MVP Sector 3, Vizag</small>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -745,14 +766,23 @@
     <div class="container">
       <!-- Slide 11 Signature Phone Mockup + Overlapping Gold Frame -->
       <div class="canva-contact-showcase">
-        <!-- Smartphone Mockup Frame -->
-        <div class="canva-phone-mockup">
+        <!-- Smartphone Mockup Frame with 3D Depth & Floating Notification -->
+        <div class="canva-phone-mockup" data-tilt-3d="phone">
           <div class="phone-notch">
             <span class="phone-speaker"></span>
             <span class="phone-camera"></span>
           </div>
           <div class="phone-screen">
             <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?auto=format&fit=crop&w=800&q=85" alt="Luxury Beard & Facial Grooming">
+            <div class="phone-screen-glare"></div>
+            <!-- 3D Floating Notification Bubble -->
+            <div class="phone-3d-bubble">
+              <div class="bubble-icon"><i class="fab fa-whatsapp"></i></div>
+              <div class="bubble-text">
+                <span class="bubble-sender">Hiwaga Beauty Salon</span>
+                <span class="bubble-msg">Appointment Confirmed for You! ✨</span>
+              </div>
+            </div>
           </div>
         </div>
 
