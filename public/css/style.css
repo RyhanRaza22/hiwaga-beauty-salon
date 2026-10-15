@@ -1,29 +1,29 @@
 /* ===================================================================
-   HIWAGA BEAUTY SALON - LUXE ROSE & BLUSH EDITORIAL PALETTE
-   Soft Rose Alabaster, Blossom Pink, Deep Velvet Wine & Mulberry
+   HIWAGA BEAUTY SALON - LUXURY PROFESSIONAL SALON PALETTE
+   Warm Alabaster Porcelain, Soft Linen, Espresso Ink & Burnished Champagne Gold
    MVP Colony, Visakhapatnam, Andhra Pradesh
    =================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
 
 :root {
-  /* Minimal & Premium Soft Silk Alabaster & Blush Palette */
-  --bg-dark: #FAF5F7;
-  --bg-alt: #F3E8EC;
+  /* Minimal & Premium Warm Ivory & Porcelain Palette */
+  --bg-dark: #FAF8F5;
+  --bg-alt: #F4EFEA;
   --bg-card: #FFFFFF;
-  --bg-card-hover: #FCF7F9;
-  --bg-card-subtle: #F6EDF1;
+  --bg-card-hover: #FCFBF8;
+  --bg-card-subtle: #F5F1E8;
 
-  /* Radiant Rose Peony & Velvet Plum Palette */
-  --gold-primary: #C24A72;
-  --gold-light: #DE6D94;
-  --gold-dark: #8E234A;
-  --gold-gradient: linear-gradient(135deg, #DE6D94 0%, #C24A72 55%, #8E234A 100%);
-  --gold-gradient-glow: linear-gradient(135deg, rgba(194, 74, 114, 0.14), rgba(194, 74, 114, 0.03));
+  /* Refined Burnished Champagne Gold */
+  --gold-primary: #B08227;
+  --gold-light: #C89B3C;
+  --gold-dark: #8C651A;
+  --gold-gradient: linear-gradient(135deg, #C89B3C 0%, #B08227 55%, #8C651A 100%);
+  --gold-gradient-glow: linear-gradient(135deg, rgba(176, 130, 39, 0.14), rgba(176, 130, 39, 0.03));
 
-  --border-color: rgba(194, 74, 114, 0.28);
-  --border-subtle: rgba(194, 74, 114, 0.16);
-  --border-glow: rgba(194, 74, 114, 0.65);
+  --border-color: rgba(176, 130, 39, 0.30);
+  --border-subtle: rgba(176, 130, 39, 0.16);
+  --border-glow: rgba(176, 130, 39, 0.65);
 
   /* Status Colors */
   --success: #0D9488;
@@ -32,9 +32,9 @@
   --info: #2563EB;
 
   /* Minimal Editorial Typography */
-  --text-main: #23161E;
-  --text-muted: #5C4854;
-  --text-dim: #8E7784;
+  --text-main: #1C1917;
+  --text-muted: #57524A;
+  --text-dim: #8A8277;
   --font-heading: 'Playfair Display', Georgia, serif;
   --font-body: 'Poppins', system-ui, -apple-system, sans-serif;
 
@@ -44,10 +44,10 @@
   --radius-lg: 10px;
   --radius-full: 9999px;
 
-  --shadow-sm: 0 4px 16px rgba(35, 22, 30, 0.04);
-  --shadow-md: 0 12px 32px rgba(35, 22, 30, 0.06);
-  --shadow-lg: 0 24px 54px rgba(35, 22, 30, 0.09);
-  --shadow-gold: 0 12px 28px rgba(194, 74, 114, 0.18);
+  --shadow-sm: 0 4px 16px rgba(28, 25, 23, 0.04);
+  --shadow-md: 0 12px 32px rgba(28, 25, 23, 0.06);
+  --shadow-lg: 0 24px 54px rgba(28, 25, 23, 0.09);
+  --shadow-gold: 0 12px 28px rgba(176, 130, 39, 0.16);
 
   --transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
   --container-max: 1280px;
@@ -1526,7 +1526,7 @@ button, input, select, textarea {
 }
 
 .booking-service-item.selected {
-  background: rgba(194, 74, 114, 0.08);
+  background: rgba(176, 130, 39, 0.08);
   border-color: var(--gold-primary);
 }
 
@@ -1601,7 +1601,7 @@ button, input, select, textarea {
 }
 
 .stylist-pick-card.selected {
-  background: rgba(194, 74, 114, 0.08);
+  background: rgba(176, 130, 39, 0.08);
   border-color: var(--gold-primary);
   box-shadow: var(--shadow-gold);
 }
@@ -1668,7 +1668,7 @@ button, input, select, textarea {
 .form-control:focus {
   background: #FFFFFF;
   border-color: var(--gold-primary);
-  box-shadow: 0 0 0 3px rgba(194, 74, 114, 0.12);
+  box-shadow: 0 0 0 3px rgba(176, 130, 39, 0.15);
 }
 
 .time-slots-grid {
@@ -1747,7 +1747,7 @@ button, input, select, textarea {
 .success-badge-icon {
   width: 72px;
   height: 72px;
-  background: rgba(194, 74, 114, 0.1);
+  background: rgba(176, 130, 39, 0.1);
   border: 1px solid var(--gold-primary);
   border-radius: 50%;
   display: flex;
@@ -2424,7 +2424,7 @@ button, input, select, textarea {
   border: 1px solid var(--border-color);
   padding: 12px 18px;
   border-radius: 6px;
-  box-shadow: 0 16px 36px rgba(194, 74, 114, 0.18), 0 4px 10px rgba(35, 22, 30, 0.06);
+  box-shadow: 0 16px 36px rgba(176, 130, 39, 0.16), 0 4px 10px rgba(28, 25, 23, 0.06);
   z-index: 10;
   pointer-events: none;
   transform-style: preserve-3d;
@@ -2461,7 +2461,7 @@ button, input, select, textarea {
 
 .badge-emblem {
   font-size: 1.4rem;
-  filter: drop-shadow(0 2px 4px rgba(194, 74, 114, 0.3));
+  filter: drop-shadow(0 2px 4px rgba(176, 130, 39, 0.3));
 }
 
 .badge-star-rating {
@@ -2506,7 +2506,7 @@ button, input, select, textarea {
 
 .service-card .bs-icon-box {
   transform: translateZ(36px);
-  box-shadow: 0 8px 16px rgba(194, 74, 114, 0.2);
+  box-shadow: 0 8px 16px rgba(176, 130, 39, 0.2);
   transition: transform 0.2s ease;
 }
 
@@ -2556,7 +2556,7 @@ button, input, select, textarea {
   will-change: transform;
   transform: perspective(1200px) rotateY(-8deg) rotateX(4deg);
   transition: transform 0.2s ease-out, box-shadow 0.3s ease;
-  box-shadow: -20px 24px 48px rgba(35, 22, 30, 0.22), 0 0 0 1px rgba(194, 74, 114, 0.25);
+  box-shadow: -20px 24px 48px rgba(28, 25, 23, 0.22), 0 0 0 1px rgba(176, 130, 39, 0.25);
   animation: phone3dFloatIdle 5s ease-in-out infinite alternate;
 }
 
@@ -2567,11 +2567,11 @@ button, input, select, textarea {
 @keyframes phone3dFloatIdle {
   0% {
     transform: perspective(1200px) rotateY(-9deg) rotateX(4deg) translateY(0);
-    box-shadow: -20px 24px 48px rgba(35, 22, 30, 0.22);
+    box-shadow: -20px 24px 48px rgba(28, 25, 23, 0.22);
   }
   100% {
     transform: perspective(1200px) rotateY(-5deg) rotateX(8deg) translateY(-14px);
-    box-shadow: -24px 34px 58px rgba(194, 74, 114, 0.25);
+    box-shadow: -24px 34px 58px rgba(176, 130, 39, 0.25);
   }
 }
 
@@ -2591,13 +2591,13 @@ button, input, select, textarea {
   background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(194, 74, 114, 0.28);
+  border: 1px solid rgba(176, 130, 39, 0.28);
   border-radius: 14px;
   padding: 10px 14px;
   display: flex;
   align-items: center;
   gap: 12px;
-  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.22), 0 4px 10px rgba(194, 74, 114, 0.15);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.22), 0 4px 10px rgba(176, 130, 39, 0.15);
   transform: translateZ(52px);
   z-index: 6;
   pointer-events: none;
@@ -2646,7 +2646,7 @@ button, input, select, textarea {
 
 .float-btn {
   transform-style: preserve-3d;
-  box-shadow: 0 14px 28px rgba(35, 22, 30, 0.22), 0 4px 10px rgba(194, 74, 114, 0.25), inset 0 2px 3px rgba(255, 255, 255, 0.45);
+  box-shadow: 0 14px 28px rgba(28, 25, 23, 0.22), 0 4px 10px rgba(176, 130, 39, 0.25), inset 0 2px 3px rgba(255, 255, 255, 0.45);
   transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.24s ease;
   animation: floatBtn3d 3.5s ease-in-out infinite alternate;
 }
@@ -2657,7 +2657,7 @@ button, input, select, textarea {
 
 .float-btn:hover {
   transform: translateY(-8px) translateZ(24px) scale(1.12) !important;
-  box-shadow: 0 20px 40px rgba(194, 74, 114, 0.38), 0 8px 16px rgba(35, 22, 30, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.6);
+  box-shadow: 0 20px 40px rgba(176, 130, 39, 0.35), 0 8px 16px rgba(28, 25, 23, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.6);
 }
 
 @keyframes floatBtn3d {
@@ -2724,9 +2724,9 @@ button, input, select, textarea {
   left: 0;
   height: 3.5px;
   width: 0%;
-  background: linear-gradient(90deg, #DE6D94 0%, #C24A72 50%, #8E234A 100%);
+  background: linear-gradient(90deg, #C89B3C 0%, #B08227 50%, #8C651A 100%);
   z-index: 99999;
-  box-shadow: 0 0 12px rgba(222, 109, 148, 0.8), 0 0 4px rgba(194, 74, 114, 0.9);
+  box-shadow: 0 0 12px rgba(200, 155, 60, 0.8), 0 0 4px rgba(176, 130, 39, 0.9);
   transition: width 0.1s cubic-bezier(0.1, 0.8, 0.2, 1);
   pointer-events: none;
 }
@@ -2749,10 +2749,10 @@ button, input, select, textarea {
 }
 
 .navbar.navbar-scrolled {
-  background: rgba(250, 245, 247, 0.94) !important;
+  background: rgba(250, 248, 245, 0.95) !important;
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  box-shadow: 0 10px 30px rgba(35, 22, 30, 0.08);
+  box-shadow: 0 10px 30px rgba(28, 25, 23, 0.08);
   padding: 10px 0 !important;
 }
 

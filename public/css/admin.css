@@ -1,22 +1,22 @@
 /* ===================================================================
    HIWAGA BEAUTY SALON - ADMIN DASHBOARD STYLES
-   Velvet Plum Noir, Blush Rose & Berry Accents
+   Luxury Noir, Espresso & Burnished Champagne Gold Accents
    =================================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
 
 :root {
-  --admin-bg: #1B121D;
-  --admin-sidebar: #140C16;
-  --admin-card: #231826;
-  --admin-card-hover: #2C1F30;
-  --admin-card-header: #1C131F;
-  --admin-border: rgba(222, 109, 148, 0.22);
-  --admin-border-gold: #DE6D94;
+  --admin-bg: #0C0A09;
+  --admin-sidebar: #050505;
+  --admin-card: #12100E;
+  --admin-card-hover: #1A1715;
+  --admin-card-header: #080706;
+  --admin-border: rgba(176, 130, 39, 0.25);
+  --admin-border-gold: #B08227;
 
-  --gold: #C24A72;
-  --gold-light: #DE6D94;
-  --gold-gradient: linear-gradient(135deg, #DE6D94 0%, #C24A72 100%);
+  --gold: #B08227;
+  --gold-light: #C89B3C;
+  --gold-gradient: linear-gradient(135deg, #C89B3C 0%, #B08227 100%);
 
   --text-main: #ffffff;
   --text-muted: rgba(255, 255, 255, 0.85);
